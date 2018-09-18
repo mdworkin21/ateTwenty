@@ -1,6 +1,9 @@
 {
   "name": "ateTwenty",
   "version": "1.0.0",
+  "engines": {
+    "node": "v8.11.1"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
