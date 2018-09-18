@@ -12,21 +12,21 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 //Static Middleware
-app.use(express.static(path.join(__dirname, '...', '/public')))
+app.use(express.static(path.join(__dirname, '..', '/client/public')))
 
 //Route to APIs
-app.use('/api', require('./api'))
+// app.use('/api', require('./api'))
 
 //Static HTML For When No API Route Matches (Do I need this?)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '...', '/public'))
+  res.sendFile(path.join(__dirname, '..', '/client/public/'))
 })
 
 //Handles 500 Errs
 app.use((err, req, res, next) => {
   console.error(err);
   console.error(err.stack);
-  res.status(err.status || 500).send(err.message || 'Internal Server Err. Woops!')
+  res.status(err.status || 500).send(err.message || 'Internal Server Err. Whoops!')
 })
 
 module.exports = app
