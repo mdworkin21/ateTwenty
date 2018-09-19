@@ -11,9 +11,9 @@
 }
 
 /* MacroCalc */
-#calcInputs{
+/* #calcInputs{
   background-color: white;
-}
+} */
 #macFormContainer{
   position: relative;
   top: 20%;
@@ -26,5 +26,4 @@
   flex-direction: column; 
   display: flex;
   justify-content: center;
-  background-color: white;
 }

@@ -33,7 +33,8 @@ export default class MacroCalc extends Component {
       totals: this.macCalculations(),
       alert: true
     })
-    alert('TEST')
+    alert(this.state.totals)
+    console.log(this.state.totals)
   }
 
   macCalculations(){
