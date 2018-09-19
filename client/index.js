@@ -4,6 +4,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Homepage from './components/Homepage'
+import store from './store'
 // import registerServiceWorker from './registerServiceWorker'
 
-ReactDOM.render(<Homepage />, document.getElementById('root') )
+ReactDOM.render(
+  <Provider store={store}>
+    <Homepage />
+  </Provider>, 
+  document.getElementById('root'))
