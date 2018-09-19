@@ -224,6 +224,7 @@ var MacroCalc = function (_Component) {
         totals: this.macCalculations(),
         alert: true
       });
+      console.log(this.state.totals);
     }
   }, {
     key: 'macCalculations',
@@ -256,27 +257,118 @@ var MacroCalc = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { id: 'moveDown' },
+        { id: 'macFormContainer' },
         _react2.default.createElement(
-          'div',
-          { id: 'macFormContainer' },
+          _semanticUiReact.Form,
+          { id: 'macForm' },
           _react2.default.createElement(
             'h1',
             null,
-            'FROM CALC'
+            'Calculate Your Daily Requirements'
           ),
           _react2.default.createElement(
-            _semanticUiReact.Form,
-            { id: 'macForm' },
+            _semanticUiReact.Form.Group,
+            { widths: 'equal', id: 'calcInputs' },
+            _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Age', type: 'number', min: '0', name: 'age', value: this.state.age, onChange: this.handleChange, placeholder: 'Age' }),
+            _react2.default.createElement(_semanticUiReact.Form.Select, { fluid: true, required: true, label: 'Gender', options: options, placeholder: 'Gender', name: 'gender', value: this.state.gender, onChange: this.handleChange }),
+            _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Height (ft)', type: 'number', min: '0', placeholder: 'Feet', name: 'feet', value: this.state.feet, onChange: this.handleChange }),
+            _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Height (in)', type: 'number', min: '0', placeholder: 'Inches', name: 'inches', value: this.state.inches, onChange: this.handleChange }),
+            _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Weight (pds)', placeholder: 'Weight (pds)', type: 'number', min: '0', name: 'weight', value: this.state.weight, onChange: this.handleChange })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Form.Group,
+            { inline: true, required: true },
             _react2.default.createElement(
-              _semanticUiReact.Form.Group,
-              { widths: 'equal' },
-              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Age', type: 'number', min: '0', name: 'age', value: this.state.age, onChange: this.handleChange, placeholder: 'Age' }),
-              _react2.default.createElement(_semanticUiReact.Form.Select, { fluid: true, required: true, label: 'Gender', options: options, placeholder: 'Gender', name: 'gender', value: this.state.gender, onChange: this.handleChange }),
-              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Height (ft)', type: 'number', min: '0', placeholder: 'Feet', name: 'feet', value: this.state.feet, onChange: this.handleChange }),
-              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Height (in)', type: 'number', min: '0', placeholder: 'Inches', name: 'inches', value: this.state.inches, onChange: this.handleChange }),
-              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Weight (pds)', placeholder: 'Weight (pds)', type: 'number', min: '0', name: 'weight', value: this.state.weight, onChange: this.handleChange })
-            )
+              'label',
+              { required: true },
+              'Activity Level'
+            ),
+            _react2.default.createElement(_semanticUiReact.Popup, {
+              trigger: _react2.default.createElement(_semanticUiReact.Form.Radio, {
+                label: 'Sedentary',
+                value: 'sedentary',
+                name: 'activity'
+                // checked={value === 'sedentary'}
+                , onChange: this.handleChange
+              }),
+              content: 'I barely get out of bed. But I walk to get food, pee, and maybe walk the dog',
+              basic: true
+            }),
+            _react2.default.createElement(_semanticUiReact.Popup, {
+              trigger: _react2.default.createElement(_semanticUiReact.Form.Radio, {
+                label: 'Lightly Active',
+                value: 'light',
+                name: 'activity'
+                // checked={value === 'light'}
+                , onClick: this.handleChange
+              }),
+              content: 'Any activity that burns: 250-500 calories (male), 200-400 calories(female)',
+              basic: true }),
+            _react2.default.createElement(_semanticUiReact.Popup, {
+              trigger: _react2.default.createElement(_semanticUiReact.Form.Radio, {
+                label: 'Moderately Active',
+                value: 'moderate',
+                name: 'activity'
+                // checked={value === this.state.activity}
+                , onChange: this.handleChange
+              }),
+              content: 'Any activity that burns: 500-650 calories (male), 350-500 calories (female)',
+              basic: true }),
+            _react2.default.createElement(_semanticUiReact.Popup, {
+              trigger: _react2.default.createElement(_semanticUiReact.Form.Radio, {
+                label: 'Very Active',
+                value: 'very',
+                name: 'activity'
+                // checked={this.state.activity.value === this.state.activity}
+                , onChange: this.handleChange
+              }),
+              content: 'Any activity that burns: 650-800 calories (male), 500-650 calories (female)',
+              basic: true }),
+            _react2.default.createElement(_semanticUiReact.Popup, {
+              trigger: _react2.default.createElement(_semanticUiReact.Radio, {
+                label: 'Extremely Active',
+                value: 'extremely',
+                name: 'activity'
+                // checked={value === this.state.activity}
+                , onChange: this.handleChange
+              }),
+              content: 'Any activity that burns: 800+ calories (male), 650+ calories (female)',
+              basic: true })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Form.Group,
+            { inline: true },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Fitness Goals'
+            ),
+            _react2.default.createElement(_semanticUiReact.Form.Radio, {
+              label: 'Lose',
+              value: 'lose',
+              name: 'goals'
+              // checked={value === 'lose'}
+              , onChange: this.handleChange
+            }),
+            _react2.default.createElement(_semanticUiReact.Form.Radio, {
+              label: 'Maintain',
+              value: 'maintain',
+              name: 'goals'
+              // checked={value === 'maintain'}
+              , onChange: this.handleChange
+            }),
+            _react2.default.createElement(_semanticUiReact.Form.Radio, {
+              label: 'Gain',
+              value: 'gain',
+              name: 'goals'
+              // checked={value === 'gain'}
+              , onChange: this.handleChange
+            })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Form.Button,
+            { onClick: this.handleSubmit },
+            'Submit'
           )
         )
       );

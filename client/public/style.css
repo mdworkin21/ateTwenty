@@ -11,16 +11,20 @@
 }
 
 /* MacroCalc */
-#moveDown{
-  position: relative;
-  top: 100px;
+#calcInputs{
+  background-color: white;
 }
 #macFormContainer{
+  position: relative;
+  top: 20%;
   display: flex;
   justify-content: center;
 }
 
 #macForm{
   top: 10em;
-  flex-direction: column 
+  flex-direction: column; 
+  display: flex;
+  justify-content: center;
+  background-color: white;
 }

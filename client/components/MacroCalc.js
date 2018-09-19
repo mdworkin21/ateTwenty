@@ -33,6 +33,7 @@ export default class MacroCalc extends Component {
       totals: this.macCalculations(),
       alert: true
     })
+    console.log(this.state.totals)
   }
 
   macCalculations(){
@@ -62,11 +63,10 @@ export default class MacroCalc extends Component {
 
   render(){
     return (
-      <div id='moveDown'>
       <div id="macFormContainer">
-        <h1>FROM CALC</h1>
         <Form id="macForm">
-            <Form.Group widths='equal'>
+        <h1>Calculate Your Daily Requirements</h1>
+            <Form.Group widths='equal' id="calcInputs">
             
             <Form.Input fluid required label='Age' type="number" min="0" name="age" value={this.state.age} onChange={this.handleChange} placeholder='Age'  />
             
@@ -78,8 +78,95 @@ export default class MacroCalc extends Component {
 
             <Form.Input fluid required label='Weight (pds)' placeholder='Weight (pds)' type="number" min="0" name="weight" value={this.state.weight} onChange={this.handleChange} />
           </Form.Group>
+
+          <Form.Group inline required>
+          <label required>Activity Level</label>
+          
+          <Popup 
+              trigger={<Form.Radio
+              label='Sedentary'
+              value='sedentary'
+              name="activity"
+              // checked={value === 'sedentary'}
+              onChange={this.handleChange}
+            />}
+            content="I barely get out of bed. But I walk to get food, pee, and maybe walk the dog"
+            basic 
+          />
+
+          <Popup 
+            trigger={<Form.Radio
+            label='Lightly Active'
+            value='light'
+            name="activity"
+            // checked={value === 'light'}
+            onClick={this.handleChange}
+            />}
+          content="Any activity that burns: 250-500 calories (male), 200-400 calories(female)"
+          basic />
+
+          <Popup 
+            trigger={<Form.Radio
+            label='Moderately Active'
+            value='moderate'
+            name="activity"
+            // checked={value === this.state.activity}
+            onChange={this.handleChange}
+            />}
+          content="Any activity that burns: 500-650 calories (male), 350-500 calories (female)"
+          basic />
+
+          <Popup 
+            trigger={<Form.Radio
+            label='Very Active'
+            value='very'
+            name="activity"
+            // checked={this.state.activity.value === this.state.activity}
+            onChange={this.handleChange}
+            />}
+            content="Any activity that burns: 650-800 calories (male), 500-650 calories (female)"
+            basic />
+
+          <Popup 
+            trigger={<Radio
+            label='Extremely Active'
+            value='extremely'
+            name="activity"
+            // checked={value === this.state.activity}
+            onChange={this.handleChange}
+            />}
+            content="Any activity that burns: 800+ calories (male), 650+ calories (female)"
+            basic />
+        </Form.Group>
+        
+        <Form.Group inline>
+        <label>Fitness Goals</label>
+        <Form.Radio
+            label='Lose'
+            value='lose'
+            name='goals'
+            // checked={value === 'lose'}
+            onChange={this.handleChange}
+            />
+
+        <Form.Radio
+            label='Maintain'
+            value='maintain'
+            name="goals"
+            // checked={value === 'maintain'}
+            onChange={this.handleChange}
+            />
+
+        <Form.Radio
+            label='Gain'
+            value='gain'
+            name='goals'
+            // checked={value === 'gain'}
+            onChange={this.handleChange}
+            />
+        </Form.Group>
+        <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
-      </div>
       </div>
       
     )
