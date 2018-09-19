@@ -128,7 +128,7 @@ var Homepage = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'h1',
-        null,
+        { id: 'welcome' },
         'Welcome Page 80/20'
       );
     }
