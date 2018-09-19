@@ -1,9 +1,26 @@
 * {
   background-color: #00004c;
+  color: white;
 }
 
+/* HomePage */
 #welcome {
   display: flex;
   justify-content: center;
   color: white;
+}
+
+/* MacroCalc */
+#moveDown{
+  position: relative;
+  top: 100px;
+}
+#macFormContainer{
+  display: flex;
+  justify-content: center;
+}
+
+#macForm{
+  top: 10em;
+  flex-direction: column 
 }
