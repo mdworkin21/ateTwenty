@@ -129,7 +129,7 @@ var Homepage = function (_React$Component) {
       return _react2.default.createElement(
         'h1',
         { id: 'welcome' },
-        'Welcome Page 80/20'
+        'Welcome to AteTwenty!'
       );
     }
   }]);

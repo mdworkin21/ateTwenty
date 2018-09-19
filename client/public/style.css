@@ -1,4 +1,9 @@
+* {
+  background-color: #00004c;
+}
+
 #welcome {
   display: flex;
   justify-content: center;
+  color: white;
 }
