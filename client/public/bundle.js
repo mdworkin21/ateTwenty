@@ -224,7 +224,7 @@ var MacroCalc = function (_Component) {
         totals: this.macCalculations(),
         alert: true
       });
-      console.log(this.state.totals);
+      alert('TEST');
     }
   }, {
     key: 'macCalculations',
