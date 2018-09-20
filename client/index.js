@@ -4,12 +4,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Homepage from './components/Homepage'
+import MacroCalc from './components/MacroCalc'
+
 import store from './store'
 import {Provider} from 'react-redux'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 // import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
   <Provider store={store}>
-    <Homepage />
+    <Router>
+  <Switch>
+      <Route exact path="/" component={Homepage} />
+      <Route exact path="/calc" component={MacroCalc} />
+
+  </Switch>
+   </Router>
   </Provider>, 
   document.getElementById('root'))

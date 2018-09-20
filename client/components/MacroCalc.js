@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Form, Checkbox, Popup, Radio} from 'semantic-ui-react'
 import {feetToCm, inchesToCm, totalHeight, poundsToKg, MifflinForMen,MifflinForWomen, TDEECalc, dailyCalIntake, dailyProtein, dailyCarb, dailyFat} from '../utilities/MacroEquations'
+import NavBar from './NavBar'
 
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
@@ -64,9 +65,9 @@ export default class MacroCalc extends Component {
 
   render(){
     return (
-      <div id="macFormContainer">
+      <div className="macFormContainer">
         <Form id="macForm">
-        <h1>Calculate Your Daily Requirements</h1>
+        <h1>Calculate Your Macros</h1>
             <Form.Group widths='equal' id="calcInputs">
             
             <Form.Input fluid required label='Age' type="number" min="0" name="age" value={this.state.age} onChange={this.handleChange} placeholder='Age'  />
@@ -80,7 +81,7 @@ export default class MacroCalc extends Component {
             <Form.Input fluid required label='Weight (pds)' placeholder='Weight (pds)' type="number" min="0" name="weight" value={this.state.weight} onChange={this.handleChange} />
           </Form.Group>
 
-          <Form.Group inline required>
+          <Form.Group inline required id='titles'>
           <label required>Activity Level</label>
           
           <Popup 
@@ -168,6 +169,8 @@ export default class MacroCalc extends Component {
         </Form.Group>
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
+        <NavBar />
+
       </div>
       
     )
