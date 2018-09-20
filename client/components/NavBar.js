@@ -1,18 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
-import {Menu, Icon, Item} from 'semantic-ui-react'
+import {Menu, Icon} from 'semantic-ui-react'
 
-class NavBar extends Component {
-  constructor(){
-    super()
-    this.state = {
-      link: ''
-    }
-  }
-
-  render(){
-    
-
+const NavBar = () => {
     return (
       <Menu icon>
         <Menu.Item name='home'> 
@@ -29,6 +19,5 @@ class NavBar extends Component {
       </Menu>
     )
   }
-}
 
 export default NavBar 
