@@ -173,7 +173,7 @@ export default class MacroCalc extends Component {
         </Form>
 
       </div>
-      <NavBar className='div ui menu'/>
+      <NavBar/>
       </React.Fragment>
     )
   }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import NavBar from './NavBar'
-import { Divider} from 'semantic-ui-react'
 
 class Homepage extends React.Component {
   render(){

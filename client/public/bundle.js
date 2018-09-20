@@ -383,7 +383,7 @@ var MacroCalc = function (_Component) {
             )
           )
         ),
-        _react2.default.createElement(_NavBar2.default, { className: 'div ui menu' })
+        _react2.default.createElement(_NavBar2.default, null)
       );
     }
   }]);
