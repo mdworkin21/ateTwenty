@@ -9,7 +9,6 @@ const NavBar = () => {
         <Link to="/calc" id="searchLink" className="link">Calc</Link>
         <Link to="/log" id="searchLink" className="link">Log</Link>
     </Menu>
-
   )
 }
 

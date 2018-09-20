@@ -65,6 +65,7 @@ export default class MacroCalc extends Component {
 
   render(){
     return (
+      <React.Fragment>
       <div className="macFormContainer">
         <Form id="macForm">
         <h1>Calculate Your Macros</h1>
@@ -85,6 +86,7 @@ export default class MacroCalc extends Component {
           <label required>Activity Level</label>
           
           <Popup 
+              className='change'
               trigger={<Form.Radio
               label='Sedentary'
               value='sedentary'
@@ -169,10 +171,10 @@ export default class MacroCalc extends Component {
         </Form.Group>
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
-        <NavBar />
 
       </div>
-      
+      <NavBar className='div ui menu'/>
+      </React.Fragment>
     )
   }
 
