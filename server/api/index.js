@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 //API Routes 
-// router.use('/dailyLog', require('./dailyLog'))
+router.use('/dailyLog', require('./dailyLog'))
 // router.use('/foodGroups', require('./foodGroups'))
 router.use('/userProfile', require('./userProfile'))
 

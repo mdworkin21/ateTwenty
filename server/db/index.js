@@ -1,5 +1,6 @@
 const db = require('./database')
 const Profile = require('./models/Profile')
+const DailyLog = require('./models/DailyLog')
 
 //Define your associations here
 
@@ -7,5 +8,6 @@ const Profile = require('./models/Profile')
 
 module.exports = {
   db,
-  Profile
+  Profile,
+  DailyLog
 }

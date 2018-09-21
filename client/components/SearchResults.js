@@ -21,7 +21,6 @@ class SearchResults extends Component {
   }
 
   render(){
-    console.log("TESTSETESTESTETESTSETESTSETSTSETSETESTEW")
     return (
       <List>
        { this.props.nutrientArr.map(item => {

@@ -1083,7 +1083,6 @@ var SearchResults = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log("TESTSETESTESTETESTSETESTSETSTSETSETESTEW");
       return _react2.default.createElement(
         _semanticUiReact.List,
         null,
