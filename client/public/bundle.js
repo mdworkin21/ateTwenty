@@ -409,7 +409,7 @@ var MacroCalc = function (_Component) {
           { className: 'macFormContainer' },
           _react2.default.createElement(
             _semanticUiReact.Form,
-            { id: 'macForm' },
+            { className: 'ui form form ui form' },
             _react2.default.createElement(
               'h1',
               null,
@@ -520,9 +520,9 @@ var MacroCalc = function (_Component) {
               { onClick: this.handleSubmit },
               'Submit'
             )
-          )
-        ),
-        _react2.default.createElement(_NavBar2.default, null)
+          ),
+          _react2.default.createElement(_NavBar2.default, null)
+        )
       );
     }
   }]);

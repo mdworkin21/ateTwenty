@@ -67,7 +67,7 @@ export default class MacroCalc extends Component {
     return this.state.alert ? <DailyGoals state={this.state}/> : (
       <React.Fragment>
       <div className="macFormContainer">
-        <Form id="macForm">
+        <Form className='ui form form ui form'>
         <h1>Calculate Your Macros</h1>
           <Form.Group widths='equal' id="calcInputs">
             
@@ -172,8 +172,8 @@ export default class MacroCalc extends Component {
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
 
-      </div>
       <NavBar/>
+      </div>
       </React.Fragment>
     )
   }

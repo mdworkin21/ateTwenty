@@ -15,7 +15,13 @@
   flex-direction: column
 }
 
-#macForm{
+/* #macForm{
+  display: flex;
+  justify-content: center;
+  flex-direction: column; 
+} */
+
+ui.form.form.ui.form{
   display: flex;
   justify-content: center;
   flex-direction: column; 
