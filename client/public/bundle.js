@@ -156,6 +156,142 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(DisplayGoals);
 
 /***/ }),
 
+/***/ "./client/components/FoodGroups.js":
+/*!*****************************************!*\
+  !*** ./client/components/FoodGroups.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _foodGroupCat = __webpack_require__(/*! ../utilities/foodGroupCat */ "./client/utilities/foodGroupCat.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import {getFgCode} from '../store'
+
+
+console.log(_foodGroupCat.foodGroupCategories);
+
+var DropDownFoodGroups = function (_Component) {
+  _inherits(DropDownFoodGroups, _Component);
+
+  function DropDownFoodGroups() {
+    _classCallCheck(this, DropDownFoodGroups);
+
+    var _this = _possibleConstructorReturn(this, (DropDownFoodGroups.__proto__ || Object.getPrototypeOf(DropDownFoodGroups)).call(this));
+
+    _this.handleChange = function (e, _ref) {
+      var value = _ref.value;
+
+      var selectedOption = _this.state.options.filter(function (option) {
+        return option.value === value;
+      });
+      var selectedFG = selectedOption[0].code;
+      console.log(selectedFG);
+      // this.props.sendFGCode(selectedFG)
+      _this.setState({
+        value: value });
+    };
+
+    _this.state = {
+      options: [],
+      value: ''
+    };
+    return _this;
+  }
+
+  _createClass(DropDownFoodGroups, [{
+    key: 'addTextPropertyDeleteCreatedUpdated',
+    value: function addTextPropertyDeleteCreatedUpdated(arr) {
+      var arrWithTextProp = [];
+      arr.forEach(function (object) {
+        object.text = object.category;
+        object.key = object.id;
+        object.value = object.id;
+        delete object.createdAt;
+        delete object.updatedAt;
+        arrWithTextProp.push(object);
+      });
+      return arrWithTextProp;
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      try {
+        // const allFoodGroups = await axios.get('/api/foodGroups')
+        // console.log('FOODGROUPS',allFoodGroups.data)
+        var alteredData = this.addTextPropertyDeleteCreatedUpdated(_foodGroupCat.foodGroupCategories);
+        this.setState({
+          options: alteredData
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(_semanticUiReact.Dropdown, {
+        button: true,
+        className: 'icon',
+        floating: true,
+        labeled: true,
+        icon: 'world',
+        options: this.state.options,
+        search: true,
+        text: 'Select Food Group',
+        onChange: this.handleChange
+
+      });
+    }
+  }]);
+
+  return DropDownFoodGroups;
+}(_react.Component);
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     sendFGCode: (code) => dispatch(getFgCode(code))
+//   }
+// }
+
+// export default connect(null, mapDispatchToProps)(DropDownFoodGroups)
+
+
+exports.default = DropDownFoodGroups;
+
+/***/ }),
+
 /***/ "./client/components/Homepage.js":
 /*!***************************************!*\
   !*** ./client/components/Homepage.js ***!
@@ -190,6 +326,10 @@ var _DisplayGoals = __webpack_require__(/*! ./DisplayGoals */ "./client/componen
 
 var _DisplayGoals2 = _interopRequireDefault(_DisplayGoals);
 
+var _SearchPage = __webpack_require__(/*! ./SearchPage */ "./client/components/SearchPage.js");
+
+var _SearchPage2 = _interopRequireDefault(_SearchPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -219,6 +359,7 @@ var Homepage = function (_React$Component) {
           'Welcome to AteTwenty!'
         ),
         _react2.default.createElement(_DisplayGoals2.default, null),
+        _react2.default.createElement(_SearchPage2.default, null),
         _react2.default.createElement(_NavBar2.default, null)
       );
     }
@@ -687,6 +828,203 @@ var NavBar = function NavBar() {
 };
 
 exports.default = NavBar;
+
+/***/ }),
+
+/***/ "./client/components/SearchPage.js":
+/*!*****************************************!*\
+  !*** ./client/components/SearchPage.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _NavBar = __webpack_require__(/*! ./NavBar */ "./client/components/NavBar.js");
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _usdaApi = __webpack_require__(/*! ../utilities/usdaApi */ "./client/utilities/usdaApi.js");
+
+var _FoodGroups = __webpack_require__(/*! ./FoodGroups */ "./client/components/FoodGroups.js");
+
+var _FoodGroups2 = _interopRequireDefault(_FoodGroups);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import EmptySearch from './EmptySearch';
+// import SearchResults from './SearchResults';
+
+// import SearchError from './SearchError';
+
+
+//This file's a mess and needs refactoring
+var SearchPage = function (_Component) {
+  _inherits(SearchPage, _Component);
+
+  function SearchPage() {
+    _classCallCheck(this, SearchPage);
+
+    var _this = _possibleConstructorReturn(this, (SearchPage.__proto__ || Object.getPrototypeOf(SearchPage)).call(this));
+
+    _this.state = {
+      search: "",
+      nutrientArr: [],
+      names: [],
+      options: []
+    };
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(SearchPage, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(event) {
+        var NDBNum, items, nutritionInfo;
+        return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                event.preventDefault();
+                _context.prev = 1;
+                _context.next = 4;
+                return (0, _usdaApi.getNDBNumber)(this.state.search, this.props.fgCode);
+
+              case 4:
+                NDBNum = _context.sent;
+
+
+                //Gets the name from the returned response to getNDBNumber
+                items = (0, _usdaApi.itemNames)(NDBNum);
+
+                //Axios Request for nutrition info
+
+                _context.next = 8;
+                return (0, _usdaApi.getNutritionInfo)(NDBNum, items);
+
+              case 8:
+                nutritionInfo = _context.sent;
+
+                console.log(nutritionInfo);
+                this.setState({
+                  search: '',
+                  nutrientArr: nutritionInfo
+                });
+                _context.next = 18;
+                break;
+
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context['catch'](1);
+
+                //need better err handling. Should render SearchErr component
+                alert('Sorry, we don\'t have that');
+                this.setState({
+                  err: true,
+                  search: ""
+                });
+                console.log(_context.t0);
+
+              case 18:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[1, 13]]);
+      }));
+
+      function handleSubmit(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+
+    //This is better than before but still needs work. Probagbly better way to do this. Maybe Put form in own component
+
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _react2.default.Fragment,
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'searchStuff' },
+          _react2.default.createElement(
+            _semanticUiReact.Form,
+            { onSubmit: this.handleSubmit, className: 'searchBox' },
+            _react2.default.createElement(
+              _semanticUiReact.Form.Field,
+              null,
+              _react2.default.createElement('input', { type: 'text', name: 'search', onChange: this.handleChange, value: this.state.search }),
+              _react2.default.createElement(
+                'div',
+                { className: 'submitBtn' },
+                _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit, icon: 'search', type: 'submit' })
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { id: 'dropDown' },
+              _react2.default.createElement(_FoodGroups2.default, null)
+            )
+          )
+        ),
+        _react2.default.createElement('div', { id: 'searchResults' })
+      );
+    }
+  }]);
+
+  return SearchPage;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    fgCode: state.fgCode
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(SearchPage);
 
 /***/ }),
 
@@ -1225,6 +1563,347 @@ var dailyFat = exports.dailyFat = function dailyFat(dailyCal) {
 };
 
 //This probably needs to be researched better and adjusted, but it's fine for now
+
+/***/ }),
+
+/***/ "./client/utilities/foodGroupCat.js":
+/*!******************************************!*\
+  !*** ./client/utilities/foodGroupCat.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var foodGroupCategories = exports.foodGroupCategories = [{
+  category: "Dairy and Egg Products",
+  code: "0100",
+  id: 1,
+  key: 1,
+  text: "Dairy and Egg Products",
+  value: 1
+}, {
+  category: "Spices and Herbs",
+  code: "0200",
+  id: 2,
+  key: 2,
+  text: "Spices and Herbs",
+  value: 2
+}, {
+  category: "Baby Foods",
+  code: "0300",
+  id: 3,
+  key: 3,
+  text: "Baby Foods",
+  value: 3
+}, {
+  category: "Fats and Oils",
+  code: "0400",
+  id: 4,
+  key: 4,
+  text: "Fats and Oils",
+  value: 4
+}, {
+  category: "Poultry Products",
+  code: "0500",
+  id: 5,
+  key: 5,
+  text: "Poultry Products",
+  value: 5
+}, {
+  category: "Soups, Sauces, Gravies",
+  code: "0600",
+  id: 6,
+  key: 6,
+  text: "Soups, Sauces, Gravies",
+  value: 6
+}, {
+  category: "Sausages and Luncheon Meats",
+  code: "0700",
+  id: 7,
+  key: 7,
+  text: "Sausages and Luncheon Meats",
+  value: 7
+}, {
+  category: "Breakfast Cereals",
+  code: "0800",
+  id: 8,
+  key: 8,
+  text: "Spices and Herbs",
+  value: 8
+}, {
+  category: "Fruits and Fruit Juices",
+  code: "0900",
+  id: 9,
+  key: 9,
+  text: "Fruits and Fruit Juices",
+  value: 9
+}, {
+  category: "Pork Products",
+  code: "1000",
+  id: 10,
+  key: 10,
+  text: "Pork Products",
+  value: 10
+}, {
+  category: "Vegetables and Vegetable Products",
+  code: "1100",
+  id: 11,
+  key: 11,
+  text: "Vegetables and Vegetable Products",
+  value: 11
+}, {
+  category: "Nut and Seed Products",
+  code: "1200",
+  id: 12,
+  key: 12,
+  text: "Nut and Seed Products",
+  value: 12
+}, {
+  category: "Beef Products",
+  code: "1300",
+  id: 13,
+  key: 13,
+  text: "Beef Products",
+  value: 13
+}, {
+  category: "Beverages",
+  code: "1400",
+  id: 14,
+  key: 14,
+  text: "Beverages",
+  value: 14
+}, {
+  category: "Finfish and Shellfish Products",
+  code: "1500",
+  id: 15,
+  key: 15,
+  text: "Finfish and Shellfish Products",
+  value: 15
+}, {
+  category: "Legumes and Legume Products",
+  code: "1600",
+  id: 16,
+  key: 16,
+  text: "Legumes and Legume Products",
+  value: 16
+}, {
+  category: "Lamb, Veal, and Game Products",
+  code: "1700",
+  id: 17,
+  key: 17,
+  text: "Lamb, Veal, and Game Products",
+  value: 17
+}, {
+  category: "Baked Products",
+  code: "1800",
+  id: 18,
+  key: 18,
+  text: "Baked Products",
+  value: 18
+}, {
+  category: "Sweets",
+  code: "1900",
+  id: 19,
+  key: 19,
+  text: "Sweets",
+  value: 19
+}, {
+  category: "Cereal Grains and Pasta",
+  code: "2000",
+  id: 20,
+  key: 20,
+  text: "Cereal Grains and Pasta",
+  value: 20
+}, {
+  category: "Fast Foods",
+  code: "2100",
+  id: 21,
+  key: 21,
+  text: "Spices and Herbs",
+  value: 21
+}, {
+  category: "Meals, Entrees, and Side Dishes",
+  code: "2200",
+  id: 22,
+  key: 22,
+  text: "Meals, Entrees, and Side Dishes",
+  value: 22
+}, {
+  category: "Snacks",
+  code: "2500",
+  id: 23,
+  key: 23,
+  text: "Spices and Herbs",
+  value: 23
+}, {
+  category: "American Indian/Alaska Native Foods",
+  code: "3500",
+  id: 24,
+  key: 24,
+  text: "American Indian/Alaska Native Foods",
+  value: 24
+}, {
+  category: "Restaurant Foods",
+  code: "3600",
+  id: 25,
+  key: 25,
+  text: "Restaurant Foods",
+  value: 25
+}];
+
+/***/ }),
+
+/***/ "./client/utilities/usdaApi.js":
+/*!*************************************!*\
+  !*** ./client/utilities/usdaApi.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getNutritionInfo = exports.getNDBNumber = undefined;
+exports.itemNames = itemNames;
+exports.digOutData = digOutData;
+
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+console.log('HELLO');
+
+//Set up for query string && Axios request to get NDB Number
+var getNDBNumber = exports.getNDBNumber = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(foodItem, foodGroup) {
+    var usdaApiURLSearch, apiKey, ndbNumRequest;
+    return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            usdaApiURLSearch = 'https://api.nal.usda.gov/ndb/search/?';
+            apiKey = 'lFerxXHRcBpCKju21iibKnVDjpRnAwaMR0GyUyaP';
+            _context.next = 4;
+            return _axios2.default.get(usdaApiURLSearch + ('format=json&q=' + foodItem + '&sort=r&max=50&offset=0&lt=g&ds=&fg=' + foodGroup + '&api_key=' + apiKey));
+
+          case 4:
+            ndbNumRequest = _context.sent;
+
+            console.log('GET', ndbNumRequest);
+            return _context.abrupt('return', ndbNumRequest);
+
+          case 7:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function getNDBNumber(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+//Gets the name from the returned response to getNDBNumber
+function itemNames(ndbNumRequest) {
+  var itemName = ndbNumRequest.data.list.item;
+  var names = [];
+  for (var i = 0; i < itemName.length; i++) {
+    var sliceUpTo = itemName[i].name.indexOf('9');
+    names.push(itemName[i].name);
+  }
+  return names;
+}
+
+//Digs into Deeply nested data to pull out nutrition info
+function digOutData(arr) {
+  var bucket = [];
+  for (var i = 0; i < arr.length; i++) {
+    var nutries = {};
+    for (var j = 0; j < arr[i].length; j++) {
+      if (arr[i][j].name === "Energy") {
+        nutries.calories = arr[i][j].value;
+      } else if (arr[i][j].name === "Protein") {
+        nutries.protein = arr[i][j].value;
+      } else if (arr[i][j].name === "Total lipid (fat)") {
+        nutries.fat = arr[i][j].value;
+      } else if (arr[i][j].name === "Carbohydrate, by difference") {
+        nutries.carb = arr[i][j].value;
+      }
+    }
+    bucket.push(nutries);
+  }
+  return bucket;
+}
+
+//Axios Request for nutrition info (this can/should probably be refactored)
+var getNutritionInfo = exports.getNutritionInfo = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee2(ndbNumRequest, names) {
+    var usdaApiURLReport, apiKey, ndbArr, ndbs, allNDBS, arrOfndb, nutrientArray, result, i;
+    return _regeneratorRuntime2.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            usdaApiURLReport = 'https://api.nal.usda.gov/ndb/reports/?';
+            apiKey = 'lFerxXHRcBpCKju21iibKnVDjpRnAwaMR0GyUyaP';
+            ndbArr = ndbNumRequest.data.list.item;
+            ndbs = [];
+            allNDBS = [];
+
+            ndbArr.forEach(function (food) {
+              var ndbNum = food.ndbno;
+              allNDBS.push(ndbNum);
+              var nutritionInfoRequest = _axios2.default.get(usdaApiURLReport + ('ndbno=' + ndbNum + '&type=b&format=json&api_key=' + apiKey));
+              ndbs.push(nutritionInfoRequest);
+            });
+            _context2.next = 8;
+            return Promise.all(ndbs);
+
+          case 8:
+            arrOfndb = _context2.sent;
+            nutrientArray = [];
+
+            arrOfndb.forEach(function (nutrients) {
+              nutrientArray.push(nutrients.data.report.food.nutrients.slice(0, 5));
+            });
+            result = digOutData(nutrientArray);
+
+
+            for (i = 0; i < names.length; i++) {
+              result[i].name = names[i];
+              result[i].ndbNum = allNDBS[i];
+            }
+            return _context2.abrupt('return', result);
+
+          case 14:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+
+  return function getNutritionInfo(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
 
 /***/ }),
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {getFoodFromLog, getFoodTotals} from '../store'
 import {Grid, Segment, Image, Divider} from 'semantic-ui-react'
 import DisplayGoals from './DisplayGoals'
+import SearchPage from './SearchPage'
 
 class Homepage extends React.Component {
   render(){
@@ -11,6 +12,7 @@ class Homepage extends React.Component {
       <React.Fragment>
         <h1 id='welcome'>Welcome to AteTwenty!</h1>
         <DisplayGoals/>
+        <SearchPage />
         <NavBar />
       </React.Fragment>
     )
