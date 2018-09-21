@@ -86,6 +86,76 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./client/components/DisplayGoals.js":
+/*!*******************************************!*\
+  !*** ./client/components/DisplayGoals.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DisplayGoals = function DisplayGoals(props) {
+  return _react2.default.createElement(
+    'div',
+    { id: 'goals' },
+    _react2.default.createElement(
+      _semanticUiReact.Menu.Item,
+      { name: 'Goals', id: 'title', className: 'item' },
+      'Goals'
+    ),
+    _react2.default.createElement(
+      _semanticUiReact.Menu.Item,
+      { name: 'Cal', id: 'calGoal', className: 'item' },
+      ' Cal: ',
+      props.dailyGoals.calories
+    ),
+    _react2.default.createElement(
+      _semanticUiReact.Menu.Item,
+      { name: 'Protein', id: 'proteinGoal', className: 'item' },
+      ' Protein: ',
+      props.dailyGoals.protein
+    ),
+    _react2.default.createElement(
+      _semanticUiReact.Menu.Item,
+      { name: 'Carb', id: 'carbGoal', className: 'item' },
+      ' Carb:  ',
+      props.dailyGoals.carb
+    ),
+    _react2.default.createElement(
+      _semanticUiReact.Menu.Item,
+      { name: 'Fat', id: 'fatGoal', className: 'item' },
+      ' Fat: ',
+      props.dailyGoals.fat
+    )
+  );
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    dailyGoals: state.dailyGoals
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(DisplayGoals);
+
+/***/ }),
+
 /***/ "./client/components/Homepage.js":
 /*!***************************************!*\
   !*** ./client/components/Homepage.js ***!
@@ -109,6 +179,16 @@ var _react2 = _interopRequireDefault(_react);
 var _NavBar = __webpack_require__(/*! ./NavBar */ "./client/components/NavBar.js");
 
 var _NavBar2 = _interopRequireDefault(_NavBar);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _DisplayGoals = __webpack_require__(/*! ./DisplayGoals */ "./client/components/DisplayGoals.js");
+
+var _DisplayGoals2 = _interopRequireDefault(_DisplayGoals);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -138,6 +218,7 @@ var Homepage = function (_React$Component) {
           { id: 'welcome' },
           'Welcome to AteTwenty!'
         ),
+        _react2.default.createElement(_DisplayGoals2.default, null),
         _react2.default.createElement(_NavBar2.default, null)
       );
     }
@@ -146,7 +227,19 @@ var Homepage = function (_React$Component) {
   return Homepage;
 }(_react2.default.Component);
 
-exports.default = Homepage;
+var mapStateToProps = function mapStateToProps(state) {
+  return { state: state };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    displayTotals: function displayTotals() {
+      return dispatch((0, _store.getFoodTotals)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Homepage);
 
 /***/ }),
 

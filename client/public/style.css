@@ -41,13 +41,8 @@ bottom: 0;
 width: 100%;
 }
 
+/* DailyGoals */
+#goals{
+  display: flex
+}
 
-/* a {
-  flex-grow: 1;
-  margin: 10%;
-} */
-
- /* div.item{
-  flex-grow: 1;
-
-}  */
