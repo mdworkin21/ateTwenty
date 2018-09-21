@@ -172,7 +172,7 @@ export default class MacroCalc extends Component {
         <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
 
-      <NavBar/>
+      {/* <NavBar/> */}
       </div>
       </React.Fragment>
     )

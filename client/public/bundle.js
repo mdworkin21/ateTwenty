@@ -520,8 +520,7 @@ var MacroCalc = function (_Component) {
               { onClick: this.handleSubmit },
               'Submit'
             )
-          ),
-          _react2.default.createElement(_NavBar2.default, null)
+          )
         )
       );
     }
