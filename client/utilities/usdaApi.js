@@ -1,13 +1,11 @@
 import regeneratorRuntime from "regenerator-runtime";
 import axios from 'axios'
-console.log('HELLO')
 
 //Set up for query string && Axios request to get NDB Number
  export const getNDBNumber = async function(foodItem, foodGroup){
   const usdaApiURLSearch = 'https://api.nal.usda.gov/ndb/search/?'
   const apiKey = 'lFerxXHRcBpCKju21iibKnVDjpRnAwaMR0GyUyaP'
   const ndbNumRequest = await axios.get(usdaApiURLSearch + `format=json&q=${foodItem}&sort=r&max=50&offset=0&lt=g&ds=&fg=${foodGroup}&api_key=${apiKey}`)
-  console.log('GET',ndbNumRequest)
   return ndbNumRequest
 }
 

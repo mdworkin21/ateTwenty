@@ -182,12 +182,6 @@ var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node
 
 var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
 
-var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
 var _foodGroupCat = __webpack_require__(/*! ../utilities/foodGroupCat */ "./client/utilities/foodGroupCat.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -197,10 +191,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import {getFgCode} from '../store'
-
-
-console.log(_foodGroupCat.foodGroupCategories);
 
 var DropDownFoodGroups = function (_Component) {
   _inherits(DropDownFoodGroups, _Component);
@@ -213,12 +203,6 @@ var DropDownFoodGroups = function (_Component) {
     _this.handleChange = function (e, _ref) {
       var value = _ref.value;
 
-      var selectedOption = _this.state.options.filter(function (option) {
-        return option.value === value;
-      });
-      var selectedFG = selectedOption[0].code;
-      console.log(selectedFG);
-      // this.props.sendFGCode(selectedFG)
       _this.setState({
         value: value });
     };
@@ -248,8 +232,6 @@ var DropDownFoodGroups = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       try {
-        // const allFoodGroups = await axios.get('/api/foodGroups')
-        // console.log('FOODGROUPS',allFoodGroups.data)
         var alteredData = this.addTextPropertyDeleteCreatedUpdated(_foodGroupCat.foodGroupCategories);
         this.setState({
           options: alteredData
@@ -271,22 +253,12 @@ var DropDownFoodGroups = function (_Component) {
         search: true,
         text: 'Select Food Group',
         onChange: this.handleChange
-
       });
     }
   }]);
 
   return DropDownFoodGroups;
 }(_react.Component);
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     sendFGCode: (code) => dispatch(getFgCode(code))
-//   }
-// }
-
-// export default connect(null, mapDispatchToProps)(DropDownFoodGroups)
-
 
 exports.default = DropDownFoodGroups;
 
@@ -859,6 +831,10 @@ var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _SearchResults = __webpack_require__(/*! ./SearchResults */ "./client/components/SearchResults.js");
+
+var _SearchResults2 = _interopRequireDefault(_SearchResults);
+
 var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
 
 var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
@@ -885,7 +861,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // import EmptySearch from './EmptySearch';
-// import SearchResults from './SearchResults';
 
 // import SearchError from './SearchError';
 
@@ -944,16 +919,16 @@ var SearchPage = function (_Component) {
               case 8:
                 nutritionInfo = _context.sent;
 
-                console.log(nutritionInfo);
+
                 this.setState({
                   search: '',
                   nutrientArr: nutritionInfo
                 });
-                _context.next = 18;
+                _context.next = 17;
                 break;
 
-              case 13:
-                _context.prev = 13;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context['catch'](1);
 
                 //need better err handling. Should render SearchErr component
@@ -964,12 +939,12 @@ var SearchPage = function (_Component) {
                 });
                 console.log(_context.t0);
 
-              case 18:
+              case 17:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 13]]);
+        }, _callee, this, [[1, 12]]);
       }));
 
       function handleSubmit(_x) {
@@ -979,38 +954,31 @@ var SearchPage = function (_Component) {
       return handleSubmit;
     }()
 
-    //This is better than before but still needs work. Probagbly better way to do this. Maybe Put form in own component
+    //This is better than before but still needs work. Probably better way to do this. Maybe Put form in own component
 
   }, {
     key: 'render',
     value: function render() {
+      console.log('NUT', this.state.nutrientArr);
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
         _react2.default.createElement(
-          'div',
-          { className: 'searchStuff' },
+          _semanticUiReact.Form,
+          { onSubmit: this.handleSubmit, className: 'searchBox' },
           _react2.default.createElement(
-            _semanticUiReact.Form,
-            { onSubmit: this.handleSubmit, className: 'searchBox' },
-            _react2.default.createElement(
-              _semanticUiReact.Form.Field,
-              null,
-              _react2.default.createElement('input', { type: 'text', name: 'search', onChange: this.handleChange, value: this.state.search }),
-              _react2.default.createElement(
-                'div',
-                { className: 'submitBtn' },
-                _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit, icon: 'search', type: 'submit' })
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { id: 'dropDown' },
-              _react2.default.createElement(_FoodGroups2.default, null)
-            )
-          )
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement('input', { type: 'text', name: 'search', onChange: this.handleChange, value: this.state.search }),
+            _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit, icon: 'search', type: 'submit' })
+          ),
+          _react2.default.createElement(_FoodGroups2.default, null)
         ),
-        _react2.default.createElement('div', { id: 'searchResults' })
+        _react2.default.createElement(
+          'div',
+          { id: 'searchResults' },
+          _react2.default.createElement(_SearchResults2.default, { nutrientArr: this.state.nutrientArr })
+        )
       );
     }
   }]);
@@ -1025,6 +993,167 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SearchPage);
+
+/***/ }),
+
+/***/ "./client/components/SearchResults.js":
+/*!********************************************!*\
+  !*** ./client/components/SearchResults.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchResults = function (_Component) {
+  _inherits(SearchResults, _Component);
+
+  function SearchResults() {
+    _classCallCheck(this, SearchResults);
+
+    var _this = _possibleConstructorReturn(this, (SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).call(this));
+
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(SearchResults, [{
+    key: 'handleSubmit',
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(id, event) {
+        var addThisFood;
+        return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                event.preventDefault();
+                addThisFood = this.props.nutrientArr.filter(function (item) {
+                  return item.ndbNum === id;
+                });
+
+                this.props.addFood(addThisFood);
+
+              case 3:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function handleSubmit(_x, _x2) {
+        return _ref.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      console.log("TESTSETESTESTETESTSETESTSETSTSETSETESTEW");
+      return _react2.default.createElement(
+        _semanticUiReact.List,
+        null,
+        this.props.nutrientArr.map(function (item) {
+          return _react2.default.createElement(
+            _semanticUiReact.List.Item,
+            { key: item.ndbNum },
+            _react2.default.createElement(
+              _semanticUiReact.List.Content,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.List.Description,
+                { id: 'foodName' },
+                item.name
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.List.Description,
+                null,
+                'Cal ',
+                item.calories
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.List.Description,
+                null,
+                'Pro ',
+                item.protein
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.List.Description,
+                null,
+                'Fat ',
+                item.fat
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.List.Description,
+                null,
+                'Carb ',
+                item.carb
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Button,
+              { id: 'addFoodButton', onClick: function onClick(event) {
+                  return _this2.handleSubmit(item.ndbNum, event);
+                } },
+              'Add Food'
+            ),
+            _react2.default.createElement(
+              'p',
+              { id: 'serving' },
+              'Per 100 grams'
+            )
+          );
+        })
+      );
+    }
+  }]);
+
+  return SearchResults;
+}(_react.Component);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    addFood: function addFood(food) {
+      return dispatch((0, _store.addFoodToLog)(food));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchResults);
 
 /***/ }),
 
@@ -1260,26 +1389,24 @@ var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog() {
             case 3:
               response = _context2.sent;
               allFood = response.data;
-
-              console.log('FROM STORE', allFood);
               action = getFoodLog(allFood);
 
               dispatch(action);
-              _context2.next = 13;
+              _context2.next = 12;
               break;
 
-            case 10:
-              _context2.prev = 10;
+            case 9:
+              _context2.prev = 9;
               _context2.t0 = _context2['catch'](0);
 
               console.log(_context2.t0);
 
-            case 13:
+            case 12:
             case 'end':
               return _context2.stop();
           }
         }
-      }, _callee2, undefined, [[0, 10]]);
+      }, _callee2, undefined, [[0, 9]]);
     }));
 
     return function (_x2) {
@@ -1303,8 +1430,6 @@ var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
             case 3:
               response = _context3.sent;
               allFood = response.data;
-
-              console.log('FROM STORE', allFood);
               totals = {
                 calories: 0,
                 protein: 0,
@@ -1318,21 +1443,21 @@ var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
               action = getMacTotals(totals);
 
               dispatch(action);
-              _context3.next = 15;
+              _context3.next = 14;
               break;
 
-            case 12:
-              _context3.prev = 12;
+            case 11:
+              _context3.prev = 11;
               _context3.t0 = _context3['catch'](0);
 
               console.log(_context3.t0);
 
-            case 15:
+            case 14:
             case 'end':
               return _context3.stop();
           }
         }
-      }, _callee3, undefined, [[0, 12]]);
+      }, _callee3, undefined, [[0, 11]]);
     }));
 
     return function (_x3) {
@@ -1787,8 +1912,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-console.log('HELLO');
-
 //Set up for query string && Axios request to get NDB Number
 var getNDBNumber = exports.getNDBNumber = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(foodItem, foodGroup) {
@@ -1804,11 +1927,9 @@ var getNDBNumber = exports.getNDBNumber = function () {
 
           case 4:
             ndbNumRequest = _context.sent;
-
-            console.log('GET', ndbNumRequest);
             return _context.abrupt('return', ndbNumRequest);
 
-          case 7:
+          case 6:
           case 'end':
             return _context.stop();
         }

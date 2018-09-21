@@ -107,7 +107,6 @@ export const getFoodFromLog = () => {
     try{
       const response = await axios.get('/api/dailyLog')
       const allFood = response.data
-      console.log('FROM STORE', allFood)
       const action = getFoodLog(allFood)
       dispatch(action)
     } catch(err) {
@@ -121,7 +120,6 @@ export const getFoodTotals = () => {
     try{
       const response = await axios.get('/api/dailyLog')
       const allFood = response.data
-      console.log('FROM STORE', allFood)
       let totals = {
         calories: 0,
         protein: 0,

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import NavBar from './NavBar'
 import axios from 'axios'
 // import EmptySearch from './EmptySearch';
-// import SearchResults from './SearchResults';
+import SearchResults from './SearchResults';
 import regeneratorRuntime from "regenerator-runtime";
 // import SearchError from './SearchError';
 import { Form, Header, Button, Modal} from 'semantic-ui-react'
@@ -42,7 +42,7 @@ class SearchPage extends Component {
 
       //Axios Request for nutrition info
       let nutritionInfo = await getNutritionInfo(NDBNum, items)
-      console.log(nutritionInfo)
+
       this.setState({
         search: '',
         nutrientArr: nutritionInfo,
@@ -58,25 +58,26 @@ class SearchPage extends Component {
     }
   }
 
-//This is better than before but still needs work. Probagbly better way to do this. Maybe Put form in own component
+//This is better than before but still needs work. Probably better way to do this. Maybe Put form in own component
   render(){
+    console.log('NUT', this.state.nutrientArr)
         return (
           <React.Fragment>
-          <div className='searchStuff'>
+          
           <Form onSubmit={this.handleSubmit} className="searchBox">
             <Form.Field >
             <input type="text" name="search"  onChange={this.handleChange} value={this.state.search}/>
-            <div className='submitBtn'>
+           
               <Button onClick={this.handleSubmit} icon='search' type="submit" />
-            </div>
+           
             </Form.Field>
-            <div id="dropDown">
+            
             <DropDownFoodGroups/>
-            </div>
+           
           </Form>
-        </div>
+       
           <div id="searchResults">
-          {/* <SearchResults nutrientArr={this.state.nutrientArr} /> */}
+          <SearchResults nutrientArr={this.state.nutrientArr} />
           </div>
         </React.Fragment>
         )

@@ -3,7 +3,6 @@ const db = require('../database')
 const Sequelize = require('sequelize')
 
 //Profile Model
-
 const Profile = db.define('profiles', {
   name: {
     type: Sequelize.STRING
