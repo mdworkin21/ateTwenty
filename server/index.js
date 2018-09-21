@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(path.join(__dirname, '..', '/client/public')))
 
 //Route to APIs
-// app.use('/api', require('./api'))
+app.use('/api', require('./api'))
 
 //Static HTML For When No API Route Matches (Do I need this?)
 app.get('*', (req, res) => {
