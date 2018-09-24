@@ -464,7 +464,7 @@ var Log = function (_Component) {
         null,
         _react2.default.createElement(
           _semanticUiReact.Table,
-          { celled: true, className: 'log' },
+          { celled: true, className: '.ui.table' },
           _react2.default.createElement(
             _semanticUiReact.Table.Header,
             null,
@@ -963,7 +963,8 @@ var MacroCalc = function (_Component) {
               { onClick: this.handleSubmit },
               'Submit'
             )
-          )
+          ),
+          _react2.default.createElement(_NavBar2.default, null)
         )
       );
     }
@@ -1350,7 +1351,7 @@ var SearchResults = function (_Component) {
         this.props.nutrientArr.map(function (item) {
           return _react2.default.createElement(
             _semanticUiReact.List.Item,
-            { key: item.ndbNum, verticalAlign: '4' },
+            { key: item.ndbNum },
             _react2.default.createElement(
               _semanticUiReact.List.Content,
               null,

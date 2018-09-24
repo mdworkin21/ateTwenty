@@ -33,7 +33,7 @@ class Log extends Component {
 
     return (
   <React.Fragment>
-  <Table celled className="log">
+  <Table celled className=".ui.table">
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Food</Table.HeaderCell>

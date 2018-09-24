@@ -33,7 +33,7 @@ class SearchResults extends Component {
       <List celled>
        { this.props.nutrientArr.map(item => {
          return (
-           <List.Item key={item.ndbNum} verticalAlign='4'>
+           <List.Item key={item.ndbNum}>
              <List.Content>
               <List.Description id="foodName">{item.name}</List.Description>
               <List.Description>Cal {item.calories} | Pro {item.protein} | Fat {item.fat} | Carb {item.carb}</List.Description >

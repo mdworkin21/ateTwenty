@@ -25,6 +25,7 @@ ui.form.form.ui.form{
   display: flex;
   justify-content: center;
   flex-direction: column; 
+  padding-bottom: 30px;
 }
 
 .ui.change{
@@ -46,3 +47,23 @@ width: 100%;
   display: flex
 }
 
+
+/* Log */
+.ui.table {
+  font-size: 1em;
+}
+
+.ui.table {
+  width: 100%;
+  background: #fff;
+  margin: 1em 0;
+  border: 1px solid rgba(34,36,38,.15);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: .28571429rem;
+  text-align: left;
+  color: rgba(0,0,0,.87);
+  border-collapse: separate;
+  border-spacing: 0;
+  padding-bottom: 30px;
+}
