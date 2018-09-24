@@ -2221,14 +2221,24 @@ var getNDBNumber = exports.getNDBNumber = function () {
   };
 }();
 
-//Gets the name from the returned response to getNDBNumber
+//Gets the name from the returned response to getNDBNumber 
+//For some reason the slice thing works with UPC but not GTIN I think it's a logic issue
+//Tried multiple ways, this is just the last one 
 function itemNames(ndbNumRequest) {
   var itemName = ndbNumRequest.data.list.item;
   var names = [];
   for (var i = 0; i < itemName.length; i++) {
-    // let sliceUpTo = itemName[i].name.indexOf('UPC:')
-    names.push(itemName[i].name);
-    // names.push(sliceUpTo)
+    var sliceUpTo = void 0;
+    var sliceUpToUPC = itemName[i].name.indexOf(', UPC:');
+    var sliceUpToGTIN = itemName[i].name.indexOf('UNPREPARED, GTIN');
+
+    if (!sliceUpToGTIN && !sliceUpToUPC) {
+      sliceUpTo = itemName[i].name.length - 1;
+    } else {
+      sliceUpTo = sliceUpToUPC ? sliceUpToUPC : sliceUpToGTIN;
+    }
+
+    names.push(itemName[i].name.slice(0, sliceUpTo));
     console.log(names);
   }
   return names;
