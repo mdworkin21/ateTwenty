@@ -9,6 +9,7 @@ import { Form, Header, Button, Modal} from 'semantic-ui-react'
 import {getNDBNumber, itemNames, digOutData, getNutritionInfo, mapNamesToNDB} from '../utilities/usdaApi'
 import DropDownFoodGroups from './FoodGroups';
 import {connect} from 'react-redux'
+import {changeSearchedValue} from '../store'
 
 //This file's a mess and needs refactoring
 class SearchPage extends Component {
@@ -43,9 +44,10 @@ class SearchPage extends Component {
       //Axios Request for nutrition info
       let nutritionInfo = await getNutritionInfo(NDBNum, items)
 
+      this.props.changeSearchVal(!this.props.searched)
       this.setState({
         search: '',
-        nutrientArr: nutritionInfo,
+        nutrientArr: nutritionInfo
       })
     } catch(err){
       //need better err handling. Should render SearchErr component
@@ -60,7 +62,6 @@ class SearchPage extends Component {
 
 //This is better than before but still needs work. Probably better way to do this. Maybe Put form in own component
   render(){
-    console.log('NUT', this.state.nutrientArr)
         return (
           <React.Fragment>
           
@@ -84,10 +85,19 @@ class SearchPage extends Component {
     }
  }
 
+const mapDispatchToProps = (dispatch) => {
+ return{
+  changeSearchVal: (bool) => dispatch(changeSearchedValue(bool))
+} 
+   
+}
+
 const mapStateToProps = (state) => {
   return {
+    searched: state.searched,
     fgCode: state.fgCode 
+    
   }
 }
 
-export default connect(mapStateToProps)(SearchPage)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage)

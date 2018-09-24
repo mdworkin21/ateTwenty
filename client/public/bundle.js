@@ -302,6 +302,10 @@ var _SearchPage = __webpack_require__(/*! ./SearchPage */ "./client/components/S
 
 var _SearchPage2 = _interopRequireDefault(_SearchPage);
 
+var _Log = __webpack_require__(/*! ./Log */ "./client/components/Log.js");
+
+var _Log2 = _interopRequireDefault(_Log);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -316,13 +320,34 @@ var Homepage = function (_React$Component) {
   function Homepage() {
     _classCallCheck(this, Homepage);
 
-    return _possibleConstructorReturn(this, (Homepage.__proto__ || Object.getPrototypeOf(Homepage)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Homepage.__proto__ || Object.getPrototypeOf(Homepage)).call(this));
   }
 
   _createClass(Homepage, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
+      console.log('STATE', this.props.state.searched);
+      return !this.props.state.searched ? _react2.default.createElement(
+        _react2.default.Fragment,
+        null,
+        _react2.default.createElement(
+          'h1',
+          { id: 'welcome' },
+          'Welcome to AteTwenty!'
+        ),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'CURRENT TOTALS'
+        ),
+        _react2.default.createElement(_SearchPage2.default, null),
+        _react2.default.createElement(
+          'h1',
+          null,
+          'TODAY\'S Date'
+        ),
+        _react2.default.createElement(_Log2.default, null)
+      ) : _react2.default.createElement(
         _react2.default.Fragment,
         null,
         _react2.default.createElement(
@@ -353,6 +378,220 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Homepage);
+
+/***/ }),
+
+/***/ "./client/components/Log.js":
+/*!**********************************!*\
+  !*** ./client/components/Log.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
+var _NavBar = __webpack_require__(/*! ./NavBar */ "./client/components/NavBar.js");
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import Eat from './EmptyLog'
+
+
+// import AddFood from './AddFood';
+
+
+var Log = function (_Component) {
+  _inherits(Log, _Component);
+
+  function Log() {
+    _classCallCheck(this, Log);
+
+    var _this = _possibleConstructorReturn(this, (Log.__proto__ || Object.getPrototypeOf(Log)).call(this));
+
+    _this.state = {
+      addForm: false
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(Log, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.displayFood();
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      this.setState({
+        addForm: true
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      // return this.state.addForm ? <AddFood /> : (
+      //   !this.props.state.food.length ? <Eat /> :
+
+      console.log('LOGGGGGG', this.props.state);
+      return _react2.default.createElement(
+        _react2.default.Fragment,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Table,
+          { celled: true, className: 'log' },
+          _react2.default.createElement(
+            _semanticUiReact.Table.Header,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Table.Row,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                null,
+                'Food'
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                null,
+                'Protein'
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                null,
+                'Fat'
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                null,
+                'Carb'
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                null,
+                'Cal'
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                null,
+                'Delete'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Table.Body,
+            null,
+            this.props.state.food.map(function (item) {
+              return _react2.default.createElement(
+                _react2.default.Fragment,
+                { key: item.id },
+                _react2.default.createElement(
+                  _semanticUiReact.Table.Row,
+                  null,
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    item.name
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    item.protein
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    item.fat
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    item.carb
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    item.calories
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Button, { type: 'button', basic: true, color: 'red', content: 'X', className: 'deleteButton', onClick: function onClick(id) {
+                        return _this2.props.deleteFood(item.id);
+                      } })
+                  )
+                )
+              );
+            })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Table.Footer,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Table.Row,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                { colSpan: '6' },
+                _react2.default.createElement(_semanticUiReact.Button, { icon: 'add', onClick: this.handleSubmit })
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(_NavBar2.default, null)
+      );
+    }
+  }]);
+
+  return Log;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    state: state
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    displayFood: function displayFood() {
+      return dispatch((0, _store.getFoodFromLog)());
+    },
+    deleteFood: function deleteFood(id) {
+      console.log("CLICKED");
+      dispatch((0, _store.deleteItemFromLog)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Log);
 
 /***/ }),
 
@@ -849,6 +1088,8 @@ var _FoodGroups2 = _interopRequireDefault(_FoodGroups);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -920,15 +1161,16 @@ var SearchPage = function (_Component) {
                 nutritionInfo = _context.sent;
 
 
+                this.props.changeSearchVal(!this.props.searched);
                 this.setState({
                   search: '',
                   nutrientArr: nutritionInfo
                 });
-                _context.next = 17;
+                _context.next = 18;
                 break;
 
-              case 12:
-                _context.prev = 12;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context['catch'](1);
 
                 //need better err handling. Should render SearchErr component
@@ -939,12 +1181,12 @@ var SearchPage = function (_Component) {
                 });
                 console.log(_context.t0);
 
-              case 17:
+              case 18:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 12]]);
+        }, _callee, this, [[1, 13]]);
       }));
 
       function handleSubmit(_x) {
@@ -959,7 +1201,6 @@ var SearchPage = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('NUT', this.state.nutrientArr);
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -986,13 +1227,23 @@ var SearchPage = function (_Component) {
   return SearchPage;
 }(_react.Component);
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fgCode: state.fgCode
+    changeSearchVal: function changeSearchVal(bool) {
+      return dispatch((0, _store.changeSearchedValue)(bool));
+    }
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(SearchPage);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    searched: state.searched,
+    fgCode: state.fgCode
+
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchPage);
 
 /***/ }),
 
@@ -1063,8 +1314,9 @@ var SearchResults = function (_Component) {
                 });
 
                 this.props.addFood(addThisFood);
+                this.props.changeSearchVal(!this.props.searched);
 
-              case 3:
+              case 4:
               case 'end':
                 return _context.stop();
             }
@@ -1148,11 +1400,20 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     addFood: function addFood(food) {
       return dispatch((0, _store.addFoodToLog)(food));
+    },
+    changeSearchVal: function changeSearchVal(bool) {
+      return dispatch((0, _store.changeSearchedValue)(bool));
     }
   };
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchResults);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    searched: state.searched
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchResults);
 
 /***/ }),
 
@@ -1182,6 +1443,10 @@ var _MacroCalc = __webpack_require__(/*! ./components/MacroCalc */ "./client/com
 
 var _MacroCalc2 = _interopRequireDefault(_MacroCalc);
 
+var _Log = __webpack_require__(/*! ./components/Log */ "./client/components/Log.js");
+
+var _Log2 = _interopRequireDefault(_Log);
+
 var _store = __webpack_require__(/*! ./store */ "./client/store/index.js");
 
 var _store2 = _interopRequireDefault(_store);
@@ -1194,6 +1459,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // import registerServiceWorker from './registerServiceWorker'
 
+//Root. Call ReactDOM.Render and serviceWorker here.
+//React Router stuff here
+//Set up Provider for Redux
 _reactDom2.default.render(_react2.default.createElement(
   _reactRedux.Provider,
   { store: _store2.default },
@@ -1204,12 +1472,11 @@ _reactDom2.default.render(_react2.default.createElement(
       _reactRouterDom.Switch,
       null,
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Homepage2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/calc', component: _MacroCalc2.default })
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/calc', component: _MacroCalc2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/log', component: _Log2.default })
     )
   )
-), document.getElementById('root')); //Root. Call ReactDOM.Render and serviceWorker here.
-//React Router stuff here
-//Set up Provider for Redux
+), document.getElementById('root'));
 
 /***/ }),
 
@@ -1226,7 +1493,7 @@ _reactDom2.default.render(_react2.default.createElement(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setDailyGoal = exports.deleteItemFromLog = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.getFgCode = undefined;
+exports.setDailyGoal = exports.deleteItemFromLog = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.changeSearchedValue = exports.getFgCode = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1253,6 +1520,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //Initial State
 //Probably a good idea to make second store with search stuff and maybe a third with profile stuff
 var initialState = {
+  searched: false,
   cal: 0,
   carb: 0,
   fat: 0,
@@ -1274,6 +1542,7 @@ var UPDATE_FOOD = 'UPDATE_FOOD';
 var GET_FGCODE = 'GET_FGCODE';
 var SET_GOALS = 'SET_GOALS';
 var GET_TOTALS = 'GET_TOTALS';
+var SEARCH_OCCURRED = 'SEARCH_OCCURED';
 
 //Action Creators
 var getFoodLog = function getFoodLog(food) {
@@ -1325,6 +1594,13 @@ var setDailyGoals = function setDailyGoals(dailyGoals) {
   };
 };
 
+var changeSearchedValue = exports.changeSearchedValue = function changeSearchedValue(boolean) {
+  return {
+    type: SEARCH_OCCURRED,
+    boolean: boolean
+  };
+};
+
 //Thunks
 var addFoodToLog = exports.addFoodToLog = function addFoodToLog(food) {
   return function () {
@@ -1347,24 +1623,26 @@ var addFoodToLog = exports.addFoodToLog = function addFoodToLog(food) {
             case 3:
               response = _context.sent;
               addedFood = response.data;
+
+              console.log('ADDEDFOOOD', addedFood);
               action = addFood(addedFood);
 
               dispatch(action);
-              _context.next = 12;
+              _context.next = 13;
               break;
 
-            case 9:
-              _context.prev = 9;
+            case 10:
+              _context.prev = 10;
               _context.t0 = _context['catch'](0);
 
               console.log(_context.t0);
 
-            case 12:
+            case 13:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 9]]);
+      }, _callee, undefined, [[0, 10]]);
     }));
 
     return function (_x) {
@@ -1593,6 +1871,8 @@ function reducer() {
           fat: action.dailyGoals.fatGoal
         }
       });
+    case SEARCH_OCCURRED:
+      return _extends({}, state, { searched: action.boolean });
     default:
       return state;
   }
@@ -1946,8 +2226,10 @@ function itemNames(ndbNumRequest) {
   var itemName = ndbNumRequest.data.list.item;
   var names = [];
   for (var i = 0; i < itemName.length; i++) {
-    var sliceUpTo = itemName[i].name.indexOf('9');
+    // let sliceUpTo = itemName[i].name.indexOf('UPC:')
     names.push(itemName[i].name);
+    // names.push(sliceUpTo)
+    console.log(names);
   }
   return names;
 }

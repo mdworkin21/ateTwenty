@@ -9,6 +9,7 @@ import axios from 'axios'
 //Initial State
 //Probably a good idea to make second store with search stuff and maybe a third with profile stuff
 const initialState = {
+  searched: false,
   cal: 0,
   carb: 0,
   fat: 0,
@@ -31,6 +32,7 @@ const UPDATE_FOOD = 'UPDATE_FOOD'
 const GET_FGCODE = 'GET_FGCODE'
 const SET_GOALS = 'SET_GOALS'
 const GET_TOTALS = 'GET_TOTALS'
+const SEARCH_OCCURRED = 'SEARCH_OCCURED'
 
 //Action Creators
 const getFoodLog = (food) => {
@@ -82,6 +84,13 @@ const setDailyGoals = (dailyGoals) => {
   }
 }
 
+export const changeSearchedValue = (boolean) => {
+  return {
+    type: SEARCH_OCCURRED,
+    boolean
+  }
+}
+
 //Thunks
 export const addFoodToLog = food => {
   return async (dispatch) => {
@@ -93,7 +102,8 @@ export const addFoodToLog = food => {
         carb: food[0].carb,
         fat: food[0].fat
       })
-       const addedFood = response.data
+      const addedFood = response.data
+      console.log('ADDEDFOOOD', addedFood)
        const action = addFood(addedFood)
        dispatch(action)
     } catch(err){
@@ -216,6 +226,8 @@ function reducer(state = initialState, action){
           }
         }
       )
+    case SEARCH_OCCURRED:
+        return {...state, searched: action.boolean}
     default:
       return state
   }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { List, Button } from 'semantic-ui-react'
-import { addFoodToLog } from "../store";
+import { addFoodToLog, changeSearchedValue } from "../store";
 import regeneratorRuntime from "regenerator-runtime";
 
 
@@ -18,6 +18,8 @@ class SearchResults extends Component {
       return item.ndbNum === id
     })
     this.props.addFood(addThisFood);
+    this.props.changeSearchVal(!this.props.searched)
+
   }
 
   render(){
@@ -45,11 +47,18 @@ class SearchResults extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addFood: food => dispatch(addFoodToLog(food))
+    addFood: food => dispatch(addFoodToLog(food)),
+    changeSearchVal: (bool) => dispatch(changeSearchedValue(bool))
   };
 };
 
+const mapStateToProps = (state) => {
+  return {
+    searched: state.searched,    
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchResults);

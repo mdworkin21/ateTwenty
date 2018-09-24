@@ -16,6 +16,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try{
     const foodItem = await DailyLog.create(req.body)
+    console.log(foodItem)
     res.status(201).send(foodItem)
   }catch(err){
     next(err)

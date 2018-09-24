@@ -5,6 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Homepage from './components/Homepage'
 import MacroCalc from './components/MacroCalc'
+import Log from './components/Log'
 
 import store from './store'
 import {Provider} from 'react-redux'
@@ -17,6 +18,7 @@ ReactDOM.render(
   <Switch>
       <Route exact path="/" component={Homepage} />
       <Route exact path="/calc" component={MacroCalc} />
+      <Route exact path="/log" component={Log} />
 
   </Switch>
    </Router>

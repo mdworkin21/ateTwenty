@@ -14,8 +14,10 @@ export function itemNames(ndbNumRequest){
   const itemName = ndbNumRequest.data.list.item
   const names = []
   for (let i = 0; i < itemName.length; i++){
-    let sliceUpTo = itemName[i].name.indexOf('9')
+    // let sliceUpTo = itemName[i].name.indexOf('UPC:')
     names.push(itemName[i].name)
+    // names.push(sliceUpTo)
+    console.log(names)
   }
   return names
 }

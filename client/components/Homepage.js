@@ -5,10 +5,23 @@ import {getFoodFromLog, getFoodTotals} from '../store'
 import {Grid, Segment, Image, Divider} from 'semantic-ui-react'
 import DisplayGoals from './DisplayGoals'
 import SearchPage from './SearchPage'
+import Log from './Log'
 
 class Homepage extends React.Component {
+  constructor(){
+    super()
+  }
   render(){
-    return (
+    console.log('STATE', this.props.state.searched)
+    return !this.props.state.searched ? 
+      <React.Fragment>
+        <h1 id='welcome'>Welcome to AteTwenty!</h1>
+        <h2>CURRENT TOTALS</h2>
+        <SearchPage />
+        <h1>TODAY'S Date</h1>
+        <Log />
+      </React.Fragment>
+         : (
       <React.Fragment>
         <h1 id='welcome'>Welcome to AteTwenty!</h1>
         <DisplayGoals/>
