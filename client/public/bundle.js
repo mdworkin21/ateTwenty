@@ -326,7 +326,6 @@ var Homepage = function (_React$Component) {
   _createClass(Homepage, [{
     key: 'render',
     value: function render() {
-      console.log('STATE', this.props.state.searched);
       return !this.props.state.searched ? _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -460,7 +459,6 @@ var Log = function (_Component) {
       // return this.state.addForm ? <AddFood /> : (
       //   !this.props.state.food.length ? <Eat /> :
 
-      console.log('LOGGGGGG', this.props.state);
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -1277,6 +1275,10 @@ var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node
 
 var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
 
+var _Homepage = __webpack_require__(/*! ./Homepage */ "./client/components/Homepage.js");
+
+var _Homepage2 = _interopRequireDefault(_Homepage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1295,6 +1297,9 @@ var SearchResults = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).call(this));
 
+    _this.state = {
+      clearResults: false
+    };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
   }
@@ -1314,9 +1319,12 @@ var SearchResults = function (_Component) {
                 });
 
                 this.props.addFood(addThisFood);
-                this.props.changeSearchVal(!this.props.searched);
+                this.props.changeSearchVal(false);
+                this.setState({
+                  clearResults: true
+                });
 
-              case 4:
+              case 5:
               case 'end':
                 return _context.stop();
             }
@@ -1335,13 +1343,14 @@ var SearchResults = function (_Component) {
     value: function render() {
       var _this2 = this;
 
+      console.log(this.props.nutrientArr.length);
       return _react2.default.createElement(
         _semanticUiReact.List,
-        null,
+        { celled: true },
         this.props.nutrientArr.map(function (item) {
           return _react2.default.createElement(
             _semanticUiReact.List.Item,
-            { key: item.ndbNum },
+            { key: item.ndbNum, verticalAlign: '4' },
             _react2.default.createElement(
               _semanticUiReact.List.Content,
               null,
@@ -1354,24 +1363,12 @@ var SearchResults = function (_Component) {
                 _semanticUiReact.List.Description,
                 null,
                 'Cal ',
-                item.calories
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Description,
-                null,
-                'Pro ',
-                item.protein
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Description,
-                null,
-                'Fat ',
-                item.fat
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Description,
-                null,
-                'Carb ',
+                item.calories,
+                ' | Pro ',
+                item.protein,
+                ' | Fat ',
+                item.fat,
+                ' | Carb ',
                 item.carb
               )
             ),
@@ -1515,6 +1512,8 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 //Initial State
@@ -1623,26 +1622,24 @@ var addFoodToLog = exports.addFoodToLog = function addFoodToLog(food) {
             case 3:
               response = _context.sent;
               addedFood = response.data;
-
-              console.log('ADDEDFOOOD', addedFood);
               action = addFood(addedFood);
 
               dispatch(action);
-              _context.next = 13;
+              _context.next = 12;
               break;
 
-            case 10:
-              _context.prev = 10;
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context['catch'](0);
 
               console.log(_context.t0);
 
-            case 13:
+            case 12:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 10]]);
+      }, _callee, undefined, [[0, 9]]);
     }));
 
     return function (_x) {
@@ -1840,11 +1837,13 @@ function reducer() {
       });
     case ADD_FOOD:
       return _extends({}, state, {
-        cal: state.cal + Number(action.food.calories),
-        protein: state.protein + Number(action.food.protein),
-        carb: state.carb + Number(action.food.carb),
-        fat: state.fat + Number(action.food.fat),
-        food: action.food
+        food: [].concat(_toConsumableArray(state.food), [{
+          cal: state.cal + Number(action.food.calories),
+          protein: state.protein + Number(action.food.protein),
+          carb: state.carb + Number(action.food.carb),
+          fat: state.fat + Number(action.food.fat),
+          food: action.food
+        }])
       });
     case DELETE_FOOD:
       var deletedFood = state.food.filter(function (item) {

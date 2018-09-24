@@ -31,7 +31,6 @@ class Log extends Component {
     // return this.state.addForm ? <AddFood /> : (
     //   !this.props.state.food.length ? <Eat /> :
 
-    console.log('LOGGGGGG', this.props.state)
     return (
   <React.Fragment>
   <Table celled className="log">

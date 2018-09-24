@@ -3,12 +3,15 @@ import { connect } from 'react-redux'
 import { List, Button } from 'semantic-ui-react'
 import { addFoodToLog, changeSearchedValue } from "../store";
 import regeneratorRuntime from "regenerator-runtime";
-
+import Homepage from './Homepage'
 
 
 class SearchResults extends Component {
   constructor(){
-    super()
+    super() 
+    this.state = {
+      clearResults: false
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -18,22 +21,22 @@ class SearchResults extends Component {
       return item.ndbNum === id
     })
     this.props.addFood(addThisFood);
-    this.props.changeSearchVal(!this.props.searched)
-
+    this.props.changeSearchVal(false)
+    this.setState({
+      clearResults: true
+    })
   }
 
-  render(){
+  render(){     
+    console.log(this.props.nutrientArr.length)
     return (
-      <List>
+      <List celled>
        { this.props.nutrientArr.map(item => {
          return (
-           <List.Item key={item.ndbNum}>
+           <List.Item key={item.ndbNum} verticalAlign='4'>
              <List.Content>
-             <List.Description id="foodName">{item.name}</List.Description>
-            <List.Description>Cal {item.calories}</List.Description>
-            <List.Description>Pro {item.protein}</List.Description>
-            <List.Description>Fat {item.fat}</List.Description>
-            <List.Description>Carb {item.carb}</List.Description>
+              <List.Description id="foodName">{item.name}</List.Description>
+              <List.Description>Cal {item.calories} | Pro {item.protein} | Fat {item.fat} | Carb {item.carb}</List.Description >
              </List.Content>
              <Button id="addFoodButton" onClick={(event) => this.handleSubmit(item.ndbNum, event)}>Add Food</Button>
             <p id="serving">Per 100 grams</p>

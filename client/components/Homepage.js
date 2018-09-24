@@ -12,7 +12,6 @@ class Homepage extends React.Component {
     super()
   }
   render(){
-    console.log('STATE', this.props.state.searched)
     return !this.props.state.searched ? 
       <React.Fragment>
         <h1 id='welcome'>Welcome to AteTwenty!</h1>

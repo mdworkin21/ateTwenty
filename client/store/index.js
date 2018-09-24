@@ -103,8 +103,7 @@ export const addFoodToLog = food => {
         fat: food[0].fat
       })
       const addedFood = response.data
-      console.log('ADDEDFOOOD', addedFood)
-       const action = addFood(addedFood)
+      const action = addFood(addedFood)
        dispatch(action)
     } catch(err){
        console.log(err)
@@ -191,11 +190,13 @@ function reducer(state = initialState, action){
     case ADD_FOOD: 
       return ({
         ...state,
-        cal: state.cal + Number(action.food.calories),
-        protein: state.protein + Number(action.food.protein),
-        carb: state.carb + Number(action.food.carb),
-        fat: state.fat + Number(action.food.fat), 
-        food: action.food
+        food: [...state.food, {
+          cal: state.cal + Number(action.food.calories),
+          protein: state.protein + Number(action.food.protein),
+          carb: state.carb + Number(action.food.carb),
+          fat: state.fat + Number(action.food.fat), 
+          food: action.food
+        }]
       })
     case DELETE_FOOD:
       const deletedFood = state.food.filter((item) => {
