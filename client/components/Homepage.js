@@ -20,7 +20,6 @@ class Homepage extends React.Component {
         <h1 id='welcome'>Welcome to AteTwenty!</h1>
         <DisplayGoals/>
         <h2>CURRENT TOTALS</h2>
-        {/* <SearchPage /> */}
         <h1>TODAY'S Date</h1>
         <Log />
         <NavBar />

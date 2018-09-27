@@ -48,12 +48,13 @@ width: 100%;
 
 div.ui.menu.top{
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   /* align-self: center; */
   position: fixed;
   top: 0;
   width: 100%;
   }
+
 /* DailyGoals */
 #goals{
   display: flex

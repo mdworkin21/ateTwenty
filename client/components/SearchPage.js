@@ -23,11 +23,19 @@ class SearchPage extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
 
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value
+    })
+  }
+
+  handleClear(event){
+    event.preventDefault();
+    this.setState({
+      nutrientArr: []
     })
   }
   
@@ -70,6 +78,8 @@ class SearchPage extends Component {
             <input type="text" name="search"  onChange={this.handleChange} value={this.state.search}/>
            
               <Button onClick={this.handleSubmit} icon='search' type="submit" />
+              <Button onClick={this.handleClear} name='clear' type="submit" />
+
            
             </Form.Field>
             

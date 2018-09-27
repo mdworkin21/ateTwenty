@@ -1117,6 +1117,7 @@ var SearchPage = function (_Component) {
     };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleClear = _this.handleClear.bind(_this);
     return _this;
   }
 
@@ -1124,6 +1125,14 @@ var SearchPage = function (_Component) {
     key: 'handleChange',
     value: function handleChange(event) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: 'handleClear',
+    value: function handleClear(event) {
+      event.preventDefault();
+      this.setState({
+        nutrientArr: []
+      });
     }
   }, {
     key: 'handleSubmit',
@@ -1205,7 +1214,8 @@ var SearchPage = function (_Component) {
             _semanticUiReact.Form.Field,
             null,
             _react2.default.createElement('input', { type: 'text', name: 'search', onChange: this.handleChange, value: this.state.search }),
-            _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit, icon: 'search', type: 'submit' })
+            _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit, icon: 'search', type: 'submit' }),
+            _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleClear, name: 'clear', type: 'submit' })
           ),
           _react2.default.createElement(_FoodGroups2.default, null)
         ),
@@ -1275,6 +1285,8 @@ var _Homepage = __webpack_require__(/*! ./Homepage */ "./client/components/Homep
 
 var _Homepage2 = _interopRequireDefault(_Homepage);
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1294,7 +1306,7 @@ var SearchResults = function (_Component) {
     var _this = _possibleConstructorReturn(this, (SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).call(this));
 
     _this.state = {
-      clearResults: false
+      redirect: false
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
@@ -1317,7 +1329,7 @@ var SearchResults = function (_Component) {
                 this.props.addFood(addThisFood);
                 this.props.changeSearchVal(false);
                 this.setState({
-                  clearResults: true
+                  redirect: true
                 });
 
               case 5:
@@ -1339,7 +1351,13 @@ var SearchResults = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log(this.props.nutrientArr.length);
+      var _from = { from: { pathname: "/" } },
+          from = _from.from;
+
+      if (this.state.redirect) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: from });
+      }
+
       return _react2.default.createElement(
         _semanticUiReact.List,
         { celled: true },

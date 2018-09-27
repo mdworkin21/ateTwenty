@@ -4,13 +4,14 @@ import { List, Button } from 'semantic-ui-react'
 import { addFoodToLog, changeSearchedValue } from "../store";
 import regeneratorRuntime from "regenerator-runtime";
 import Homepage from './Homepage'
+import {Redirect} from 'react-router-dom'
 
 
 class SearchResults extends Component {
   constructor(){
     super() 
     this.state = {
-      clearResults: false
+      redirect: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -23,13 +24,17 @@ class SearchResults extends Component {
     this.props.addFood(addThisFood);
     this.props.changeSearchVal(false)
     this.setState({
-      clearResults: true
+      redirect: true
     })
   }
 
-  render(){     
-    console.log(this.props.nutrientArr.length)
-    return (
+  render(){ 
+    const { from } = { from: { pathname: "/" } };    
+    if (this.state.redirect) {
+      return <Redirect to={from} />;
+    }
+
+    return  (
       <List celled>
        { this.props.nutrientArr.map(item => {
          return (
