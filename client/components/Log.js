@@ -73,8 +73,6 @@ class Log extends Component {
     </Table.Row>
     </Table.Footer>
   </Table>
-  <NavBar />
-
   </React.Fragment>
 )
   }

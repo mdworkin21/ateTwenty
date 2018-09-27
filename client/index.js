@@ -10,6 +10,7 @@ import Log from './components/Log'
 import store from './store'
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import SearchPage from './components/SearchPage';
 // import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
@@ -19,7 +20,7 @@ ReactDOM.render(
       <Route exact path="/" component={Homepage} />
       <Route exact path="/calc" component={MacroCalc} />
       <Route exact path="/log" component={Log} />
-
+      <Route exact path="/search" component={SearchPage} />
   </Switch>
    </Router>
   </Provider>, 

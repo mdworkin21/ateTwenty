@@ -306,6 +306,10 @@ var _Log = __webpack_require__(/*! ./Log */ "./client/components/Log.js");
 
 var _Log2 = _interopRequireDefault(_Log);
 
+var _TopNav = __webpack_require__(/*! ./TopNav */ "./client/components/TopNav.js");
+
+var _TopNav2 = _interopRequireDefault(_TopNav);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -314,6 +318,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//Need to abstract out search bar (et al.), then when search is activated, switch to search page
 var Homepage = function (_React$Component) {
   _inherits(Homepage, _React$Component);
 
@@ -326,36 +331,27 @@ var Homepage = function (_React$Component) {
   _createClass(Homepage, [{
     key: 'render',
     value: function render() {
-      return !this.props.state.searched ? _react2.default.createElement(
+      return _react2.default.createElement(
         _react2.default.Fragment,
         null,
-        _react2.default.createElement(
-          'h1',
-          { id: 'welcome' },
-          'Welcome to AteTwenty!'
-        ),
-        _react2.default.createElement(
-          'h2',
-          null,
-          'CURRENT TOTALS'
-        ),
-        _react2.default.createElement(_SearchPage2.default, null),
-        _react2.default.createElement(
-          'h1',
-          null,
-          'TODAY\'S Date'
-        ),
-        _react2.default.createElement(_Log2.default, null)
-      ) : _react2.default.createElement(
-        _react2.default.Fragment,
-        null,
+        _react2.default.createElement(_TopNav2.default, null),
         _react2.default.createElement(
           'h1',
           { id: 'welcome' },
           'Welcome to AteTwenty!'
         ),
         _react2.default.createElement(_DisplayGoals2.default, null),
-        _react2.default.createElement(_SearchPage2.default, null),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'CURRENT TOTALS'
+        ),
+        _react2.default.createElement(
+          'h1',
+          null,
+          'TODAY\'S Date'
+        ),
+        _react2.default.createElement(_Log2.default, null),
         _react2.default.createElement(_NavBar2.default, null)
       );
     }
@@ -562,8 +558,7 @@ var Log = function (_Component) {
               )
             )
           )
-        ),
-        _react2.default.createElement(_NavBar2.default, null)
+        )
       );
     }
   }]);
@@ -1004,7 +999,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var NavBar = function NavBar() {
   return _react2.default.createElement(
     _semanticUiReact.Menu,
-    { icon: true },
+    { icon: true, className: 'div ui menu bottom' },
     _react2.default.createElement(
       _semanticUiReact.Menu.Item,
       { name: 'home' },
@@ -1415,6 +1410,51 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
+/***/ "./client/components/TopNav.js":
+/*!*************************************!*\
+  !*** ./client/components/TopNav.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TopNav = function TopNav() {
+  return _react2.default.createElement(
+    _semanticUiReact.Menu,
+    { icon: true, className: 'div ui menu top' },
+    _react2.default.createElement(
+      _semanticUiReact.Menu.Item,
+      { name: 'plus' },
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/search' },
+        ' ',
+        _react2.default.createElement(_semanticUiReact.Icon, { name: 'plus' })
+      )
+    )
+  );
+};
+
+exports.default = TopNav;
+
+/***/ }),
+
 /***/ "./client/index.js":
 /*!*************************!*\
   !*** ./client/index.js ***!
@@ -1453,13 +1493,14 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
+var _SearchPage = __webpack_require__(/*! ./components/SearchPage */ "./client/components/SearchPage.js");
+
+var _SearchPage2 = _interopRequireDefault(_SearchPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import registerServiceWorker from './registerServiceWorker'
 
-//Root. Call ReactDOM.Render and serviceWorker here.
-//React Router stuff here
-//Set up Provider for Redux
 _reactDom2.default.render(_react2.default.createElement(
   _reactRedux.Provider,
   { store: _store2.default },
@@ -1471,10 +1512,13 @@ _reactDom2.default.render(_react2.default.createElement(
       null,
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Homepage2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/calc', component: _MacroCalc2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/log', component: _Log2.default })
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/log', component: _Log2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/search', component: _SearchPage2.default })
     )
   )
-), document.getElementById('root'));
+), document.getElementById('root')); //Root. Call ReactDOM.Render and serviceWorker here.
+//React Router stuff here
+//Set up Provider for Redux
 
 /***/ }),
 

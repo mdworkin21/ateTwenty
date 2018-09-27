@@ -6,25 +6,23 @@ import {Grid, Segment, Image, Divider} from 'semantic-ui-react'
 import DisplayGoals from './DisplayGoals'
 import SearchPage from './SearchPage'
 import Log from './Log'
+import TopNav from './TopNav'
 
+//Need to abstract out search bar (et al.), then when search is activated, switch to search page
 class Homepage extends React.Component {
   constructor(){
     super()
   }
   render(){
-    return !this.props.state.searched ? 
+    return (
       <React.Fragment>
-        <h1 id='welcome'>Welcome to AteTwenty!</h1>
-        <h2>CURRENT TOTALS</h2>
-        <SearchPage />
-        <h1>TODAY'S Date</h1>
-        <Log />
-      </React.Fragment>
-         : (
-      <React.Fragment>
+        <TopNav />
         <h1 id='welcome'>Welcome to AteTwenty!</h1>
         <DisplayGoals/>
-        <SearchPage />
+        <h2>CURRENT TOTALS</h2>
+        {/* <SearchPage /> */}
+        <h1>TODAY'S Date</h1>
+        <Log />
         <NavBar />
       </React.Fragment>
     )

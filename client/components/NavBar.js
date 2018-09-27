@@ -4,7 +4,7 @@ import {Menu, Icon} from 'semantic-ui-react'
 
 const NavBar = () => {
     return (
-      <Menu icon>
+      <Menu icon className="div ui menu bottom">
         <Menu.Item name='home'> 
           <Link to="/"> <Icon name='home'/></Link>
         </Menu.Item>

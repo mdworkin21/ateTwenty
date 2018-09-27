@@ -3,6 +3,8 @@
 #welcome {
   display: flex;
   justify-content: center;
+  position: relative;
+  top: 2vw;
 }
 
 /* MacroCalc */
@@ -33,7 +35,7 @@ ui.form.form.ui.form{
 }
 
 /* NavBar */
-div.ui.menu{
+div.ui.menu.bottom{
 display: flex;
 justify-content: center;
 /* align-self: center; */
@@ -42,6 +44,16 @@ bottom: 0;
 width: 100%;
 }
 
+/* TopNav */
+
+div.ui.menu.top{
+  display: flex;
+  justify-content: center;
+  /* align-self: center; */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  }
 /* DailyGoals */
 #goals{
   display: flex
