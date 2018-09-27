@@ -10,9 +10,9 @@ import DropDownFoodGroups from './FoodGroups';
 import {connect} from 'react-redux'
 import {changeSearchedValue} from '../store'
 import {nutritionInfoByMeasurement} from '../utilities/measurementConv'
+import MeasurementTypes from './MeasurementSel'
 
 
-let measurementType = [{key: 'oz', value: 'oz', text: 'oz'}]
 
 class SearchPage extends Component {
   constructor(){
@@ -23,7 +23,6 @@ class SearchPage extends Component {
       names: [],
       options: [],
       quantity: 0,
-      measurement: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -35,7 +34,6 @@ class SearchPage extends Component {
       [event.target.name]: event.target.value
     })
   }
-
 
   handleClear(event){
     event.preventDefault();
@@ -58,7 +56,7 @@ class SearchPage extends Component {
       let nutritionInfo = await getNutritionInfo(NDBNum, items)
 
       //Adjust Nutrition Info Based on quantity and measurement type
-      let adjustedNutritionInfo = nutritionInfoByMeasurement(nutritionInfo, this.state.quantity, this.state.measurement)
+      let adjustedNutritionInfo = nutritionInfoByMeasurement(nutritionInfo, this.state.quantity, this.props.measurement)
 
       this.props.changeSearchVal(!this.props.searched)
       this.setState({
@@ -91,7 +89,7 @@ class SearchPage extends Component {
               <input type="number" name="quantity" onChange={this.handleChange} value={this.state.quantity} id='quantity'/>
             </Form.Field>
 
-            <Dropdown placeholder='type' options={measurementType} onChange={this.handleChange}/>
+            <MeasurementTypes />
 
             <DropDownFoodGroups/>
            
@@ -114,9 +112,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
+  console.log('STRATETETSET',state)
   return {
     searched: state.searched,
-    fgCode: state.fgCode 
+    fgCode: state.fgCode,
+    measurement: state.measurement
     
   }
 }

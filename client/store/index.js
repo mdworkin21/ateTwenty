@@ -16,6 +16,7 @@ const initialState = {
   protein: 0,
   food: [],
   fgCode: '',
+  measurement: '',
   dailyGoals: {
     calories: "",
     protein: "",
@@ -30,6 +31,7 @@ const ADD_FOOD = 'ADD_FOOD'
 const DELETE_FOOD = 'DELETE_FOOD'
 const UPDATE_FOOD = 'UPDATE_FOOD'
 const GET_FGCODE = 'GET_FGCODE'
+const GET_MEASUREMENT = 'GET_MEASUREMENT'
 const SET_GOALS = 'SET_GOALS'
 const GET_TOTALS = 'GET_TOTALS'
 const SEARCH_OCCURRED = 'SEARCH_OCCURED'
@@ -74,6 +76,13 @@ export const getFgCode = (code) => {
   return {
     type: GET_FGCODE,
     code
+  }
+}
+
+export const getMeasurement = (measure) => {
+  return {
+    type: GET_MEASUREMENT,
+    measure
   }
 }
 
@@ -214,7 +223,9 @@ function reducer(state = initialState, action){
     case UPDATE_FOOD: 
       return {...state, food: action.food}
     case GET_FGCODE:
-      return {... state, fgCode: action.code}
+      return {...state, fgCode: action.code}
+    case GET_MEASUREMENT:
+      return {...state, measurement: action.measure}
     case SET_GOALS:
       return( 
         {

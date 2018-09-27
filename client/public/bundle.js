@@ -989,6 +989,135 @@ exports.default = MacroCalc;
 
 /***/ }),
 
+/***/ "./client/components/MeasurementSel.js":
+/*!*********************************************!*\
+  !*** ./client/components/MeasurementSel.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var measurementType = [{ id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz' }, { id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup' }];
+
+var MeasurementTypes = function (_Component) {
+  _inherits(MeasurementTypes, _Component);
+
+  function MeasurementTypes() {
+    _classCallCheck(this, MeasurementTypes);
+
+    var _this = _possibleConstructorReturn(this, (MeasurementTypes.__proto__ || Object.getPrototypeOf(MeasurementTypes)).call(this));
+
+    _this.handleChange = function (e, _ref) {
+      var value = _ref.value;
+
+      var selectedOption = _this.state.options.filter(function (option) {
+        return option.value === value;
+      });
+      var selectedMeasure = selectedOption[0].category;
+      _this.props.sendMeasurement(selectedMeasure);
+      _this.setState({
+        value: value });
+
+      console.log(_this.state);
+    };
+
+    _this.state = {
+      options: [],
+      value: ''
+    };
+    return _this;
+  }
+
+  _createClass(MeasurementTypes, [{
+    key: 'addTextPropertyDeleteCreatedUpdated',
+    value: function addTextPropertyDeleteCreatedUpdated(arr) {
+      var arrWithTextProp = [];
+      arr.forEach(function (object) {
+        object.text = object.category;
+        object.key = object.id;
+        object.value = object.id;
+        delete object.createdAt;
+        delete object.updatedAt;
+        arrWithTextProp.push(object);
+      });
+      return arrWithTextProp;
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      try {
+        var alteredData = this.addTextPropertyDeleteCreatedUpdated(measurementType);
+        this.setState({
+          options: alteredData
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(_semanticUiReact.Dropdown, {
+        button: true,
+        className: 'icon',
+        floating: true,
+        labeled: true,
+        icon: 'world',
+        options: this.state.options,
+        search: true,
+        text: 'Select Measurement',
+        onChange: this.handleChange
+      });
+    }
+  }]);
+
+  return MeasurementTypes;
+}(_react.Component);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    sendMeasurement: function sendMeasurement(measure) {
+      return dispatch((0, _store.getMeasurement)(measure));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(MeasurementTypes);
+
+{/* <Dropdown placeholder='type' options={measurementType} onClick={this.handleSelectMeasure} /> */}
+
+/***/ }),
+
 /***/ "./client/components/NavBar.js":
 /*!*************************************!*\
   !*** ./client/components/NavBar.js ***!
@@ -1099,6 +1228,10 @@ var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
 
 var _measurementConv = __webpack_require__(/*! ../utilities/measurementConv */ "./client/utilities/measurementConv.js");
 
+var _MeasurementSel = __webpack_require__(/*! ./MeasurementSel */ "./client/components/MeasurementSel.js");
+
+var _MeasurementSel2 = _interopRequireDefault(_MeasurementSel);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1115,8 +1248,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // import SearchError from './SearchError';
 
 
-var measurementType = [{ key: 'oz', value: 'oz', text: 'oz' }];
-
 var SearchPage = function (_Component) {
   _inherits(SearchPage, _Component);
 
@@ -1130,8 +1261,7 @@ var SearchPage = function (_Component) {
       nutrientArr: [],
       names: [],
       options: [],
-      quantity: 0,
-      measurement: ''
+      quantity: 0
     };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -1183,7 +1313,7 @@ var SearchPage = function (_Component) {
 
 
                 //Adjust Nutrition Info Based on quantity and measurement type
-                adjustedNutritionInfo = (0, _measurementConv.nutritionInfoByMeasurement)(nutritionInfo, this.state.quantity, this.state.measurement);
+                adjustedNutritionInfo = (0, _measurementConv.nutritionInfoByMeasurement)(nutritionInfo, this.state.quantity, this.props.measurement);
 
 
                 this.props.changeSearchVal(!this.props.searched);
@@ -1241,7 +1371,7 @@ var SearchPage = function (_Component) {
             null,
             _react2.default.createElement('input', { type: 'number', name: 'quantity', onChange: this.handleChange, value: this.state.quantity, id: 'quantity' })
           ),
-          _react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'type', options: measurementType, onChange: this.handleChange }),
+          _react2.default.createElement(_MeasurementSel2.default, null),
           _react2.default.createElement(_FoodGroups2.default, null)
         ),
         _react2.default.createElement(
@@ -1266,9 +1396,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
+  console.log('STRATETETSET', state);
   return {
     searched: state.searched,
-    fgCode: state.fgCode
+    fgCode: state.fgCode,
+    measurement: state.measurement
 
   };
 };
@@ -1573,7 +1705,7 @@ _reactDom2.default.render(_react2.default.createElement(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setDailyGoal = exports.deleteItemFromLog = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.changeSearchedValue = exports.getFgCode = undefined;
+exports.setDailyGoal = exports.deleteItemFromLog = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.changeSearchedValue = exports.getMeasurement = exports.getFgCode = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1609,6 +1741,7 @@ var initialState = {
   protein: 0,
   food: [],
   fgCode: '',
+  measurement: '',
   dailyGoals: {
     calories: "",
     protein: "",
@@ -1622,6 +1755,7 @@ var ADD_FOOD = 'ADD_FOOD';
 var DELETE_FOOD = 'DELETE_FOOD';
 var UPDATE_FOOD = 'UPDATE_FOOD';
 var GET_FGCODE = 'GET_FGCODE';
+var GET_MEASUREMENT = 'GET_MEASUREMENT';
 var SET_GOALS = 'SET_GOALS';
 var GET_TOTALS = 'GET_TOTALS';
 var SEARCH_OCCURRED = 'SEARCH_OCCURED';
@@ -1666,6 +1800,13 @@ var getFgCode = exports.getFgCode = function getFgCode(code) {
   return {
     type: GET_FGCODE,
     code: code
+  };
+};
+
+var getMeasurement = exports.getMeasurement = function getMeasurement(measure) {
+  return {
+    type: GET_MEASUREMENT,
+    measure: measure
   };
 };
 
@@ -1944,6 +2085,8 @@ function reducer() {
       return _extends({}, state, { food: action.food });
     case GET_FGCODE:
       return _extends({}, state, { fgCode: action.code });
+    case GET_MEASUREMENT:
+      return _extends({}, state, { measurement: action.measure });
     case SET_GOALS:
       return _extends({}, state, {
         dailyGoals: {
