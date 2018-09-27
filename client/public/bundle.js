@@ -1223,7 +1223,8 @@ var SearchPage = function (_Component) {
           'div',
           { id: 'searchResults' },
           _react2.default.createElement(_SearchResults2.default, { nutrientArr: this.state.nutrientArr })
-        )
+        ),
+        _react2.default.createElement(_NavBar2.default, null)
       );
     }
   }]);

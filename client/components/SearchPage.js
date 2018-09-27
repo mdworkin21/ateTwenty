@@ -90,6 +90,7 @@ class SearchPage extends Component {
           <div id="searchResults">
           <SearchResults nutrientArr={this.state.nutrientArr} />
           </div>
+          <NavBar />
         </React.Fragment>
         )
     }
