@@ -33,7 +33,6 @@ class SearchResults extends Component {
     if (this.state.redirect) {
       return <Redirect to={from} />;
     }
-
     return  (
       <List celled>
        { this.props.nutrientArr.map(item => {
@@ -41,10 +40,9 @@ class SearchResults extends Component {
            <List.Item key={item.ndbNum}>
              <List.Content>
               <List.Description id="foodName">{item.name}</List.Description>
-              <List.Description>Cal {item.calories} | Pro {item.protein} | Fat {item.fat} | Carb {item.carb}</List.Description >
+              <List.Description>Cal: {item.calories} | Pro: {item.protein} | Fat: {item.fat} | Carb: {item.carb}</List.Description >
              </List.Content>
              <Button id="addFoodButton" onClick={(event) => this.handleSubmit(item.ndbNum, event)}>Add Food</Button>
-            <p id="serving">Per 100 grams</p>
            </List.Item>
          )
        }) }

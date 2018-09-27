@@ -1,17 +1,16 @@
 import React, {Component} from 'react'
 import NavBar from './NavBar'
-import axios from 'axios'
 // import EmptySearch from './EmptySearch';
 import SearchResults from './SearchResults';
 import regeneratorRuntime from "regenerator-runtime";
 // import SearchError from './SearchError';
-import { Form, Header, Button, Modal} from 'semantic-ui-react'
-import {getNDBNumber, itemNames, digOutData, getNutritionInfo, mapNamesToNDB} from '../utilities/usdaApi'
+import { Form, Button, Modal} from 'semantic-ui-react'
+import {getNDBNumber, itemNames, getNutritionInfo} from '../utilities/usdaApi'
 import DropDownFoodGroups from './FoodGroups';
 import {connect} from 'react-redux'
 import {changeSearchedValue} from '../store'
+import {nutritionInfoByMeasurement} from '../utilities/measurementConv'
 
-//This file's a mess and needs refactoring
 class SearchPage extends Component {
   constructor(){
     super()
@@ -19,7 +18,9 @@ class SearchPage extends Component {
       search: "",
       nutrientArr: [],
       names: [],
-      options: []
+      options: [],
+      quantity: 0,
+      measurement: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -52,10 +53,13 @@ class SearchPage extends Component {
       //Axios Request for nutrition info
       let nutritionInfo = await getNutritionInfo(NDBNum, items)
 
+      //Adjust Nutrition Info Based on quantity and measurement type
+      let adjustedNutritionInfo = nutritionInfoByMeasurement(nutritionInfo, this.state.quantity, this.state.measurement)
+
       this.props.changeSearchVal(!this.props.searched)
       this.setState({
         search: '',
-        nutrientArr: nutritionInfo
+        nutrientArr: adjustedNutritionInfo
       })
     } catch(err){
       //need better err handling. Should render SearchErr component
@@ -68,21 +72,24 @@ class SearchPage extends Component {
     }
   }
 
-//This is better than before but still needs work. Probably better way to do this. Maybe Put form in own component
   render(){
         return (
           <React.Fragment>
           
           <Form onSubmit={this.handleSubmit} className="searchBox">
             <Form.Field >
-            <input type="text" name="search"  onChange={this.handleChange} value={this.state.search}/>
-           
+              <input type="text" name="search"  onChange={this.handleChange} value={this.state.search}/>
               <Button onClick={this.handleSubmit} icon='search' type="submit" />
               <Button onClick={this.handleClear} name='clear' type="submit" />
-
-           
             </Form.Field>
             
+            <Form.Field>
+              <input type="number" name="quantity" onChange={this.handleChange} value={this.state.quantity} id='quantity'/>
+            </Form.Field>
+
+            <Form.Field>
+              <input type="text" name="measurement" onChange={this.handleChange} value={this.state.measurement} id='quantity'/>
+            </Form.Field>
             <DropDownFoodGroups/>
            
           </Form>

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {getFoodFromLog, getFoodTotals} from '../store'
 import {Grid, Segment, Image, Divider} from 'semantic-ui-react'
 import DisplayGoals from './DisplayGoals'
-import SearchPage from './SearchPage'
 import Log from './Log'
 import TopNav from './TopNav'
 
@@ -14,13 +13,16 @@ class Homepage extends React.Component {
     super()
   }
   render(){
+    let date = new Date().toString()
+    date = date.slice(0, date.indexOf(':') - 3)
+    
     return (
       <React.Fragment>
         <TopNav />
         <h1 id='welcome'>Welcome to AteTwenty!</h1>
         <DisplayGoals/>
         <h2>CURRENT TOTALS</h2>
-        <h1>TODAY'S Date</h1>
+        <h1>{`${date}`}</h1>
         <Log />
         <NavBar />
       </React.Fragment>

@@ -5,6 +5,7 @@
   justify-content: center;
   position: relative;
   top: 2vw;
+  z-index: 0;
 }
 
 /* MacroCalc */
@@ -53,6 +54,7 @@ div.ui.menu.top{
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1;
   }
 
 /* DailyGoals */
@@ -79,4 +81,9 @@ div.ui.menu.top{
   border-collapse: separate;
   border-spacing: 0;
   padding-bottom: 30px;
+}
+
+/* search */
+#quantity {
+  width: 5%;
 }

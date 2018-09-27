@@ -298,10 +298,6 @@ var _DisplayGoals = __webpack_require__(/*! ./DisplayGoals */ "./client/componen
 
 var _DisplayGoals2 = _interopRequireDefault(_DisplayGoals);
 
-var _SearchPage = __webpack_require__(/*! ./SearchPage */ "./client/components/SearchPage.js");
-
-var _SearchPage2 = _interopRequireDefault(_SearchPage);
-
 var _Log = __webpack_require__(/*! ./Log */ "./client/components/Log.js");
 
 var _Log2 = _interopRequireDefault(_Log);
@@ -331,6 +327,9 @@ var Homepage = function (_React$Component) {
   _createClass(Homepage, [{
     key: 'render',
     value: function render() {
+      var date = new Date().toString();
+      date = date.slice(0, date.indexOf(':') - 3);
+
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -349,7 +348,7 @@ var Homepage = function (_React$Component) {
         _react2.default.createElement(
           'h1',
           null,
-          'TODAY\'S Date'
+          '' + date
         ),
         _react2.default.createElement(_Log2.default, null),
         _react2.default.createElement(_NavBar2.default, null)
@@ -1060,10 +1059,6 @@ var _NavBar = __webpack_require__(/*! ./NavBar */ "./client/components/NavBar.js
 
 var _NavBar2 = _interopRequireDefault(_NavBar);
 
-var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
-var _axios2 = _interopRequireDefault(_axios);
-
 var _SearchResults = __webpack_require__(/*! ./SearchResults */ "./client/components/SearchResults.js");
 
 var _SearchResults2 = _interopRequireDefault(_SearchResults);
@@ -1084,6 +1079,8 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
 
+var _measurementConv = __webpack_require__(/*! ../utilities/measurementConv */ "./client/utilities/measurementConv.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1100,7 +1097,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // import SearchError from './SearchError';
 
 
-//This file's a mess and needs refactoring
 var SearchPage = function (_Component) {
   _inherits(SearchPage, _Component);
 
@@ -1113,7 +1109,9 @@ var SearchPage = function (_Component) {
       search: "",
       nutrientArr: [],
       names: [],
-      options: []
+      options: [],
+      quantity: 0,
+      measurement: ''
     };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -1138,7 +1136,7 @@ var SearchPage = function (_Component) {
     key: 'handleSubmit',
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(event) {
-        var NDBNum, items, nutritionInfo;
+        var NDBNum, items, nutritionInfo, adjustedNutritionInfo;
         return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1164,16 +1162,20 @@ var SearchPage = function (_Component) {
                 nutritionInfo = _context.sent;
 
 
+                //Adjust Nutrition Info Based on quantity and measurement type
+                adjustedNutritionInfo = (0, _measurementConv.nutritionInfoByMeasurement)(nutritionInfo, this.state.quantity, this.state.measurement);
+
+
                 this.props.changeSearchVal(!this.props.searched);
                 this.setState({
                   search: '',
-                  nutrientArr: nutritionInfo
+                  nutrientArr: adjustedNutritionInfo
                 });
-                _context.next = 18;
+                _context.next = 19;
                 break;
 
-              case 13:
-                _context.prev = 13;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context['catch'](1);
 
                 //need better err handling. Should render SearchErr component
@@ -1184,12 +1186,12 @@ var SearchPage = function (_Component) {
                 });
                 console.log(_context.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 13]]);
+        }, _callee, this, [[1, 14]]);
       }));
 
       function handleSubmit(_x) {
@@ -1198,9 +1200,6 @@ var SearchPage = function (_Component) {
 
       return handleSubmit;
     }()
-
-    //This is better than before but still needs work. Probably better way to do this. Maybe Put form in own component
-
   }, {
     key: 'render',
     value: function render() {
@@ -1216,6 +1215,16 @@ var SearchPage = function (_Component) {
             _react2.default.createElement('input', { type: 'text', name: 'search', onChange: this.handleChange, value: this.state.search }),
             _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit, icon: 'search', type: 'submit' }),
             _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleClear, name: 'clear', type: 'submit' })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement('input', { type: 'number', name: 'quantity', onChange: this.handleChange, value: this.state.quantity, id: 'quantity' })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement('input', { type: 'text', name: 'measurement', onChange: this.handleChange, value: this.state.measurement, id: 'quantity' })
           ),
           _react2.default.createElement(_FoodGroups2.default, null)
         ),
@@ -1358,7 +1367,6 @@ var SearchResults = function (_Component) {
       if (this.state.redirect) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: from });
       }
-
       return _react2.default.createElement(
         _semanticUiReact.List,
         { celled: true },
@@ -1377,13 +1385,13 @@ var SearchResults = function (_Component) {
               _react2.default.createElement(
                 _semanticUiReact.List.Description,
                 null,
-                'Cal ',
+                'Cal: ',
                 item.calories,
-                ' | Pro ',
+                ' | Pro: ',
                 item.protein,
-                ' | Fat ',
+                ' | Fat: ',
                 item.fat,
-                ' | Carb ',
+                ' | Carb: ',
                 item.carb
               )
             ),
@@ -1393,11 +1401,6 @@ var SearchResults = function (_Component) {
                   return _this2.handleSubmit(item.ndbNum, event);
                 } },
               'Add Food'
-            ),
-            _react2.default.createElement(
-              'p',
-              { id: 'serving' },
-              'Per 100 grams'
             )
           );
         })
@@ -2222,6 +2225,65 @@ var foodGroupCategories = exports.foodGroupCategories = [{
   text: "Restaurant Foods",
   value: 25
 }];
+
+/***/ }),
+
+/***/ "./client/utilities/measurementConv.js":
+/*!*********************************************!*\
+  !*** ./client/utilities/measurementConv.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.gramsToOunces = gramsToOunces;
+exports.conversionWithUserInput = conversionWithUserInput;
+exports.nutritionInfoByMeasurement = nutritionInfoByMeasurement;
+function gramsToOunces(grams) {
+  return grams * 0.0352739619;
+}
+
+function conversionWithUserInput(quantity, measureType) {
+  if (measureType === 'oz') {
+    return quantity / gramsToOunces(100);
+  }
+}
+
+function nutritionInfoByMeasurement(nutrientArr, quantity, measureType) {
+
+  nutrientArr.forEach(function (element) {
+    if (element.calories) {
+      element.calories = (+element.calories * conversionWithUserInput(quantity, measureType)).toFixed(2);
+    } else {
+      element.calories = 0;
+    }
+
+    if (element.protein) {
+      element.protein = (+element.protein * conversionWithUserInput(quantity, measureType)).toFixed(2);
+    } else {
+      element.protein = 0;
+    }
+
+    if (element.fat) {
+      element.fat = (+element.fat * conversionWithUserInput(quantity, measureType)).toFixed(2);
+    } else {
+      element.fat = 0;
+    }
+
+    if (element.carb) {
+      element.carb = (+element.carb * conversionWithUserInput(quantity, measureType)).toFixed(2);
+    } else {
+      element.carb = 0;
+    }
+  });
+
+  return nutrientArr;
+}
 
 /***/ }),
 
