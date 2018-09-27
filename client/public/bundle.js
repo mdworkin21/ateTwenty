@@ -184,6 +184,10 @@ var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
 
 var _foodGroupCat = __webpack_require__(/*! ../utilities/foodGroupCat */ "./client/utilities/foodGroupCat.js");
 
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -202,6 +206,12 @@ var DropDownFoodGroups = function (_Component) {
 
     _this.handleChange = function (e, _ref) {
       var value = _ref.value;
+
+      var selectedOption = _this.state.options.filter(function (option) {
+        return option.value === value;
+      });
+      var selectedFG = selectedOption[0].code;
+      _this.props.sendFGCode(selectedFG);
 
       _this.setState({
         value: value });
@@ -260,7 +270,15 @@ var DropDownFoodGroups = function (_Component) {
   return DropDownFoodGroups;
 }(_react.Component);
 
-exports.default = DropDownFoodGroups;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    sendFGCode: function sendFGCode(code) {
+      return dispatch((0, _store.getFgCode)(code));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(DropDownFoodGroups);
 
 /***/ }),
 
@@ -1097,6 +1115,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // import SearchError from './SearchError';
 
 
+var measurementType = [{ key: 'oz', value: 'oz', text: 'oz' }];
+
 var SearchPage = function (_Component) {
   _inherits(SearchPage, _Component);
 
@@ -1221,11 +1241,7 @@ var SearchPage = function (_Component) {
             null,
             _react2.default.createElement('input', { type: 'number', name: 'quantity', onChange: this.handleChange, value: this.state.quantity, id: 'quantity' })
           ),
-          _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement('input', { type: 'text', name: 'measurement', onChange: this.handleChange, value: this.state.measurement, id: 'quantity' })
-          ),
+          _react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'type', options: measurementType, onChange: this.handleChange }),
           _react2.default.createElement(_FoodGroups2.default, null)
         ),
         _react2.default.createElement(

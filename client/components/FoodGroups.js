@@ -2,8 +2,11 @@ import React, {Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import regeneratorRuntime from "regenerator-runtime";
 import {foodGroupCategories} from '../utilities/foodGroupCat'
+import {connect} from 'react-redux'
+import {getFgCode} from '../store'
 
-export default class DropDownFoodGroups extends Component {
+
+class DropDownFoodGroups extends Component {
   constructor(){
     super()
     this.state = {
@@ -26,6 +29,13 @@ export default class DropDownFoodGroups extends Component {
   }
 
   handleChange = (e, {value}) => {
+    const selectedOption = this.state.options.filter(option => {
+      return option.value === value
+    })
+    const selectedFG = selectedOption[0].code
+    this.props.sendFGCode(selectedFG)
+
+
     this.setState({ 
       value: value })
   }
@@ -55,3 +65,12 @@ export default class DropDownFoodGroups extends Component {
   />
   } 
 }
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    sendFGCode: (code) => dispatch(getFgCode(code))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(DropDownFoodGroups)

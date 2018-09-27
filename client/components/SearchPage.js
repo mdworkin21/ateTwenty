@@ -4,12 +4,15 @@ import NavBar from './NavBar'
 import SearchResults from './SearchResults';
 import regeneratorRuntime from "regenerator-runtime";
 // import SearchError from './SearchError';
-import { Form, Button, Modal} from 'semantic-ui-react'
+import { Form, Button, Dropdown} from 'semantic-ui-react'
 import {getNDBNumber, itemNames, getNutritionInfo} from '../utilities/usdaApi'
 import DropDownFoodGroups from './FoodGroups';
 import {connect} from 'react-redux'
 import {changeSearchedValue} from '../store'
 import {nutritionInfoByMeasurement} from '../utilities/measurementConv'
+
+
+let measurementType = [{key: 'oz', value: 'oz', text: 'oz'}]
 
 class SearchPage extends Component {
   constructor(){
@@ -32,6 +35,7 @@ class SearchPage extends Component {
       [event.target.name]: event.target.value
     })
   }
+
 
   handleClear(event){
     event.preventDefault();
@@ -87,9 +91,8 @@ class SearchPage extends Component {
               <input type="number" name="quantity" onChange={this.handleChange} value={this.state.quantity} id='quantity'/>
             </Form.Field>
 
-            <Form.Field>
-              <input type="text" name="measurement" onChange={this.handleChange} value={this.state.measurement} id='quantity'/>
-            </Form.Field>
+            <Dropdown placeholder='type' options={measurementType} onChange={this.handleChange}/>
+
             <DropDownFoodGroups/>
            
           </Form>
