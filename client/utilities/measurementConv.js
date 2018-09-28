@@ -7,25 +7,16 @@ export const measurementType = [
 ]
 
 
-
-export function gramsToOunces(grams){
-  return grams * 0.0352739619
-}
-
-
-
 export function conversionWithUserInput(quantity, measureType){
   if (measureType === 'oz'){
-    return quantity / gramsToOunces(100)
+    return quantity / (100 * 0.0352739619)
   } else if (measureType === 'gram'){
     return quantity / 100 
-  } 
-  
-  // else if (measurementType === 'cups'){
-  //   console.log("POOOP")
-  // } else if (measurementType =='pd'){
-  //   console.log("POOOOOPERSSSS")
-  // }
+  } else if (measureType === 'cup'){
+    return (113.4 / 100) * quantity
+  } else if (measureType === 'pd'){
+    return (453.592 / 100) * quantity
+  }
 } 
 
 export function nutritionInfoByMeasurement(nutrientArr, quantity, measureType){

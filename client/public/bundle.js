@@ -2394,27 +2394,20 @@ var foodGroupCategories = exports.foodGroupCategories = [{
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.gramsToOunces = gramsToOunces;
 exports.conversionWithUserInput = conversionWithUserInput;
 exports.nutritionInfoByMeasurement = nutritionInfoByMeasurement;
 var measurementType = exports.measurementType = [{ id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz' }, { id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup' }, { id: 3, key: 'gram', value: 'gram', text: 'gram', category: 'gram' }, { id: 4, key: 'pd', value: 'pd', text: 'pd', category: 'pd' }];
 
-function gramsToOunces(grams) {
-  return grams * 0.0352739619;
-}
-
 function conversionWithUserInput(quantity, measureType) {
   if (measureType === 'oz') {
-    return quantity / gramsToOunces(100);
+    return quantity / (100 * 0.0352739619);
   } else if (measureType === 'gram') {
     return quantity / 100;
+  } else if (measureType === 'cup') {
+    return 113.4 / 100 * quantity;
+  } else if (measureType === 'pd') {
+    return 453.592 / 100 * quantity;
   }
-
-  // else if (measurementType === 'cups'){
-  //   console.log("POOOP")
-  // } else if (measurementType =='pd'){
-  //   console.log("POOOOOPERSSSS")
-  // }
 }
 
 function nutritionInfoByMeasurement(nutrientArr, quantity, measureType) {
