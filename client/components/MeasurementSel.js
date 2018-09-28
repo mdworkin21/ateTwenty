@@ -6,16 +6,6 @@ import {getMeasurement} from '../store'
 import {measurementType} from '../utilities/measurementConv'
 
 
-// let measurementType = [{id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'}]
-
-// export const measurementType = [
-//   {id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, 
-//   {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'},
-//   {id: 3, key: 'gram', value: 'gram', text: 'gram', category: 'gram'},
-//   {id: 4, key: 'pd', value: 'pd', text: 'pd', category: 'pd'}
-
-// ]
-
 class MeasurementTypes extends Component {
   constructor(){
     super()

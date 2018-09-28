@@ -259,9 +259,8 @@ var DropDownFoodGroups = function (_Component) {
         floating: true,
         labeled: true,
         icon: 'food',
-        options: this.state.options
-        // search
-        , placeholder: 'Select Food Group',
+        options: this.state.options,
+        placeholder: 'Select Food Group',
         onChange: this.handleChange
       });
     }
@@ -1028,16 +1027,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// let measurementType = [{id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'}]
-
-// export const measurementType = [
-//   {id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, 
-//   {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'},
-//   {id: 3, key: 'gram', value: 'gram', text: 'gram', category: 'gram'},
-//   {id: 4, key: 'pd', value: 'pd', text: 'pd', category: 'pd'}
-
-// ]
 
 var MeasurementTypes = function (_Component) {
   _inherits(MeasurementTypes, _Component);
@@ -2406,7 +2395,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.gramsToOunces = gramsToOunces;
-exports.gramsToCups = gramsToCups;
 exports.conversionWithUserInput = conversionWithUserInput;
 exports.nutritionInfoByMeasurement = nutritionInfoByMeasurement;
 var measurementType = exports.measurementType = [{ id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz' }, { id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup' }, { id: 3, key: 'gram', value: 'gram', text: 'gram', category: 'gram' }, { id: 4, key: 'pd', value: 'pd', text: 'pd', category: 'pd' }];
@@ -2415,14 +2403,10 @@ function gramsToOunces(grams) {
   return grams * 0.0352739619;
 }
 
-function gramsToCups(grams) {
-  return grams;
-}
-
 function conversionWithUserInput(quantity, measureType) {
   if (measureType === 'oz') {
     return quantity / gramsToOunces(100);
-  } else if (measureType === 'grams') {
+  } else if (measureType === 'gram') {
     return quantity / 100;
   }
 

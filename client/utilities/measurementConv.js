@@ -12,14 +12,12 @@ export function gramsToOunces(grams){
   return grams * 0.0352739619
 }
 
-export function gramsToCups(grams){
-  return grams
-}
+
 
 export function conversionWithUserInput(quantity, measureType){
   if (measureType === 'oz'){
     return quantity / gramsToOunces(100)
-  } else if (measureType === 'grams'){
+  } else if (measureType === 'gram'){
     return quantity / 100 
   } 
   
