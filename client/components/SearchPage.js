@@ -56,7 +56,7 @@ class SearchPage extends Component {
       let nutritionInfo = await getNutritionInfo(NDBNum, items)
 
       //Adjust Nutrition Info Based on quantity and measurement type
-      let adjustedNutritionInfo = nutritionInfoByMeasurement(nutritionInfo, this.state.quantity, this.props.measurement)
+      let adjustedNutritionInfo = nutritionInfoByMeasurement(nutritionInfo,this.state.quantity, this.props.measurement)
 
       this.props.changeSearchVal(!this.props.searched)
       this.setState({
@@ -82,17 +82,13 @@ class SearchPage extends Component {
             <Form.Field >
               <input type="text" name="search"  onChange={this.handleChange} value={this.state.search}/>
               <Button onClick={this.handleSubmit} icon='search' type="submit" />
-              <Button onClick={this.handleClear} name='clear' type="submit" />
+              <Button onClick={this.handleClear} name='clear' type="submit"/>
             </Form.Field>
-            
             <Form.Field>
               <input type="number" name="quantity" onChange={this.handleChange} value={this.state.quantity} id='quantity'/>
             </Form.Field>
-
             <MeasurementTypes />
-
             <DropDownFoodGroups/>
-           
           </Form>
        
           <div id="searchResults">

@@ -3,9 +3,18 @@ import { Dropdown } from 'semantic-ui-react'
 import regeneratorRuntime from "regenerator-runtime";
 import {connect} from 'react-redux'
 import {getMeasurement} from '../store'
+import {measurementType} from '../utilities/measurementConv'
 
 
-let measurementType = [{id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'}]
+// let measurementType = [{id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'}]
+
+// export const measurementType = [
+//   {id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, 
+//   {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'},
+//   {id: 3, key: 'gram', value: 'gram', text: 'gram', category: 'gram'},
+//   {id: 4, key: 'pd', value: 'pd', text: 'pd', category: 'pd'}
+
+// ]
 
 class MeasurementTypes extends Component {
   constructor(){
@@ -35,10 +44,9 @@ class MeasurementTypes extends Component {
     })
     const selectedMeasure = selectedOption[0].category
     this.props.sendMeasurement(selectedMeasure)
+
     this.setState({ 
       value: value })
-
-      console.log(this.state)
   }
 
    componentDidMount(){
@@ -53,17 +61,17 @@ class MeasurementTypes extends Component {
   }
   
   render(){
-    return(
-      <Dropdown 
+    return <Dropdown 
       button
       className='icon'
       floating
       labeled
       icon="balance scale"
+      options={this.state.options}
       placeholder='Measurement' 
-      options={measurementType} 
-      onClick={this.handleSelectMeasure} />
-    )
+      onChange={this.handleChange}
+    />
+    
   } 
 }
 

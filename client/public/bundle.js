@@ -1019,6 +1019,8 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
 
+var _measurementConv = __webpack_require__(/*! ../utilities/measurementConv */ "./client/utilities/measurementConv.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1027,7 +1029,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var measurementType = [{ id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz' }, { id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup' }];
+// let measurementType = [{id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'}]
+
+// export const measurementType = [
+//   {id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, 
+//   {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'},
+//   {id: 3, key: 'gram', value: 'gram', text: 'gram', category: 'gram'},
+//   {id: 4, key: 'pd', value: 'pd', text: 'pd', category: 'pd'}
+
+// ]
 
 var MeasurementTypes = function (_Component) {
   _inherits(MeasurementTypes, _Component);
@@ -1045,10 +1055,9 @@ var MeasurementTypes = function (_Component) {
       });
       var selectedMeasure = selectedOption[0].category;
       _this.props.sendMeasurement(selectedMeasure);
+
       _this.setState({
         value: value });
-
-      console.log(_this.state);
     };
 
     _this.state = {
@@ -1076,7 +1085,7 @@ var MeasurementTypes = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       try {
-        var alteredData = this.addTextPropertyDeleteCreatedUpdated(measurementType);
+        var alteredData = this.addTextPropertyDeleteCreatedUpdated(_measurementConv.measurementType);
         this.setState({
           options: alteredData
         });
@@ -1093,9 +1102,10 @@ var MeasurementTypes = function (_Component) {
         floating: true,
         labeled: true,
         icon: 'balance scale',
+        options: this.state.options,
         placeholder: 'Measurement',
-        options: measurementType,
-        onClick: this.handleSelectMeasure });
+        onChange: this.handleChange
+      });
     }
   }]);
 
@@ -2396,16 +2406,31 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.gramsToOunces = gramsToOunces;
+exports.gramsToCups = gramsToCups;
 exports.conversionWithUserInput = conversionWithUserInput;
 exports.nutritionInfoByMeasurement = nutritionInfoByMeasurement;
+var measurementType = exports.measurementType = [{ id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz' }, { id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup' }, { id: 3, key: 'gram', value: 'gram', text: 'gram', category: 'gram' }, { id: 4, key: 'pd', value: 'pd', text: 'pd', category: 'pd' }];
+
 function gramsToOunces(grams) {
   return grams * 0.0352739619;
+}
+
+function gramsToCups(grams) {
+  return grams;
 }
 
 function conversionWithUserInput(quantity, measureType) {
   if (measureType === 'oz') {
     return quantity / gramsToOunces(100);
+  } else if (measureType === 'grams') {
+    return quantity / 100;
   }
+
+  // else if (measurementType === 'cups'){
+  //   console.log("POOOP")
+  // } else if (measurementType =='pd'){
+  //   console.log("POOOOOPERSSSS")
+  // }
 }
 
 function nutritionInfoByMeasurement(nutrientArr, quantity, measureType) {

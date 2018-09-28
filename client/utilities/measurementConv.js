@@ -1,11 +1,33 @@
+export const measurementType = [
+  {id: 1, key: 'oz', value: 'oz', text: 'oz', category: 'oz'}, 
+  {id: 2, key: 'cup', value: 'cup', text: 'cup', category: 'cup'},
+  {id: 3, key: 'gram', value: 'gram', text: 'gram', category: 'gram'},
+  {id: 4, key: 'pd', value: 'pd', text: 'pd', category: 'pd'}
+
+]
+
+
+
 export function gramsToOunces(grams){
   return grams * 0.0352739619
+}
+
+export function gramsToCups(grams){
+  return grams
 }
 
 export function conversionWithUserInput(quantity, measureType){
   if (measureType === 'oz'){
     return quantity / gramsToOunces(100)
-  }
+  } else if (measureType === 'grams'){
+    return quantity / 100 
+  } 
+  
+  // else if (measurementType === 'cups'){
+  //   console.log("POOOP")
+  // } else if (measurementType =='pd'){
+  //   console.log("POOOOOPERSSSS")
+  // }
 } 
 
 export function nutritionInfoByMeasurement(nutrientArr, quantity, measureType){
