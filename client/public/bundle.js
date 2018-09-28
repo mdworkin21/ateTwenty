@@ -258,10 +258,10 @@ var DropDownFoodGroups = function (_Component) {
         className: 'icon',
         floating: true,
         labeled: true,
-        icon: 'world',
-        options: this.state.options,
-        search: true,
-        text: 'Select Food Group',
+        icon: 'food',
+        options: this.state.options
+        // search
+        , placeholder: 'Select Food Group',
         onChange: this.handleChange
       });
     }
@@ -1092,12 +1092,10 @@ var MeasurementTypes = function (_Component) {
         className: 'icon',
         floating: true,
         labeled: true,
-        icon: 'world',
-        options: this.state.options,
-        search: true,
-        text: 'Select Measurement',
-        onChange: this.handleChange
-      });
+        icon: 'balance scale',
+        placeholder: 'Measurement',
+        options: measurementType,
+        onClick: this.handleSelectMeasure });
     }
   }]);
 
@@ -1113,8 +1111,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(MeasurementTypes);
-
-{/* <Dropdown placeholder='type' options={measurementType} onClick={this.handleSelectMeasure} /> */}
 
 /***/ }),
 
@@ -1396,7 +1392,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  console.log('STRATETETSET', state);
   return {
     searched: state.searched,
     fgCode: state.fgCode,

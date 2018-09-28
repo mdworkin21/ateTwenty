@@ -112,7 +112,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log('STRATETETSET',state)
   return {
     searched: state.searched,
     fgCode: state.fgCode,

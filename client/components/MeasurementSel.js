@@ -53,17 +53,17 @@ class MeasurementTypes extends Component {
   }
   
   render(){
-    return <Dropdown
-    button
-    className='icon'
-    floating
-    labeled
-    icon='world'
-    options={this.state.options}
-    search
-    text='Select Measurement'
-    onChange={this.handleChange}
-  />
+    return(
+      <Dropdown 
+      button
+      className='icon'
+      floating
+      labeled
+      icon="balance scale"
+      placeholder='Measurement' 
+      options={measurementType} 
+      onClick={this.handleSelectMeasure} />
+    )
   } 
 }
 
@@ -75,4 +75,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(null, mapDispatchToProps)(MeasurementTypes)
-{/* <Dropdown placeholder='type' options={measurementType} onClick={this.handleSelectMeasure} /> */}

@@ -57,10 +57,10 @@ class DropDownFoodGroups extends Component {
     className='icon'
     floating
     labeled
-    icon='world'
+    icon='food'
     options={this.state.options}
-    search
-    text='Select Food Group'
+    // search
+    placeholder='Select Food Group'
     onChange={this.handleChange}
   />
   } 
