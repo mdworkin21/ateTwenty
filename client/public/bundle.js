@@ -392,6 +392,47 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
+/***/ "./client/components/Landing.js":
+/*!**************************************!*\
+  !*** ./client/components/Landing.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _SignIn = __webpack_require__(/*! ./SignIn */ "./client/components/SignIn.js");
+
+var _SignIn2 = _interopRequireDefault(_SignIn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Landing = function Landing() {
+  return _react2.default.createElement(
+    _react2.default.Fragment,
+    null,
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Welcome. Please Log In'
+    ),
+    _react2.default.createElement(_SignIn2.default, null)
+  );
+};
+
+exports.default = Landing;
+
+/***/ }),
+
 /***/ "./client/components/Log.js":
 /*!**********************************!*\
   !*** ./client/components/Log.js ***!
@@ -1629,15 +1670,25 @@ var SignIn = function (_Component) {
     _this.state = {
       name: '',
       email: '',
-      redirect: false
+      redirectHome: false,
+      signup: false
     };
     _this.handleChange = _this.handleChange.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    // this.handleSubmit = this.handleSubmit.bind(this)
     _this.checkUser = _this.checkUser.bind(_this);
+    _this.signup = _this.signup.bind(_this);
     return _this;
   }
 
   _createClass(SignIn, [{
+    key: 'signup',
+    value: function signup(event) {
+      event.preventDefault();
+      this.setState({
+        signup: true
+      });
+    }
+  }, {
     key: 'checkUser',
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(event) {
@@ -1647,6 +1698,7 @@ var SignIn = function (_Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 event.preventDefault();
+
                 _context.prev = 1;
                 _context.next = 4;
                 return _axios2.default.put('/api/user/checkUser', {
@@ -1658,11 +1710,11 @@ var SignIn = function (_Component) {
                 doesUserExist = _context.sent;
 
 
-                if (doesUserExist.status === '200') {
+                if (doesUserExist.status === 200) {
                   this.setState({
                     name: '',
                     email: '',
-                    redirect: true
+                    redirectHome: true
                   });
                 } else {
                   console.log(err);
@@ -1690,55 +1742,27 @@ var SignIn = function (_Component) {
 
       return checkUser;
     }()
-  }, {
-    key: 'handleSubmit',
-    value: function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee2(event) {
-        var newUser;
-        return _regeneratorRuntime2.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                event.preventDefault();
-                _context2.prev = 1;
-                _context2.next = 4;
-                return _axios2.default.post('/api/user/newUser', {
-                  name: this.state.name,
-                  email: this.state.email
-                });
 
-              case 4:
-                newUser = _context2.sent;
+    //Add password to sign up later
+    // async handleSubmit(event){
+    //   event.preventDefault()
+    //   try{
+    //     const newUser = await axios.post('/api/user/newUser', {
+    //       name: this.state.name, 
+    //       email: this.state.email,
 
-                console.log(newUser.status);
-                this.setState({
-                  name: '',
-                  email: '',
-                  redirect: true
-                });
-                _context2.next = 12;
-                break;
+    //     })
+    //     console.log(newUser.status)
+    //     this.setState({
+    //       name: '',
+    //       email: '',
+    //       redirect: true
+    //     })
+    //   } catch(err){
+    //     console.log(err)
+    //   }
+    // }
 
-              case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2['catch'](1);
-
-                console.log(_context2.t0);
-
-              case 12:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[1, 9]]);
-      }));
-
-      function handleSubmit(_x2) {
-        return _ref2.apply(this, arguments);
-      }
-
-      return handleSubmit;
-    }()
   }, {
     key: 'handleChange',
     value: function handleChange(event) {
@@ -1747,13 +1771,17 @@ var SignIn = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _from = { from: { pathname: "/home" } },
-          from = _from.from;
+      var _from$signup = { from: { pathname: "/home" }, signup: { pathname: "/signup" } },
+          from = _from$signup.from,
+          signup = _from$signup.signup;
 
 
-      if (this.state.redirect) {
+      if (this.state.redirectHome) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: from });
+      } else if (this.state.signup) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: signup });
       }
+
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -1770,8 +1798,16 @@ var SignIn = function (_Component) {
             null,
             _react2.default.createElement('input', { type: 'text', name: 'email', onChange: this.handleChange, value: this.state.email })
           ),
-          _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit, icon: 'signup', type: 'submit' }),
-          _react2.default.createElement(_semanticUiReact.Button, { onClick: this.checkUser, icon: 'home', type: 'submit' })
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            { onClick: this.checkUser, type: 'submit' },
+            'Log In '
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            { onClick: this.signup, type: 'submit' },
+            'Sign Up'
+          )
         )
       );
     }
@@ -1781,6 +1817,172 @@ var SignIn = function (_Component) {
 }(_react.Component);
 
 exports.default = SignIn;
+
+/***/ }),
+
+/***/ "./client/components/Signup.js":
+/*!*************************************!*\
+  !*** ./client/components/Signup.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SignUp = function (_Component) {
+  _inherits(SignUp, _Component);
+
+  function SignUp() {
+    _classCallCheck(this, SignUp);
+
+    var _this = _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this));
+
+    _this.state = {
+      name: '',
+      email: '',
+      redirct: false
+    };
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(SignUp, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(event) {
+        var newUser;
+        return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                event.preventDefault();
+                _context.prev = 1;
+                _context.next = 4;
+                return _axios2.default.post('/api/user/newUser', {
+                  name: this.state.name,
+                  email: this.state.email
+
+                });
+
+              case 4:
+                newUser = _context.sent;
+
+                console.log(newUser.status);
+                this.setState({
+                  name: '',
+                  email: '',
+                  redirect: true
+                });
+                _context.next = 12;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context['catch'](1);
+
+                console.log(_context.t0);
+
+              case 12:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[1, 9]]);
+      }));
+
+      function handleSubmit(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+  }, {
+    key: 'render',
+    value: function render() {
+      var _from = { from: { pathname: "/home" } },
+          from = _from.from,
+          signup = _from.signup;
+
+      if (this.state.redirect) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: from });
+      }
+
+      return _react2.default.createElement(
+        _react2.default.Fragment,
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Sign Up'
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Form,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement('input', { type: 'text', name: 'name', value: this.state.name, label: 'name', onChange: this.handleChange })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement('input', { type: 'text', name: 'email', value: this.state.email, onChange: this.handleChange })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            { onClick: this.handleSubmit },
+            'Click'
+          )
+        )
+      );
+    }
+  }]);
+
+  return SignUp;
+}(_react.Component);
+
+exports.default = SignUp;
 
 /***/ }),
 
@@ -1863,6 +2065,14 @@ var _SignIn = __webpack_require__(/*! ./components/SignIn */ "./client/component
 
 var _SignIn2 = _interopRequireDefault(_SignIn);
 
+var _Landing = __webpack_require__(/*! ./components/Landing */ "./client/components/Landing.js");
+
+var _Landing2 = _interopRequireDefault(_Landing);
+
+var _Signup = __webpack_require__(/*! ./components/Signup */ "./client/components/Signup.js");
+
+var _Signup2 = _interopRequireDefault(_Signup);
+
 var _store = __webpack_require__(/*! ./store */ "./client/store/index.js");
 
 var _store2 = _interopRequireDefault(_store);
@@ -1879,9 +2089,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // import registerServiceWorker from './registerServiceWorker'
 
-//Root. Call ReactDOM.Render and serviceWorker here.
-//React Router stuff here
-//Set up Provider for Redux
 _reactDom2.default.render(_react2.default.createElement(
   _reactRedux.Provider,
   { store: _store2.default },
@@ -1891,7 +2098,9 @@ _reactDom2.default.render(_react2.default.createElement(
     _react2.default.createElement(
       _reactRouterDom.Switch,
       null,
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _SignIn2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Landing2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signIn', component: _SignIn2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', component: _Signup2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _Homepage2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/calc', component: _MacroCalc2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/log', component: _Log2.default }),
