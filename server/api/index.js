@@ -4,6 +4,7 @@ const router = require('express').Router();
 router.use('/dailyLog', require('./dailyLog'))
 // router.use('/foodGroups', require('./foodGroups'))
 router.use('/userProfile', require('./userProfile'))
+router.use('/user', require('./user'))
 
 
 //Handles 404 Errors

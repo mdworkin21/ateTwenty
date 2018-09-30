@@ -29,7 +29,7 @@ class SearchResults extends Component {
   }
 
   render(){ 
-    const { from } = { from: { pathname: "/" } };    
+    const { from } = { from: { pathname: "/home" } };    
     if (this.state.redirect) {
       return <Redirect to={from} />;
     }
