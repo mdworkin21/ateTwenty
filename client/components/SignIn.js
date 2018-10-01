@@ -14,7 +14,6 @@ class SignIn extends Component {
       signup: false
     }
     this.handleChange = this.handleChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
     this.checkUser = this.checkUser.bind(this)
     this.signup = this.signup.bind(this)
   }
@@ -28,13 +27,11 @@ class SignIn extends Component {
 
   async checkUser(event){
     event.preventDefault()
-
     try{
       const doesUserExist = await axios.put('/api/user/checkUser', {
         name: this.state.name, 
         email: this.state.email
       })
-
       if(doesUserExist.status === 200){
         this.setState({
           name: '',
@@ -49,27 +46,6 @@ class SignIn extends Component {
     }
   } 
   
-
-  //Add password to sign up later
-  // async handleSubmit(event){
-  //   event.preventDefault()
-  //   try{
-  //     const newUser = await axios.post('/api/user/newUser', {
-  //       name: this.state.name, 
-  //       email: this.state.email,
-
-  //     })
-  //     console.log(newUser.status)
-  //     this.setState({
-  //       name: '',
-  //       email: '',
-  //       redirect: true
-  //     })
-  //   } catch(err){
-  //     console.log(err)
-  //   }
-  // }
-
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value

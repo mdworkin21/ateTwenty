@@ -29,7 +29,6 @@ export default class SignUp extends Component {
       const newUser = await axios.post('/api/user/newUser', {
         name: this.state.name, 
         email: this.state.email,
-
       })
       console.log(newUser.status)
       this.setState({

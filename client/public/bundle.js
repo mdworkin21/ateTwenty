@@ -1674,7 +1674,6 @@ var SignIn = function (_Component) {
       signup: false
     };
     _this.handleChange = _this.handleChange.bind(_this);
-    // this.handleSubmit = this.handleSubmit.bind(this)
     _this.checkUser = _this.checkUser.bind(_this);
     _this.signup = _this.signup.bind(_this);
     return _this;
@@ -1698,7 +1697,6 @@ var SignIn = function (_Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 event.preventDefault();
-
                 _context.prev = 1;
                 _context.next = 4;
                 return _axios2.default.put('/api/user/checkUser', {
@@ -1708,7 +1706,6 @@ var SignIn = function (_Component) {
 
               case 4:
                 doesUserExist = _context.sent;
-
 
                 if (doesUserExist.status === 200) {
                   this.setState({
@@ -1742,27 +1739,6 @@ var SignIn = function (_Component) {
 
       return checkUser;
     }()
-
-    //Add password to sign up later
-    // async handleSubmit(event){
-    //   event.preventDefault()
-    //   try{
-    //     const newUser = await axios.post('/api/user/newUser', {
-    //       name: this.state.name, 
-    //       email: this.state.email,
-
-    //     })
-    //     console.log(newUser.status)
-    //     this.setState({
-    //       name: '',
-    //       email: '',
-    //       redirect: true
-    //     })
-    //   } catch(err){
-    //     console.log(err)
-    //   }
-    // }
-
   }, {
     key: 'handleChange',
     value: function handleChange(event) {
@@ -1902,7 +1878,6 @@ var SignUp = function (_Component) {
                 return _axios2.default.post('/api/user/newUser', {
                   name: this.state.name,
                   email: this.state.email
-
                 });
 
               case 4:
