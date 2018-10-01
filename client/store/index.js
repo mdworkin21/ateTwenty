@@ -37,6 +37,7 @@ const GET_MEASUREMENT = 'GET_MEASUREMENT'
 const SET_GOALS = 'SET_GOALS'
 const GET_TOTALS = 'GET_TOTALS'
 const SEARCH_OCCURRED = 'SEARCH_OCCURED'
+const GET_DAILY_GOALS = 'GET_DAILY_GOALS'
 
 //Action Creators
 
@@ -102,6 +103,13 @@ const setDailyGoals = (dailyGoals) => {
   }
 }
 
+const getDailyGoals = (dailyGoals) => {
+  return {
+    type: GET_DAILY_GOALS,
+    dailyGoals
+  }
+}
+
 export const changeSearchedValue = (boolean) => {
   return {
     type: SEARCH_OCCURRED,
@@ -162,6 +170,20 @@ export const getFoodTotals = () => {
       const action = getMacTotals(totals)
       dispatch(action)
     } catch(err) {
+        console.log(err)
+    }
+  }
+}
+
+export const retrieveDailyGoals = (id) => {
+  return async (dispatch) => {
+    try{
+      const userGoals = await axios.get(`/api/userProfile/${id}`)
+      console.log("STORE HIT", userGoals.data)
+      const response = userGoals.data
+      const action = getDailyGoals(response)
+      dispatch(action)
+    } catch(err){
         console.log(err)
     }
   }
@@ -249,6 +271,8 @@ function reducer(state = initialState, action){
           }
         }
       )
+    case GET_DAILY_GOALS:
+    return {...state, dailyGoals: action.dailyGoals}
     case SEARCH_OCCURRED:
         return {...state, searched: action.boolean}
     default:

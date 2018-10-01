@@ -100,6 +100,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -108,51 +110,89 @@ var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modu
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var DisplayGoals = function DisplayGoals(props) {
-  return _react2.default.createElement(
-    'div',
-    { id: 'goals' },
-    _react2.default.createElement(
-      _semanticUiReact.Menu.Item,
-      { name: 'Goals', id: 'title', className: 'item' },
-      'Goals'
-    ),
-    _react2.default.createElement(
-      _semanticUiReact.Menu.Item,
-      { name: 'Cal', id: 'calGoal', className: 'item' },
-      ' Cal: ',
-      props.dailyGoals.calories
-    ),
-    _react2.default.createElement(
-      _semanticUiReact.Menu.Item,
-      { name: 'Protein', id: 'proteinGoal', className: 'item' },
-      ' Protein: ',
-      props.dailyGoals.protein
-    ),
-    _react2.default.createElement(
-      _semanticUiReact.Menu.Item,
-      { name: 'Carb', id: 'carbGoal', className: 'item' },
-      ' Carb:  ',
-      props.dailyGoals.carb
-    ),
-    _react2.default.createElement(
-      _semanticUiReact.Menu.Item,
-      { name: 'Fat', id: 'fatGoal', className: 'item' },
-      ' Fat: ',
-      props.dailyGoals.fat
-    )
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DisplayGoals = function (_Component) {
+  _inherits(DisplayGoals, _Component);
+
+  function DisplayGoals() {
+    _classCallCheck(this, DisplayGoals);
+
+    return _possibleConstructorReturn(this, (DisplayGoals.__proto__ || Object.getPrototypeOf(DisplayGoals)).apply(this, arguments));
+  }
+
+  _createClass(DisplayGoals, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.getGoals(this.props.user);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      console.log('INDISPLAY', this.props.dailyGoals);
+      return _react2.default.createElement(
+        'div',
+        { id: 'goals' },
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { name: 'Goals', id: 'title', className: 'item' },
+          'Goals'
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { name: 'Cal', id: 'calGoal', className: 'item' },
+          ' Cal: ',
+          this.props.dailyGoals.calGoal
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { name: 'Protein', id: 'proteinGoal', className: 'item' },
+          ' Protein: ',
+          this.props.dailyGoals.proteinGoal
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { name: 'Carb', id: 'carbGoal', className: 'item' },
+          ' Carb:  ',
+          this.props.dailyGoals.carbGoal
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { name: 'Fat', id: 'fatGoal', className: 'item' },
+          ' Fat: ',
+          this.props.dailyGoals.fatGoal
+        )
+      );
+    }
+  }]);
+
+  return DisplayGoals;
+}(_react.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    user: state.user,
     dailyGoals: state.dailyGoals
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(DisplayGoals);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getGoals: function getGoals(id) {
+      return dispatch((0, _store.retrieveDailyGoals)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DisplayGoals);
 
 /***/ }),
 
@@ -2123,7 +2163,7 @@ _reactDom2.default.render(_react2.default.createElement(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setDailyGoal = exports.deleteItemFromLog = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.changeSearchedValue = exports.getMeasurement = exports.getFgCode = exports.getUser = undefined;
+exports.setDailyGoal = exports.deleteItemFromLog = exports.retrieveDailyGoals = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.changeSearchedValue = exports.getMeasurement = exports.getFgCode = exports.getUser = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -2179,6 +2219,7 @@ var GET_MEASUREMENT = 'GET_MEASUREMENT';
 var SET_GOALS = 'SET_GOALS';
 var GET_TOTALS = 'GET_TOTALS';
 var SEARCH_OCCURRED = 'SEARCH_OCCURED';
+var GET_DAILY_GOALS = 'GET_DAILY_GOALS';
 
 //Action Creators
 
@@ -2240,6 +2281,13 @@ var getMeasurement = exports.getMeasurement = function getMeasurement(measure) {
 var setDailyGoals = function setDailyGoals(dailyGoals) {
   return {
     type: SET_GOALS,
+    dailyGoals: dailyGoals
+  };
+};
+
+var getDailyGoals = function getDailyGoals(dailyGoals) {
+  return {
+    type: GET_DAILY_GOALS,
     dailyGoals: dailyGoals
   };
 };
@@ -2391,37 +2439,41 @@ var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
   }();
 };
 
-var deleteItemFromLog = exports.deleteItemFromLog = function deleteItemFromLog(id) {
+var retrieveDailyGoals = exports.retrieveDailyGoals = function retrieveDailyGoals(id) {
   return function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee4(dispatch) {
-      var action;
+      var userGoals, response, action;
       return _regeneratorRuntime2.default.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
               _context4.next = 3;
-              return _axios2.default.delete('/api/dailyLog/' + id);
+              return _axios2.default.get('/api/userProfile/' + id);
 
             case 3:
-              action = deleteFood(id);
+              userGoals = _context4.sent;
+
+              console.log("STORE HIT", userGoals.data);
+              response = userGoals.data;
+              action = getDailyGoals(response);
 
               dispatch(action);
-              _context4.next = 10;
+              _context4.next = 13;
               break;
 
-            case 7:
-              _context4.prev = 7;
+            case 10:
+              _context4.prev = 10;
               _context4.t0 = _context4['catch'](0);
 
               console.log(_context4.t0);
 
-            case 10:
+            case 13:
             case 'end':
               return _context4.stop();
           }
         }
-      }, _callee4, undefined, [[0, 7]]);
+      }, _callee4, undefined, [[0, 10]]);
     }));
 
     return function (_x4) {
@@ -2430,43 +2482,82 @@ var deleteItemFromLog = exports.deleteItemFromLog = function deleteItemFromLog(i
   }();
 };
 
-var setDailyGoal = exports.setDailyGoal = function setDailyGoal(dailyGoals) {
+var deleteItemFromLog = exports.deleteItemFromLog = function deleteItemFromLog(id) {
   return function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee5(dispatch) {
-      var response, setGoals, action;
+      var action;
       return _regeneratorRuntime2.default.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.prev = 0;
               _context5.next = 3;
-              return _axios2.default.post('/api/userProfile/', { dailyGoals: dailyGoals });
+              return _axios2.default.delete('/api/dailyLog/' + id);
 
             case 3:
-              response = _context5.sent;
-              setGoals = response.data;
-              action = setDailyGoals(setGoals);
+              action = deleteFood(id);
 
               dispatch(action);
-              _context5.next = 12;
+              _context5.next = 10;
               break;
 
-            case 9:
-              _context5.prev = 9;
+            case 7:
+              _context5.prev = 7;
               _context5.t0 = _context5['catch'](0);
 
               console.log(_context5.t0);
 
-            case 12:
+            case 10:
             case 'end':
               return _context5.stop();
           }
         }
-      }, _callee5, undefined, [[0, 9]]);
+      }, _callee5, undefined, [[0, 7]]);
     }));
 
     return function (_x5) {
       return _ref5.apply(this, arguments);
+    };
+  }();
+};
+
+var setDailyGoal = exports.setDailyGoal = function setDailyGoal(dailyGoals) {
+  return function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee6(dispatch) {
+      var response, setGoals, action;
+      return _regeneratorRuntime2.default.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.prev = 0;
+              _context6.next = 3;
+              return _axios2.default.post('/api/userProfile/', { dailyGoals: dailyGoals });
+
+            case 3:
+              response = _context6.sent;
+              setGoals = response.data;
+              action = setDailyGoals(setGoals);
+
+              dispatch(action);
+              _context6.next = 12;
+              break;
+
+            case 9:
+              _context6.prev = 9;
+              _context6.t0 = _context6['catch'](0);
+
+              console.log(_context6.t0);
+
+            case 12:
+            case 'end':
+              return _context6.stop();
+          }
+        }
+      }, _callee6, undefined, [[0, 9]]);
+    }));
+
+    return function (_x6) {
+      return _ref6.apply(this, arguments);
     };
   }();
 };
@@ -2525,6 +2616,8 @@ function reducer() {
           fat: action.dailyGoals.fatGoal
         }
       });
+    case GET_DAILY_GOALS:
+      return _extends({}, state, { dailyGoals: action.dailyGoals });
     case SEARCH_OCCURRED:
       return _extends({}, state, { searched: action.boolean });
     default:

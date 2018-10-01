@@ -12,6 +12,8 @@ class Homepage extends React.Component {
   constructor(){
     super()
   }
+
+
   render(){
     let date = new Date().toString()
     date = date.slice(0, date.indexOf(':') - 3)
