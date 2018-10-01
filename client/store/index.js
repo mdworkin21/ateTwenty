@@ -9,6 +9,7 @@ import axios from 'axios'
 //Initial State
 //Probably a good idea to make second store with search stuff and maybe a third with profile stuff
 const initialState = {
+  user: '',
   searched: false,
   cal: 0,
   carb: 0,
@@ -26,6 +27,7 @@ const initialState = {
 }
 
 //Constants for Action Types
+const GET_USER = 'GET_USER'
 const GET_FOOD_LOG = 'GET_FOOD_LOG'
 const ADD_FOOD = 'ADD_FOOD'
 const DELETE_FOOD = 'DELETE_FOOD'
@@ -37,6 +39,13 @@ const GET_TOTALS = 'GET_TOTALS'
 const SEARCH_OCCURRED = 'SEARCH_OCCURED'
 
 //Action Creators
+
+export const getUser = (user) => {
+  return {
+    type: GET_USER,
+    user
+  }
+}
 const getFoodLog = (food) => {
   return {
     type: GET_FOOD_LOG,
@@ -186,6 +195,8 @@ export const setDailyGoal = (dailyGoals) => {
 //Reducer
 function reducer(state = initialState, action){
   switch (action.type){
+    case GET_USER:
+      return {...state, user: action.user}
     case GET_FOOD_LOG:
       return {...state, food: action.food}
     case GET_TOTALS:

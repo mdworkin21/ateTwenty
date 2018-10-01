@@ -3,6 +3,9 @@ import { Form, Button, ButtonGroup } from 'semantic-ui-react'
 import axios from 'axios'
 import regeneratorRuntime from "regenerator-runtime";
 import {Redirect} from 'react-router-dom'
+import {getUser} from '../store'
+import {connect} from 'react-redux'
+
 
 class SignIn extends Component {
   constructor(){
@@ -10,6 +13,7 @@ class SignIn extends Component {
     this.state = {
       name: '',
       email: '',
+      password: '',
       redirectHome: false,
       signup: false
     }
@@ -27,17 +31,22 @@ class SignIn extends Component {
 
   async checkUser(event){
     event.preventDefault()
+  
     try{
-      const doesUserExist = await axios.put('/api/user/checkUser', {
-        name: this.state.name, 
-        email: this.state.email
+      const doesUserExist = await axios.post('/authenticate/checkUser', { 
+        email: this.state.email,
+        password: this.state.password
       })
+      this.props.setUser(this.state.email)
+      
       if(doesUserExist.status === 200){
+        this.props.setUser(doesUserExist.data.email)
         this.setState({
           name: '',
           email: '',
           redirectHome: true
         })
+
       } else {
         console.log(err)
       }
@@ -65,10 +74,10 @@ class SignIn extends Component {
       <React.Fragment>
         <Form>
           <Form.Field>
-          <input type="text" name="name"  onChange={this.handleChange} value={this.state.name}/>
+          <input type="text" name="email"  onChange={this.handleChange} value={this.state.email}/>
           </Form.Field>
           <Form.Field>
-          <input type="text" name="email"  onChange={this.handleChange} value={this.state.email}/>
+          <input type="text" name="password"  onChange={this.handleChange} value={this.state.password}/>
           </Form.Field>
           <Button onClick={this.checkUser}  type="submit" >Log In </Button>
           <Button onClick={this.signup} type="submit">Sign Up</Button>
@@ -79,4 +88,10 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (user) => dispatch(getUser(user))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignIn)

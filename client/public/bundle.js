@@ -1647,6 +1647,10 @@ var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1670,6 +1674,7 @@ var SignIn = function (_Component) {
     _this.state = {
       name: '',
       email: '',
+      password: '',
       redirectHome: false,
       signup: false
     };
@@ -1697,17 +1702,21 @@ var SignIn = function (_Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 event.preventDefault();
+
                 _context.prev = 1;
                 _context.next = 4;
-                return _axios2.default.put('/api/user/checkUser', {
-                  name: this.state.name,
-                  email: this.state.email
+                return _axios2.default.post('/authenticate/checkUser', {
+                  email: this.state.email,
+                  password: this.state.password
                 });
 
               case 4:
                 doesUserExist = _context.sent;
 
+                this.props.setUser(this.state.email);
+
                 if (doesUserExist.status === 200) {
+                  this.props.setUser(doesUserExist.data.email);
                   this.setState({
                     name: '',
                     email: '',
@@ -1716,21 +1725,21 @@ var SignIn = function (_Component) {
                 } else {
                   console.log(err);
                 }
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context['catch'](1);
 
                 console.log(_context.t0);
 
-              case 11:
+              case 12:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 8]]);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function checkUser(_x) {
@@ -1767,12 +1776,12 @@ var SignIn = function (_Component) {
           _react2.default.createElement(
             _semanticUiReact.Form.Field,
             null,
-            _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange, value: this.state.name })
+            _react2.default.createElement('input', { type: 'text', name: 'email', onChange: this.handleChange, value: this.state.email })
           ),
           _react2.default.createElement(
             _semanticUiReact.Form.Field,
             null,
-            _react2.default.createElement('input', { type: 'text', name: 'email', onChange: this.handleChange, value: this.state.email })
+            _react2.default.createElement('input', { type: 'text', name: 'password', onChange: this.handleChange, value: this.state.password })
           ),
           _react2.default.createElement(
             _semanticUiReact.Button,
@@ -1792,7 +1801,15 @@ var SignIn = function (_Component) {
   return SignIn;
 }(_react.Component);
 
-exports.default = SignIn;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setUser: function setUser(user) {
+      return dispatch((0, _store.getUser)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SignIn);
 
 /***/ }),
 
@@ -2099,7 +2116,7 @@ _reactDom2.default.render(_react2.default.createElement(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setDailyGoal = exports.deleteItemFromLog = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.changeSearchedValue = exports.getMeasurement = exports.getFgCode = undefined;
+exports.setDailyGoal = exports.deleteItemFromLog = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.changeSearchedValue = exports.getMeasurement = exports.getFgCode = exports.getUser = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -2128,6 +2145,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //Initial State
 //Probably a good idea to make second store with search stuff and maybe a third with profile stuff
 var initialState = {
+  user: '',
   searched: false,
   cal: 0,
   carb: 0,
@@ -2144,7 +2162,8 @@ var initialState = {
   }
 
   //Constants for Action Types
-};var GET_FOOD_LOG = 'GET_FOOD_LOG';
+};var GET_USER = 'GET_USER';
+var GET_FOOD_LOG = 'GET_FOOD_LOG';
 var ADD_FOOD = 'ADD_FOOD';
 var DELETE_FOOD = 'DELETE_FOOD';
 var UPDATE_FOOD = 'UPDATE_FOOD';
@@ -2155,6 +2174,13 @@ var GET_TOTALS = 'GET_TOTALS';
 var SEARCH_OCCURRED = 'SEARCH_OCCURED';
 
 //Action Creators
+
+var getUser = exports.getUser = function getUser(user) {
+  return {
+    type: GET_USER,
+    user: user
+  };
+};
 var getFoodLog = function getFoodLog(food) {
   return {
     type: GET_FOOD_LOG,
@@ -2444,6 +2470,8 @@ function reducer() {
   var action = arguments[1];
 
   switch (action.type) {
+    case GET_USER:
+      return _extends({}, state, { user: action.user });
     case GET_FOOD_LOG:
       return _extends({}, state, { food: action.food });
     case GET_TOTALS:
