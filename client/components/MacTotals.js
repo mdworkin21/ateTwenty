@@ -22,7 +22,8 @@ class DailyGoals extends Component{
       calories: this.props.state.totals.calGoal,
       protein: this.props.state.totals.proteinGoal,
       carb: this.props.state.totals.carbGoal,
-      fat: this.props.state.totals.fatGoal
+      fat: this.props.state.totals.fatGoal,
+      userId: this.props.user
     })
     this.setState({
       redirect: true
@@ -37,6 +38,7 @@ class DailyGoals extends Component{
   }
 
   render(){
+    console.log("PROPS",this.props.user)
    if (this.state.redirect){
      return <Homepage />
    } else if (this.state.retry){
@@ -65,6 +67,11 @@ class DailyGoals extends Component{
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -72,4 +79,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(DailyGoals)
+export default connect(mapStateToProps, mapDispatchToProps)(DailyGoals)

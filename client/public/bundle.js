@@ -712,7 +712,8 @@ var DailyGoals = function (_Component) {
         calories: this.props.state.totals.calGoal,
         protein: this.props.state.totals.proteinGoal,
         carb: this.props.state.totals.carbGoal,
-        fat: this.props.state.totals.fatGoal
+        fat: this.props.state.totals.fatGoal,
+        userId: this.props.user
       });
       this.setState({
         redirect: true
@@ -729,6 +730,7 @@ var DailyGoals = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log("PROPS", this.props.user);
       if (this.state.redirect) {
         return _react2.default.createElement(_Homepage2.default, null);
       } else if (this.state.retry) {
@@ -772,6 +774,12 @@ var DailyGoals = function (_Component) {
   return DailyGoals;
 }(_react.Component);
 
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+};
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setGoals: function setGoals(goals) {
@@ -780,7 +788,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(DailyGoals);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DailyGoals);
 
 /***/ }),
 
@@ -1713,10 +1721,9 @@ var SignIn = function (_Component) {
               case 4:
                 doesUserExist = _context.sent;
 
-                this.props.setUser(this.state.email);
 
                 if (doesUserExist.status === 200) {
-                  this.props.setUser(doesUserExist.data.email);
+                  this.props.setUser(doesUserExist.data.id);
                   this.setState({
                     name: '',
                     email: '',
@@ -1725,21 +1732,21 @@ var SignIn = function (_Component) {
                 } else {
                   console.log(err);
                 }
-                _context.next = 12;
+                _context.next = 11;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context['catch'](1);
 
                 console.log(_context.t0);
 
-              case 12:
+              case 11:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 8]]);
       }));
 
       function checkUser(_x) {
@@ -2145,7 +2152,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //Initial State
 //Probably a good idea to make second store with search stuff and maybe a third with profile stuff
 var initialState = {
-  user: '',
+  user: '', //will be an ID num
   searched: false,
   cal: 0,
   carb: 0,
@@ -2433,7 +2440,7 @@ var setDailyGoal = exports.setDailyGoal = function setDailyGoal(dailyGoals) {
             case 0:
               _context5.prev = 0;
               _context5.next = 3;
-              return _axios2.default.post('/api/userProfile', { dailyGoals: dailyGoals });
+              return _axios2.default.post('/api/userProfile/', { dailyGoals: dailyGoals });
 
             case 3:
               response = _context5.sent;

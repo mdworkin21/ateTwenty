@@ -9,7 +9,7 @@ import axios from 'axios'
 //Initial State
 //Probably a good idea to make second store with search stuff and maybe a third with profile stuff
 const initialState = {
-  user: '',
+  user: '', //will be an ID num
   searched: false,
   cal: 0,
   carb: 0,
@@ -182,7 +182,7 @@ export const deleteItemFromLog = (id) => {
 export const setDailyGoal = (dailyGoals) => {
   return async(dispatch) => {
     try{
-        const response = await axios.post('/api/userProfile', {dailyGoals})
+        const response = await axios.post(`/api/userProfile/`, {dailyGoals})
         const setGoals = response.data
         const action = setDailyGoals(setGoals)
         dispatch(action)

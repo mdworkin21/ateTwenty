@@ -37,10 +37,9 @@ class SignIn extends Component {
         email: this.state.email,
         password: this.state.password
       })
-      this.props.setUser(this.state.email)
-      
+
       if(doesUserExist.status === 200){
-        this.props.setUser(doesUserExist.data.email)
+        this.props.setUser(doesUserExist.data.id)
         this.setState({
           name: '',
           email: '',
