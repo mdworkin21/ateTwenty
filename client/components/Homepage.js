@@ -7,12 +7,10 @@ import DisplayGoals from './DisplayGoals'
 import Log from './Log'
 import TopNav from './TopNav'
 
-//Need to abstract out search bar (et al.), then when search is activated, switch to search page
 class Homepage extends React.Component {
   constructor(){
     super()
   }
-
 
   render(){
     let date = new Date().toString()

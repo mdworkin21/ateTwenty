@@ -6,7 +6,7 @@ const Sequelize = require('sequelize')
 
 //Define your associations here
 Profile.belongsTo(User)
-User.hasOne(Profile, {foreignKey: 'userId'})
+User.hasOne(Profile)
 
 User.hasOne(DailyLog)
 DailyLog.belongsToMany(User, {through: 'userLog'})

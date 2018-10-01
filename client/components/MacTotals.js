@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {setDailyGoal} from '../store'
 import Homepage from './Homepage'
 import MacroCalc from './MacroCalc'
+import regeneratorRuntime from "regenerator-runtime";
 
 class DailyGoals extends Component{
   constructor(){
@@ -16,7 +17,7 @@ class DailyGoals extends Component{
     this.tryAgain = this.tryAgain.bind(this)
   }
 
-  handleSubmit(event){
+  async handleSubmit(event){
     event.preventDefault()
     this.props.setGoals({
       calories: this.props.state.totals.calGoal,
@@ -25,6 +26,7 @@ class DailyGoals extends Component{
       fat: this.props.state.totals.fatGoal,
       userId: this.props.user
     })
+    
     this.setState({
       redirect: true
     })
@@ -38,7 +40,6 @@ class DailyGoals extends Component{
   }
 
   render(){
-    console.log("PROPS",this.props.user)
    if (this.state.redirect){
      return <Homepage />
    } else if (this.state.retry){

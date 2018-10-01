@@ -9,15 +9,11 @@ router.get('/:id', async(req, res, next) => {
       where: {
         userId: req.params.id}
     })
-    
-    console.log("BACK HIT", userGoals)
     res.status(200).send(userGoals)
   } catch(err) {
     next(err)
   }
 })
-
-
 
 
 router.post('/', async (req, res, next) => {

@@ -371,7 +371,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//Need to abstract out search bar (et al.), then when search is activated, switch to search page
 var Homepage = function (_React$Component) {
   _inherits(Homepage, _React$Component);
 
@@ -719,7 +718,13 @@ var _MacroCalc = __webpack_require__(/*! ./MacroCalc */ "./client/components/Mac
 
 var _MacroCalc2 = _interopRequireDefault(_MacroCalc);
 
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -746,19 +751,39 @@ var DailyGoals = function (_Component) {
 
   _createClass(DailyGoals, [{
     key: 'handleSubmit',
-    value: function handleSubmit(event) {
-      event.preventDefault();
-      this.props.setGoals({
-        calories: this.props.state.totals.calGoal,
-        protein: this.props.state.totals.proteinGoal,
-        carb: this.props.state.totals.carbGoal,
-        fat: this.props.state.totals.fatGoal,
-        userId: this.props.user
-      });
-      this.setState({
-        redirect: true
-      });
-    }
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(event) {
+        return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                event.preventDefault();
+                this.props.setGoals({
+                  calories: this.props.state.totals.calGoal,
+                  protein: this.props.state.totals.proteinGoal,
+                  carb: this.props.state.totals.carbGoal,
+                  fat: this.props.state.totals.fatGoal,
+                  userId: this.props.user
+                });
+
+                this.setState({
+                  redirect: true
+                });
+
+              case 3:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function handleSubmit(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
   }, {
     key: 'tryAgain',
     value: function tryAgain(event) {
@@ -770,7 +795,6 @@ var DailyGoals = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log("PROPS", this.props.user);
       if (this.state.redirect) {
         return _react2.default.createElement(_Homepage2.default, null);
       } else if (this.state.retry) {
@@ -1892,6 +1916,10 @@ var _axios2 = _interopRequireDefault(_axios);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1915,6 +1943,7 @@ var SignUp = function (_Component) {
     _this.state = {
       name: '',
       email: '',
+      password: '',
       redirct: false
     };
     _this.handleChange = _this.handleChange.bind(_this);
@@ -1939,35 +1968,40 @@ var SignUp = function (_Component) {
                 event.preventDefault();
                 _context.prev = 1;
                 _context.next = 4;
-                return _axios2.default.post('/api/user/newUser', {
+                return _axios2.default.post('/authenticate/newUser', {
                   name: this.state.name,
-                  email: this.state.email
+                  email: this.state.email,
+                  password: this.state.password
                 });
 
               case 4:
                 newUser = _context.sent;
 
                 console.log(newUser.status);
+                if (newUser.status === 201) {
+                  this.props.setUser(newUser.data.id);
+                }
                 this.setState({
                   name: '',
                   email: '',
+                  password: '',
                   redirect: true
                 });
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context['catch'](1);
 
                 console.log(_context.t0);
 
-              case 12:
+              case 13:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 10]]);
       }));
 
       function handleSubmit(_x) {
@@ -1979,7 +2013,7 @@ var SignUp = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _from = { from: { pathname: "/home" } },
+      var _from = { from: { pathname: "/calc" } },
           from = _from.from,
           signup = _from.signup;
 
@@ -2009,6 +2043,11 @@ var SignUp = function (_Component) {
             _react2.default.createElement('input', { type: 'text', name: 'email', value: this.state.email, onChange: this.handleChange })
           ),
           _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement('input', { type: 'text', name: 'password', value: this.state.password, onChange: this.handleChange })
+          ),
+          _react2.default.createElement(
             _semanticUiReact.Button,
             { onClick: this.handleSubmit },
             'Click'
@@ -2021,7 +2060,15 @@ var SignUp = function (_Component) {
   return SignUp;
 }(_react.Component);
 
-exports.default = SignUp;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setUser: function setUser(user) {
+      return dispatch((0, _store.getUser)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SignUp);
 
 /***/ }),
 

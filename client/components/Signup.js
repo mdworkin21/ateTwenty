@@ -3,14 +3,17 @@ import { Form, Button} from 'semantic-ui-react'
 import regeneratorRuntime from "regenerator-runtime";
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
+import {getUser} from '../store'
+import {connect} from 'react-redux'
 
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   constructor(){
     super()
     this.state = {
       name: '',
       email: '', 
+      password: '',
       redirct: false
     }
     this.handleChange = this.handleChange.bind(this)
@@ -26,14 +29,19 @@ export default class SignUp extends Component {
   async handleSubmit(event){
     event.preventDefault()
     try{
-      const newUser = await axios.post('/api/user/newUser', {
+      const newUser = await axios.post('/authenticate/newUser', {
         name: this.state.name, 
         email: this.state.email,
+        password: this.state.password
       })
       console.log(newUser.status)
+      if(newUser.status === 201){
+        this.props.setUser(newUser.data.id)
+      }
       this.setState({
         name: '',
         email: '',
+        password: '',
         redirect: true
       })
     } catch(err){
@@ -42,7 +50,7 @@ export default class SignUp extends Component {
   }
 
   render(){
-    const { from, signup} = { from: { pathname: "/home" }}
+    const { from, signup} = { from: { pathname: "/calc" }}
     if (this.state.redirect) {
       return <Redirect to={from} />
     } 
@@ -55,7 +63,10 @@ export default class SignUp extends Component {
             <input type='text' name='name' value={this.state.name} label='name' onChange={this.handleChange} />
           </Form.Field>
           <Form.Field>
-            <input type='text' name='email' value={this.state.email}onChange={this.handleChange} />
+            <input type='text' name='email' value={this.state.email} onChange={this.handleChange} />
+          </Form.Field>
+          <Form.Field>
+            <input type='text' name='password' value={this.state.password} onChange={this.handleChange} />
           </Form.Field>
           <Button onClick={this.handleSubmit}>Click</Button>
         </Form>
@@ -63,3 +74,11 @@ export default class SignUp extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (user) => dispatch(getUser(user))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignUp)
