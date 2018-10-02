@@ -167,7 +167,6 @@ var DisplayGoals = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log("POPOO{OP", this.props);
       return _react2.default.createElement(
         'div',
         { id: 'goals' },
@@ -410,7 +409,13 @@ var Homepage = function (_React$Component) {
   function Homepage() {
     _classCallCheck(this, Homepage);
 
-    return _possibleConstructorReturn(this, (Homepage.__proto__ || Object.getPrototypeOf(Homepage)).call(this));
+    var _this = _possibleConstructorReturn(this, (Homepage.__proto__ || Object.getPrototypeOf(Homepage)).call(this));
+
+    _this.state = {
+      redirect: false
+    };
+
+    return _this;
   }
 
   _createClass(Homepage, [{
@@ -535,7 +540,13 @@ var _NavBar = __webpack_require__(/*! ./NavBar */ "./client/components/NavBar.js
 
 var _NavBar2 = _interopRequireDefault(_NavBar);
 
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -543,7 +554,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // import Eat from './EmptyLog'
-
 
 // import AddFood from './AddFood';
 
@@ -564,10 +574,34 @@ var Log = function (_Component) {
   }
 
   _createClass(Log, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.props.displayFood();
-    }
+    key: 'componentDidMount',
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee() {
+        return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.setUser();
+
+              case 2:
+                _context.next = 4;
+                return this.props.displayFood(this.props.state.user);
+
+              case 4:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _ref.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
@@ -583,7 +617,7 @@ var Log = function (_Component) {
 
       // return this.state.addForm ? <AddFood /> : (
       //   !this.props.state.food.length ? <Eat /> :
-
+      console.log('USERLOG', this.props.state.user);
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -703,11 +737,14 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    displayFood: function displayFood() {
-      return dispatch((0, _store.getFoodFromLog)());
+    displayFood: function displayFood(userId) {
+      return dispatch((0, _store.getFoodFromLog)(userId));
     },
     deleteFood: function deleteFood(id) {
       dispatch((0, _store.deleteItemFromLog)(id));
+    },
+    setUser: function setUser() {
+      return dispatch((0, _store.getUserFromPassport)());
     }
   };
 };
@@ -1623,13 +1660,14 @@ var SearchResults = function (_Component) {
                   return item.ndbNum === id;
                 });
 
+                addThisFood[0].user = this.props.user;
                 this.props.addFood(addThisFood);
                 this.props.changeSearchVal(false);
                 this.setState({
                   redirect: true
                 });
 
-              case 5:
+              case 6:
               case 'end':
                 return _context.stop();
             }
@@ -1711,7 +1749,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    searched: state.searched
+    searched: state.searched,
+    user: state.user
   };
 };
 
@@ -2479,7 +2518,8 @@ var addFoodToLog = exports.addFoodToLog = function addFoodToLog(food) {
                 calories: food[0].calories,
                 protein: food[0].protein,
                 carb: food[0].carb,
-                fat: food[0].fat
+                fat: food[0].fat,
+                userId: food[0].user
               });
 
             case 3:
@@ -2511,7 +2551,7 @@ var addFoodToLog = exports.addFoodToLog = function addFoodToLog(food) {
   }();
 };
 
-var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog() {
+var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog(id) {
   return function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee3(dispatch) {
       var response, allFood, action;
@@ -2521,29 +2561,31 @@ var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return _axios2.default.get('/api/dailyLog');
+              return _axios2.default.get('/api/dailyLog/' + Number(id));
 
             case 3:
               response = _context3.sent;
+
+              console.log('HELLLLOOOOO');
               allFood = response.data;
               action = getFoodLog(allFood);
 
               dispatch(action);
-              _context3.next = 12;
+              _context3.next = 13;
               break;
 
-            case 9:
-              _context3.prev = 9;
+            case 10:
+              _context3.prev = 10;
               _context3.t0 = _context3['catch'](0);
 
               console.log(_context3.t0);
 
-            case 12:
+            case 13:
             case 'end':
               return _context3.stop();
           }
         }
-      }, _callee3, undefined, [[0, 9]]);
+      }, _callee3, undefined, [[0, 10]]);
     }));
 
     return function (_x3) {

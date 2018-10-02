@@ -138,7 +138,8 @@ export const addFoodToLog = food => {
         calories: food[0].calories,
         protein: food[0].protein,
         carb: food[0].carb,
-        fat: food[0].fat
+        fat: food[0].fat,
+        userId: food[0].user
       })
       const addedFood = response.data
       const action = addFood(addedFood)
@@ -149,10 +150,11 @@ export const addFoodToLog = food => {
   }
 }
 
-export const getFoodFromLog = () => {
+export const getFoodFromLog = (id) => {
   return async(dispatch) => {
     try{
-      const response = await axios.get('/api/dailyLog')
+      const response = await axios.get(`/api/dailyLog/${Number(id)}`)
+      console.log('HELLLLOOOOO')
       const allFood = response.data
       const action = getFoodLog(allFood)
       dispatch(action)

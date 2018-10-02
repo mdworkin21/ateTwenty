@@ -21,6 +21,7 @@ class SearchResults extends Component {
    let addThisFood = this.props.nutrientArr.filter(item => {
       return item.ndbNum === id
     })
+    addThisFood[0].user = this.props.user
     this.props.addFood(addThisFood);
     this.props.changeSearchVal(false)
     this.setState({
@@ -60,7 +61,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = (state) => {
   return {
-    searched: state.searched,    
+    searched: state.searched, 
+    user: state.user   
   }
 }
 

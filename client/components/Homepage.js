@@ -10,13 +10,17 @@ import TopNav from './TopNav'
 class Homepage extends React.Component {
   constructor(){
     super()
+    this.state = {
+      redirect: false
+    }
+  
   }
 
   render(){
     let date = new Date().toString()
     date = date.slice(0, date.indexOf(':') - 3)
     
-    return (
+    return(
       <React.Fragment>
         <TopNav />
         <h1 id='welcome'>Welcome to AteTwenty!</h1>

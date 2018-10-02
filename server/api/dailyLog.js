@@ -3,9 +3,10 @@ const DailyLog = require('../db/models/DailyLog')
 
 /*When there are multiple users you'll need to add a 'where' with user id (and userID should be associated with dailyLog)*/
 
-router.get('/', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try{
-    const allFood = await DailyLog.findAll()
+    console.log('BATTLESHIP', req.params.id)
+    const allFood = await DailyLog.findAll({where : {userId: req.params.id}})
     res.status(200).send(allFood)
   } catch(err){
      next(err)
@@ -15,6 +16,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try{
+    console.log("HIT BACK")
     const foodItem = await DailyLog.create(req.body)
     console.log(foodItem)
     res.status(201).send(foodItem)

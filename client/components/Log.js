@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {Table, Button, Form, Modal, Header } from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {getFoodFromLog, deleteItemFromLog} from '../store'
+import {getUserFromPassport, getFoodFromLog, deleteItemFromLog} from '../store'
 // import Eat from './EmptyLog'
 import NavBar from './NavBar';
 // import AddFood from './AddFood';
-
+import regeneratorRuntime from "regenerator-runtime";
 
 class Log extends Component {
   constructor(){
@@ -15,11 +15,13 @@ class Log extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   } 
-  componentWillMount(){
-    this.props.displayFood()
+
+   async componentDidMount(){
+    await this.props.setUser()
+
+   await this.props.displayFood(this.props.state.user)
    }
   
-
    handleSubmit(event){
      event.preventDefault()
      this.setState({
@@ -30,7 +32,7 @@ class Log extends Component {
   render(){
     // return this.state.addForm ? <AddFood /> : (
     //   !this.props.state.food.length ? <Eat /> :
-
+      console.log('USERLOG', this.props.state.user)
     return (
   <React.Fragment>
   <Table celled className=".ui.table">
@@ -88,9 +90,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    displayFood: () => dispatch(getFoodFromLog()),
+    displayFood: (userId) => dispatch(getFoodFromLog(userId)),
     deleteFood: (id) => {
-      dispatch(deleteItemFromLog(id))}
+      dispatch(deleteItemFromLog(id))},
+    setUser: () => dispatch(getUserFromPassport())
   }
 }
 

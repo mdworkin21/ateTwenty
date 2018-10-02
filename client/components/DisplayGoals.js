@@ -12,7 +12,6 @@ class DisplayGoals extends Component {
   }
 
   render(){
-    console.log("POPOO{OP", this.props)
      return (
       <div id="goals">
        <Menu.Item name="Goals" id="title" className='item' >Goals</Menu.Item>
