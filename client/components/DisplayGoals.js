@@ -1,15 +1,18 @@
 import React, {Component} from 'react'
 import {Menu} from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {retrieveDailyGoals} from '../store'
+import {getUserFromPassport, retrieveDailyGoals} from '../store'
+import regeneratorRuntime from "regenerator-runtime";
 
 
 class DisplayGoals extends Component {
-  componentDidMount(){
-    this.props.getGoals(this.props.user)
+  async componentDidMount(){
+    await this.props.setUser()
+    await this.props.getGoals(this.props.user)
   }
 
   render(){
+    console.log("POPOO{OP", this.props)
      return (
       <div id="goals">
        <Menu.Item name="Goals" id="title" className='item' >Goals</Menu.Item>
@@ -31,7 +34,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getGoals: (id) => dispatch(retrieveDailyGoals(id))
+    getGoals: (id) => dispatch(retrieveDailyGoals(id)),
+    setUser: () => dispatch(getUserFromPassport())
   }
 }
 

@@ -112,7 +112,13 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
 
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -131,12 +137,37 @@ var DisplayGoals = function (_Component) {
 
   _createClass(DisplayGoals, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.getGoals(this.props.user);
-    }
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee() {
+        return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.setUser();
+
+              case 2:
+                _context.next = 4;
+                return this.props.getGoals(this.props.user);
+
+              case 4:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _ref.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
   }, {
     key: 'render',
     value: function render() {
+      console.log("POPOO{OP", this.props);
       return _react2.default.createElement(
         'div',
         { id: 'goals' },
@@ -187,6 +218,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     getGoals: function getGoals(id) {
       return dispatch((0, _store.retrieveDailyGoals)(id));
+    },
+    setUser: function setUser() {
+      return dispatch((0, _store.getUserFromPassport)());
     }
   };
 };
@@ -2253,7 +2287,7 @@ _reactDom2.default.render(_react2.default.createElement(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setDailyGoal = exports.deleteItemFromLog = exports.retrieveDailyGoals = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.changeSearchedValue = exports.getMeasurement = exports.getFgCode = exports.getUser = undefined;
+exports.setDailyGoal = exports.deleteItemFromLog = exports.retrieveDailyGoals = exports.getFoodTotals = exports.getFoodFromLog = exports.addFoodToLog = exports.getUserFromPassport = exports.changeSearchedValue = exports.getMeasurement = exports.getFgCode = exports.getUser = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -2390,28 +2424,22 @@ var changeSearchedValue = exports.changeSearchedValue = function changeSearchedV
 };
 
 //Thunks
-var addFoodToLog = exports.addFoodToLog = function addFoodToLog(food) {
+var getUserFromPassport = exports.getUserFromPassport = function getUserFromPassport() {
   return function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(dispatch) {
-      var response, addedFood, action;
+      var response, user, action;
       return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return _axios2.default.post('/api/dailyLog', {
-                name: food[0].name,
-                calories: food[0].calories,
-                protein: food[0].protein,
-                carb: food[0].carb,
-                fat: food[0].fat
-              });
+              return _axios2.default.get('/authenticate/getUser');
 
             case 3:
               response = _context.sent;
-              addedFood = response.data;
-              action = addFood(addedFood);
+              user = response.data;
+              action = getUser(user);
 
               dispatch(action);
               _context.next = 12;
@@ -2436,23 +2464,28 @@ var addFoodToLog = exports.addFoodToLog = function addFoodToLog(food) {
     };
   }();
 };
-
-var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog() {
+var addFoodToLog = exports.addFoodToLog = function addFoodToLog(food) {
   return function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee2(dispatch) {
-      var response, allFood, action;
+      var response, addedFood, action;
       return _regeneratorRuntime2.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return _axios2.default.get('/api/dailyLog');
+              return _axios2.default.post('/api/dailyLog', {
+                name: food[0].name,
+                calories: food[0].calories,
+                protein: food[0].protein,
+                carb: food[0].carb,
+                fat: food[0].fat
+              });
 
             case 3:
               response = _context2.sent;
-              allFood = response.data;
-              action = getFoodLog(allFood);
+              addedFood = response.data;
+              action = addFood(addedFood);
 
               dispatch(action);
               _context2.next = 12;
@@ -2478,10 +2511,10 @@ var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog() {
   }();
 };
 
-var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
+var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog() {
   return function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee3(dispatch) {
-      var response, allFood, totals, action;
+      var response, allFood, action;
       return _regeneratorRuntime2.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -2492,6 +2525,47 @@ var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
 
             case 3:
               response = _context3.sent;
+              allFood = response.data;
+              action = getFoodLog(allFood);
+
+              dispatch(action);
+              _context3.next = 12;
+              break;
+
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3['catch'](0);
+
+              console.log(_context3.t0);
+
+            case 12:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _callee3, undefined, [[0, 9]]);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+};
+
+var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
+  return function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee4(dispatch) {
+      var response, allFood, totals, action;
+      return _regeneratorRuntime2.default.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return _axios2.default.get('/api/dailyLog');
+
+            case 3:
+              response = _context4.sent;
               allFood = response.data;
               totals = {
                 calories: 0,
@@ -2506,62 +2580,21 @@ var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
               action = getMacTotals(totals);
 
               dispatch(action);
-              _context3.next = 14;
+              _context4.next = 14;
               break;
 
             case 11:
-              _context3.prev = 11;
-              _context3.t0 = _context3['catch'](0);
-
-              console.log(_context3.t0);
-
-            case 14:
-            case 'end':
-              return _context3.stop();
-          }
-        }
-      }, _callee3, undefined, [[0, 11]]);
-    }));
-
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-};
-
-var retrieveDailyGoals = exports.retrieveDailyGoals = function retrieveDailyGoals(id) {
-  return function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee4(dispatch) {
-      var userGoals, response, action;
-      return _regeneratorRuntime2.default.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.prev = 0;
-              _context4.next = 3;
-              return _axios2.default.get('/api/userProfile/' + id);
-
-            case 3:
-              userGoals = _context4.sent;
-              response = userGoals.data;
-              action = getDailyGoals(response);
-
-              dispatch(action);
-              _context4.next = 12;
-              break;
-
-            case 9:
-              _context4.prev = 9;
+              _context4.prev = 11;
               _context4.t0 = _context4['catch'](0);
 
               console.log(_context4.t0);
 
-            case 12:
+            case 14:
             case 'end':
               return _context4.stop();
           }
         }
-      }, _callee4, undefined, [[0, 9]]);
+      }, _callee4, undefined, [[0, 11]]);
     }));
 
     return function (_x4) {
@@ -2570,37 +2603,39 @@ var retrieveDailyGoals = exports.retrieveDailyGoals = function retrieveDailyGoal
   }();
 };
 
-var deleteItemFromLog = exports.deleteItemFromLog = function deleteItemFromLog(id) {
+var retrieveDailyGoals = exports.retrieveDailyGoals = function retrieveDailyGoals(id) {
   return function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee5(dispatch) {
-      var action;
+      var userGoals, response, action;
       return _regeneratorRuntime2.default.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.prev = 0;
               _context5.next = 3;
-              return _axios2.default.delete('/api/dailyLog/' + id);
+              return _axios2.default.get('/api/userProfile/' + id);
 
             case 3:
-              action = deleteFood(id);
+              userGoals = _context5.sent;
+              response = userGoals.data;
+              action = getDailyGoals(response);
 
               dispatch(action);
-              _context5.next = 10;
+              _context5.next = 12;
               break;
 
-            case 7:
-              _context5.prev = 7;
+            case 9:
+              _context5.prev = 9;
               _context5.t0 = _context5['catch'](0);
 
               console.log(_context5.t0);
 
-            case 10:
+            case 12:
             case 'end':
               return _context5.stop();
           }
         }
-      }, _callee5, undefined, [[0, 7]]);
+      }, _callee5, undefined, [[0, 9]]);
     }));
 
     return function (_x5) {
@@ -2609,43 +2644,82 @@ var deleteItemFromLog = exports.deleteItemFromLog = function deleteItemFromLog(i
   }();
 };
 
-var setDailyGoal = exports.setDailyGoal = function setDailyGoal(dailyGoals) {
+var deleteItemFromLog = exports.deleteItemFromLog = function deleteItemFromLog(id) {
   return function () {
     var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee6(dispatch) {
-      var response, setGoals, action;
+      var action;
       return _regeneratorRuntime2.default.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               _context6.prev = 0;
               _context6.next = 3;
-              return _axios2.default.post('/api/userProfile/', { dailyGoals: dailyGoals });
+              return _axios2.default.delete('/api/dailyLog/' + id);
 
             case 3:
-              response = _context6.sent;
-              setGoals = response.data;
-              action = setDailyGoals(setGoals);
+              action = deleteFood(id);
 
               dispatch(action);
-              _context6.next = 12;
+              _context6.next = 10;
               break;
 
-            case 9:
-              _context6.prev = 9;
+            case 7:
+              _context6.prev = 7;
               _context6.t0 = _context6['catch'](0);
 
               console.log(_context6.t0);
 
-            case 12:
+            case 10:
             case 'end':
               return _context6.stop();
           }
         }
-      }, _callee6, undefined, [[0, 9]]);
+      }, _callee6, undefined, [[0, 7]]);
     }));
 
     return function (_x6) {
       return _ref6.apply(this, arguments);
+    };
+  }();
+};
+
+var setDailyGoal = exports.setDailyGoal = function setDailyGoal(dailyGoals) {
+  return function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee7(dispatch) {
+      var response, setGoals, action;
+      return _regeneratorRuntime2.default.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              _context7.next = 3;
+              return _axios2.default.post('/api/userProfile/', { dailyGoals: dailyGoals });
+
+            case 3:
+              response = _context7.sent;
+              setGoals = response.data;
+              action = setDailyGoals(setGoals);
+
+              dispatch(action);
+              _context7.next = 12;
+              break;
+
+            case 9:
+              _context7.prev = 9;
+              _context7.t0 = _context7['catch'](0);
+
+              console.log(_context7.t0);
+
+            case 12:
+            case 'end':
+              return _context7.stop();
+          }
+        }
+      }, _callee7, undefined, [[0, 9]]);
+    }));
+
+    return function (_x7) {
+      return _ref7.apply(this, arguments);
     };
   }();
 };
@@ -2657,7 +2731,7 @@ function reducer() {
 
   switch (action.type) {
     case GET_USER:
-      return _extends({}, state, { user: action.user });
+      return _extends({}, state, { user: action.user.id });
     case GET_FOOD_LOG:
       return _extends({}, state, { food: action.food });
     case GET_TOTALS:

@@ -3,6 +3,13 @@ const User = require('../db/models/User')
 
 //Checks to see if user exists in db, and whether pw is correct. 
 
+router.get('/getUser', (req, res, next) => {
+  if (req.user){
+    res.status(200).send(req.user)
+  }
+})
+
+
 router.post('/checkUser', async (req, res, next) => {
   try{
     const user = await User.findOne({
@@ -18,7 +25,9 @@ router.post('/checkUser', async (req, res, next) => {
     } else {
       //HERE"S THE MOD
       // console.log(req.session.passport)
+      console.log('WHYYYY',req.user)
       // req.session.passport.user = user
+      // console.log(req.session.passport.user )
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch(err){

@@ -118,6 +118,18 @@ export const changeSearchedValue = (boolean) => {
 }
 
 //Thunks
+export const getUserFromPassport = () => {
+  return async (dispatch) => {
+    try{
+      const response = await axios.get('/authenticate/getUser')
+      const user = response.data
+      const action = getUser(user)
+      dispatch(action)
+    }catch(err){
+      console.log(err)
+    }
+  }
+}
 export const addFoodToLog = food => {
   return async (dispatch) => {
     try{
@@ -217,7 +229,7 @@ export const setDailyGoal = (dailyGoals) => {
 function reducer(state = initialState, action){
   switch (action.type){
     case GET_USER:
-      return {...state, user: action.user}
+      return {...state, user: action.user.id}
     case GET_FOOD_LOG:
       return {...state, food: action.food}
     case GET_TOTALS:
