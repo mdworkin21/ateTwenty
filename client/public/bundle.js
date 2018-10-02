@@ -617,7 +617,6 @@ var Log = function (_Component) {
 
       // return this.state.addForm ? <AddFood /> : (
       //   !this.props.state.food.length ? <Eat /> :
-      console.log('USERLOG', this.props.state.user);
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -2187,6 +2186,9 @@ var TopNav = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (TopNav.__proto__ || Object.getPrototypeOf(TopNav)).call(this));
 
+    _this.state = {
+      redirect: false
+    };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
   }
@@ -2197,10 +2199,21 @@ var TopNav = function (_Component) {
       event.preventDefault();
       var logOut = _axios2.default.delete('/authenticate/logout');
       console.log('click');
+      if (logOut) {
+        this.setState({
+          redirect: true
+        });
+      }
     }
   }, {
     key: 'render',
     value: function render() {
+      var _from = { from: { pathname: "/" } },
+          from = _from.from;
+
+      if (this.state.redirect) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: from });
+      }
       return _react2.default.createElement(
         _semanticUiReact.Menu,
         { icon: true, className: 'div ui menu top' },
@@ -2565,27 +2578,25 @@ var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog(id) {
 
             case 3:
               response = _context3.sent;
-
-              console.log('HELLLLOOOOO');
               allFood = response.data;
               action = getFoodLog(allFood);
 
               dispatch(action);
-              _context3.next = 13;
+              _context3.next = 12;
               break;
 
-            case 10:
-              _context3.prev = 10;
+            case 9:
+              _context3.prev = 9;
               _context3.t0 = _context3['catch'](0);
 
               console.log(_context3.t0);
 
-            case 13:
+            case 12:
             case 'end':
               return _context3.stop();
           }
         }
-      }, _callee3, undefined, [[0, 10]]);
+      }, _callee3, undefined, [[0, 9]]);
     }));
 
     return function (_x3) {

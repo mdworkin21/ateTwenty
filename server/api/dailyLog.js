@@ -5,13 +5,15 @@ const DailyLog = require('../db/models/DailyLog')
 
 router.get('/:id', async (req, res, next) => {
   try{
-    console.log('BATTLESHIP', req.params.id)
-    const allFood = await DailyLog.findAll({where : {userId: req.params.id}})
+    const allFood = await DailyLog.findAll({
+      where : {
+        userId: req.params.id
+      }
+    })
     res.status(200).send(allFood)
   } catch(err){
      next(err)
   }
-
 })
 
 router.post('/', async (req, res, next) => {

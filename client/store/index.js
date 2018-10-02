@@ -154,7 +154,6 @@ export const getFoodFromLog = (id) => {
   return async(dispatch) => {
     try{
       const response = await axios.get(`/api/dailyLog/${Number(id)}`)
-      console.log('HELLLLOOOOO')
       const allFood = response.data
       const action = getFoodLog(allFood)
       dispatch(action)

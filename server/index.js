@@ -47,7 +47,6 @@ app.use(session({
   cookieName: 'session',
   secret: process.env.SESSION_SECRET || '80/20',
   store: sessionStore,
-  sameSite: true,
   resave: false,
   saveUninitialized: false
 }))

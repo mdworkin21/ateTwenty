@@ -32,7 +32,6 @@ class Log extends Component {
   render(){
     // return this.state.addForm ? <AddFood /> : (
     //   !this.props.state.food.length ? <Eat /> :
-      console.log('USERLOG', this.props.state.user)
     return (
   <React.Fragment>
   <Table celled className=".ui.table">
