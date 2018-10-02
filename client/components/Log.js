@@ -90,7 +90,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     displayFood: () => dispatch(getFoodFromLog()),
     deleteFood: (id) => {
-      console.log("CLICKED")
       dispatch(deleteItemFromLog(id))}
   }
 }

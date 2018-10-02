@@ -6,7 +6,7 @@ const NavBar = () => {
     return (
       <Menu icon className="div ui menu bottom">
         <Menu.Item name='home'> 
-          <Link to="/"> <Icon name='home'/></Link>
+          <Link to="/home"> <Icon name='home'/></Link>
         </Menu.Item>
 
         <Menu.Item name='calculator'> 

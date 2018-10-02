@@ -179,7 +179,6 @@ export const retrieveDailyGoals = (id) => {
   return async (dispatch) => {
     try{
       const userGoals = await axios.get(`/api/userProfile/${id}`)
-      console.log("STORE HIT", userGoals.data)
       const response = userGoals.data
       const action = getDailyGoals(response)
       dispatch(action)

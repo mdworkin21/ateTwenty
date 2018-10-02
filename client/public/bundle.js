@@ -137,7 +137,6 @@ var DisplayGoals = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('INDISPLAY', this.props.dailyGoals);
       return _react2.default.createElement(
         'div',
         { id: 'goals' },
@@ -674,7 +673,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0, _store.getFoodFromLog)());
     },
     deleteFood: function deleteFood(id) {
-      console.log("CLICKED");
       dispatch((0, _store.deleteItemFromLog)(id));
     }
   };
@@ -1259,7 +1257,7 @@ var NavBar = function NavBar() {
       { name: 'home' },
       _react2.default.createElement(
         _reactRouterDom.Link,
-        { to: '/' },
+        { to: '/home' },
         ' ',
         _react2.default.createElement(_semanticUiReact.Icon, { name: 'home' })
       )
@@ -2086,6 +2084,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -2094,24 +2094,67 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 
 var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
 
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TopNav = function TopNav() {
-  return _react2.default.createElement(
-    _semanticUiReact.Menu,
-    { icon: true, className: 'div ui menu top' },
-    _react2.default.createElement(
-      _semanticUiReact.Menu.Item,
-      { name: 'plus' },
-      _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: '/search' },
-        ' ',
-        _react2.default.createElement(_semanticUiReact.Icon, { name: 'plus' })
-      )
-    )
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopNav = function (_Component) {
+  _inherits(TopNav, _Component);
+
+  function TopNav() {
+    _classCallCheck(this, TopNav);
+
+    var _this = _possibleConstructorReturn(this, (TopNav.__proto__ || Object.getPrototypeOf(TopNav)).call(this));
+
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(TopNav, [{
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      var logOut = _axios2.default.delete('/authenticate/logout');
+      console.log('click');
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _semanticUiReact.Menu,
+        { icon: true, className: 'div ui menu top' },
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { name: 'plus' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/search' },
+            ' ',
+            _react2.default.createElement(_semanticUiReact.Icon, { name: 'plus' })
+          )
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Button,
+          { onClick: this.handleSubmit },
+          'Log out'
+        )
+      );
+    }
+  }]);
+
+  return TopNav;
+}(_react.Component);
+
+// export default TopNav
+
 
 exports.default = TopNav;
 
@@ -2500,27 +2543,25 @@ var retrieveDailyGoals = exports.retrieveDailyGoals = function retrieveDailyGoal
 
             case 3:
               userGoals = _context4.sent;
-
-              console.log("STORE HIT", userGoals.data);
               response = userGoals.data;
               action = getDailyGoals(response);
 
               dispatch(action);
-              _context4.next = 13;
+              _context4.next = 12;
               break;
 
-            case 10:
-              _context4.prev = 10;
+            case 9:
+              _context4.prev = 9;
               _context4.t0 = _context4['catch'](0);
 
               console.log(_context4.t0);
 
-            case 13:
+            case 12:
             case 'end':
               return _context4.stop();
           }
         }
-      }, _callee4, undefined, [[0, 10]]);
+      }, _callee4, undefined, [[0, 9]]);
     }));
 
     return function (_x4) {

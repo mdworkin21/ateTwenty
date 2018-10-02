@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import NavBar from './NavBar'
 import { connect } from 'react-redux';
-import {getFoodFromLog, getFoodTotals} from '../store'
+import {getFoodTotals} from '../store'
 import {Grid, Segment, Image, Divider} from 'semantic-ui-react'
 import DisplayGoals from './DisplayGoals'
 import Log from './Log'
@@ -20,7 +20,7 @@ class Homepage extends React.Component {
       <React.Fragment>
         <TopNav />
         <h1 id='welcome'>Welcome to AteTwenty!</h1>
-        <DisplayGoals/>
+        <DisplayGoals />
         <h2>CURRENT TOTALS</h2>
         <h1>{`${date}`}</h1>
         <Log />

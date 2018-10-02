@@ -5,11 +5,11 @@ const Profile = require('../db/models/Profile')
 
 router.get('/:id', async(req, res, next) => {
   try{
-    const userGoals = await Profile.findOne({
-      where: {
-        userId: req.params.id}
-    })
-    res.status(200).send(userGoals)
+      const userGoals = await Profile.findOne({
+        where: {
+          userId: req.params.id}
+      })
+      res.status(200).send(userGoals)
   } catch(err) {
     next(err)
   }

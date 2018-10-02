@@ -22,6 +22,7 @@ const User = require('./db/models/User')
 
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
+
 // passport registration
 passport.serializeUser((user, done) => 
 done(null, user.id))
@@ -43,12 +44,12 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 //Session middleware with passport
 app.use(session({
+  cookieName: 'session',
   secret: process.env.SESSION_SECRET || '80/20',
   store: sessionStore,
   resave: false,
   saveUninitialized: false
 }))
-
 
 app.use(passport.initialize())
 app.use(passport.session())
