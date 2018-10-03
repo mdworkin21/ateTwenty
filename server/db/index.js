@@ -3,7 +3,7 @@ const Profile = require('./models/Profile')
 const DailyLog = require('./models/DailyLog')
 const Sequelize = require('sequelize')
 
-require('./models')
+const {User} = require('./models')
 //Define your associations here
 Profile.belongsTo(User)
 User.hasOne(Profile)
