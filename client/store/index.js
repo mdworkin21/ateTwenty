@@ -163,10 +163,10 @@ export const getFoodFromLog = (id) => {
   }
 }
 
-export const getFoodTotals = () => {
+export const getFoodTotals = (id) => {
   return async(dispatch) => {
     try{
-      const response = await axios.get('/api/dailyLog')
+      const response = await axios.get(`/api/dailyLog/${Number(id)}`)
       const allFood = response.data
       let totals = {
         calories: 0,

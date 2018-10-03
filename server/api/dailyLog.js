@@ -10,6 +10,8 @@ router.get('/:id', async (req, res, next) => {
         userId: req.params.id
       }
     })
+    console.log("HIT BACK", allFood)
+
     res.status(200).send(allFood)
   } catch(err){
      next(err)
@@ -18,7 +20,6 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try{
-    console.log("HIT BACK")
     const foodItem = await DailyLog.create(req.body)
     console.log(foodItem)
     res.status(201).send(foodItem)

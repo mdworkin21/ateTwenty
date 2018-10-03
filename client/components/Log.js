@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 // import AddFood from './AddFood';
 import regeneratorRuntime from "regenerator-runtime";
 
+
 class Log extends Component {
   constructor(){
     super()
@@ -18,8 +19,7 @@ class Log extends Component {
 
    async componentDidMount(){
     await this.props.setUser()
-
-   await this.props.displayFood(this.props.state.user)
+    await this.props.displayFood(this.props.state.user)
    }
   
    handleSubmit(event){
@@ -32,6 +32,7 @@ class Log extends Component {
   render(){
     // return this.state.addForm ? <AddFood /> : (
     //   !this.props.state.food.length ? <Eat /> :
+
     return (
   <React.Fragment>
   <Table celled className=".ui.table">

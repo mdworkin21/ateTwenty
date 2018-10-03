@@ -34,11 +34,8 @@ class SignUp extends Component {
         email: this.state.email,
         password: this.state.password
       })
-      console.log(newUser.status)
-      console.log('NEWWWWW', newUser)
       
       if(newUser.status === 201){
-        console.log("POOOOOP")
         this.props.setUser(newUser.data.id)
       }
       this.setState({
@@ -81,6 +78,7 @@ class SignUp extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     setUser: (user) => dispatch(getUserFromPassport(user))
+   
   }
 }
 

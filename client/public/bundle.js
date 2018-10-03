@@ -86,6 +86,85 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./client/components/CurrentTotals.js":
+/*!********************************************!*\
+  !*** ./client/components/CurrentTotals.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CurrentTotal = function CurrentTotal(props) {
+  return _react2.default.createElement(
+    _react2.default.Fragment,
+    null,
+    _react2.default.createElement(
+      _semanticUiReact.Grid,
+      null,
+      _react2.default.createElement(
+        _semanticUiReact.Grid.Row,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          { className: 'display', id: 'cal' },
+          'Calories',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          props.state.cal.toFixed(2)
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          { className: 'display', id: 'protein' },
+          'Protein',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          props.state.protein.toFixed(2)
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          { className: 'display', id: 'carb' },
+          'Carb',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          props.state.carb.toFixed(2)
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          { className: 'display', id: 'fat' },
+          'Fat',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          props.state.fat.toFixed(2)
+        )
+      )
+    )
+  );
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return { state: state };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(CurrentTotal);
+
+/***/ }),
+
 /***/ "./client/components/DisplayGoals.js":
 /*!*******************************************!*\
   !*** ./client/components/DisplayGoals.js ***!
@@ -379,10 +458,6 @@ var _NavBar2 = _interopRequireDefault(_NavBar);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
-
-var _semanticUiReact = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
-
 var _DisplayGoals = __webpack_require__(/*! ./DisplayGoals */ "./client/components/DisplayGoals.js");
 
 var _DisplayGoals2 = _interopRequireDefault(_DisplayGoals);
@@ -395,7 +470,19 @@ var _TopNav = __webpack_require__(/*! ./TopNav */ "./client/components/TopNav.js
 
 var _TopNav2 = _interopRequireDefault(_TopNav);
 
+var _CurrentTotals = __webpack_require__(/*! ./CurrentTotals */ "./client/components/CurrentTotals.js");
+
+var _CurrentTotals2 = _interopRequireDefault(_CurrentTotals);
+
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
+var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
+
+var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -419,6 +506,35 @@ var Homepage = function (_React$Component) {
   }
 
   _createClass(Homepage, [{
+    key: 'componentDidMount',
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee() {
+        return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.setUser(this.props.state.user);
+
+              case 2:
+                _context.next = 4;
+                return this.props.displayTotals(this.props.state.user);
+
+              case 4:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _ref.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
     key: 'render',
     value: function render() {
       var date = new Date().toString();
@@ -439,6 +555,7 @@ var Homepage = function (_React$Component) {
           null,
           'CURRENT TOTALS'
         ),
+        _react2.default.createElement(_CurrentTotals2.default, null),
         _react2.default.createElement(
           'h1',
           null,
@@ -459,9 +576,13 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    displayTotals: function displayTotals() {
-      return dispatch((0, _store.getFoodTotals)());
+    setUser: function setUser(user) {
+      return dispatch((0, _store.getUserFromPassport)(user));
+    },
+    displayTotals: function displayTotals(id) {
+      return dispatch((0, _store.getFoodTotals)(id));
     }
+
   };
 };
 
@@ -617,6 +738,7 @@ var Log = function (_Component) {
 
       // return this.state.addForm ? <AddFood /> : (
       //   !this.props.state.food.length ? <Eat /> :
+
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -1858,6 +1980,7 @@ var SignIn = function (_Component) {
 
                 if (doesUserExist.status === 200) {
                   this.props.setUser(doesUserExist.data.id);
+
                   this.setState({
                     name: '',
                     email: '',
@@ -1945,7 +2068,7 @@ var SignIn = function (_Component) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setUser: function setUser(user) {
-      return dispatch((0, _store.getUser)(user));
+      return dispatch((0, _store.getUserFromPassport)(user));
     }
   };
 };
@@ -2047,11 +2170,8 @@ var SignUp = function (_Component) {
               case 4:
                 newUser = _context.sent;
 
-                console.log(newUser.status);
-                console.log('NEWWWWW', newUser);
 
                 if (newUser.status === 201) {
-                  console.log("POOOOOP");
                   this.props.setUser(newUser.data.id);
                 }
                 this.setState({
@@ -2060,21 +2180,21 @@ var SignUp = function (_Component) {
                   password: '',
                   redirect: true
                 });
-                _context.next = 14;
+                _context.next = 12;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context['catch'](1);
 
                 console.log(_context.t0);
 
-              case 14:
+              case 12:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 11]]);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function handleSubmit(_x) {
@@ -2138,6 +2258,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     setUser: function setUser(user) {
       return dispatch((0, _store.getUserFromPassport)(user));
     }
+
   };
 };
 
@@ -2608,7 +2729,7 @@ var getFoodFromLog = exports.getFoodFromLog = function getFoodFromLog(id) {
   }();
 };
 
-var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
+var getFoodTotals = exports.getFoodTotals = function getFoodTotals(id) {
   return function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee4(dispatch) {
       var response, allFood, totals, action;
@@ -2618,7 +2739,7 @@ var getFoodTotals = exports.getFoodTotals = function getFoodTotals() {
             case 0:
               _context4.prev = 0;
               _context4.next = 3;
-              return _axios2.default.get('/api/dailyLog');
+              return _axios2.default.get('/api/dailyLog/' + Number(id));
 
             case 3:
               response = _context4.sent;

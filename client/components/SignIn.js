@@ -3,7 +3,7 @@ import { Form, Button, ButtonGroup } from 'semantic-ui-react'
 import axios from 'axios'
 import regeneratorRuntime from "regenerator-runtime";
 import {Redirect} from 'react-router-dom'
-import {getUser} from '../store'
+import {getUserFromPassport} from '../store'
 import {connect} from 'react-redux'
 
 
@@ -40,6 +40,7 @@ class SignIn extends Component {
 
       if(doesUserExist.status === 200){
         this.props.setUser(doesUserExist.data.id)
+
         this.setState({
           name: '',
           email: '',
@@ -89,7 +90,7 @@ class SignIn extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUser: (user) => dispatch(getUser(user))
+    setUser: (user) => dispatch(getUserFromPassport(user)),
   }
 }
 
