@@ -46,7 +46,7 @@ class SignIn extends Component {
           email: '',
           redirectHome: true
         })
-
+        
       } else {
         console.log(err)
       }
@@ -73,16 +73,19 @@ class SignIn extends Component {
     return(
       <React.Fragment>
         <Form>
+
           <Form.Field>
-          <input type="text" name="email" placeholder='email' onChange={this.handleChange} value={this.state.email}/>
+            <input type="text" name="email" placeholder='email' onChange={this.handleChange} value={this.state.email}/>
           </Form.Field>
+
           <Form.Field>
-          <input type="text" name="password" placeholder='password' onChange={this.handleChange} value={this.state.password}/>
+            <input type="text" name="password" placeholder='password' onChange={this.handleChange} value={this.state.password}/>
           </Form.Field>
+
           <Button onClick={this.checkUser}  type="submit" >Log In </Button>
           <Button onClick={this.signup} type="submit">Sign Up</Button>
-        </Form>
 
+        </Form>
       </React.Fragment>
     )
   }

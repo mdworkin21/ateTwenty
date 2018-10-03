@@ -91,7 +91,6 @@ export default class MacroCalc extends Component {
               label='Sedentary'
               value='sedentary'
               name="activity"
-              // checked={value === 'sedentary'}
               onChange={this.handleChange}
             />}
             content="I barely get out of bed. But I walk to get food, pee, and maybe walk the dog"
@@ -103,7 +102,6 @@ export default class MacroCalc extends Component {
             label='Lightly Active'
             value='light'
             name="activity"
-            // checked={value === 'light'}
             onClick={this.handleChange}
             />}
           content="Any activity that burns: 250-500 calories (male), 200-400 calories(female)"
@@ -114,7 +112,6 @@ export default class MacroCalc extends Component {
             label='Moderately Active'
             value='moderate'
             name="activity"
-            // checked={value === this.state.activity}
             onChange={this.handleChange}
             />}
           content="Any activity that burns: 500-650 calories (male), 350-500 calories (female)"
@@ -125,7 +122,6 @@ export default class MacroCalc extends Component {
             label='Very Active'
             value='very'
             name="activity"
-            // checked={this.state.activity.value === this.state.activity}
             onChange={this.handleChange}
             />}
             content="Any activity that burns: 650-800 calories (male), 500-650 calories (female)"
@@ -136,7 +132,6 @@ export default class MacroCalc extends Component {
             label='Extremely Active'
             value='extremely'
             name="activity"
-            // checked={value === this.state.activity}
             onChange={this.handleChange}
             />}
             content="Any activity that burns: 800+ calories (male), 650+ calories (female)"
@@ -149,7 +144,6 @@ export default class MacroCalc extends Component {
             label='Lose'
             value='lose'
             name='goals'
-            // checked={value === 'lose'}
             onChange={this.handleChange}
             />
 
@@ -157,7 +151,6 @@ export default class MacroCalc extends Component {
             label='Maintain'
             value='maintain'
             name="goals"
-            // checked={value === 'maintain'}
             onChange={this.handleChange}
             />
 
@@ -165,7 +158,6 @@ export default class MacroCalc extends Component {
             label='Gain'
             value='gain'
             name='goals'
-            // checked={value === 'gain'}
             onChange={this.handleChange}
             />
         </Form.Group>
