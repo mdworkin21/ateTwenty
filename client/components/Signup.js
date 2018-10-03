@@ -60,13 +60,13 @@ class SignUp extends Component {
         <h1>Sign Up</h1>
         <Form>
           <Form.Field>
-            <input type='text' name='name' value={this.state.name} label='name' onChange={this.handleChange} />
+            <input type='text' name='name' value={this.state.name} label='name' placeholder='name' onChange={this.handleChange} />
           </Form.Field>
           <Form.Field>
-            <input type='text' name='email' value={this.state.email} onChange={this.handleChange} />
+            <input type='text' name='email' value={this.state.email} placeholder='email'onChange={this.handleChange} />
           </Form.Field>
           <Form.Field>
-            <input type='text' name='password' value={this.state.password} onChange={this.handleChange} />
+            <input type='text' name='password' placeholder='password' value={this.state.password} onChange={this.handleChange} />
           </Form.Field>
           <Button onClick={this.handleSubmit}>Click</Button>
         </Form>

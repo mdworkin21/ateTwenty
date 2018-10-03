@@ -1669,7 +1669,7 @@ var SearchPage = function (_Component) {
           _react2.default.createElement(
             _semanticUiReact.Form.Field,
             null,
-            _react2.default.createElement('input', { type: 'number', name: 'quantity', onChange: this.handleChange, value: this.state.quantity, id: 'quantity' })
+            _react2.default.createElement('input', { type: 'number', name: 'quantity', min: '0', onChange: this.handleChange, value: this.state.quantity, id: 'quantity' })
           ),
           _react2.default.createElement(_MeasurementSel2.default, null),
           _react2.default.createElement(_FoodGroups2.default, null)
@@ -2042,12 +2042,12 @@ var SignIn = function (_Component) {
           _react2.default.createElement(
             _semanticUiReact.Form.Field,
             null,
-            _react2.default.createElement('input', { type: 'text', name: 'email', onChange: this.handleChange, value: this.state.email })
+            _react2.default.createElement('input', { type: 'text', name: 'email', placeholder: 'email', onChange: this.handleChange, value: this.state.email })
           ),
           _react2.default.createElement(
             _semanticUiReact.Form.Field,
             null,
-            _react2.default.createElement('input', { type: 'text', name: 'password', onChange: this.handleChange, value: this.state.password })
+            _react2.default.createElement('input', { type: 'text', name: 'password', placeholder: 'password', onChange: this.handleChange, value: this.state.password })
           ),
           _react2.default.createElement(
             _semanticUiReact.Button,
@@ -2230,17 +2230,17 @@ var SignUp = function (_Component) {
           _react2.default.createElement(
             _semanticUiReact.Form.Field,
             null,
-            _react2.default.createElement('input', { type: 'text', name: 'name', value: this.state.name, label: 'name', onChange: this.handleChange })
+            _react2.default.createElement('input', { type: 'text', name: 'name', value: this.state.name, label: 'name', placeholder: 'name', onChange: this.handleChange })
           ),
           _react2.default.createElement(
             _semanticUiReact.Form.Field,
             null,
-            _react2.default.createElement('input', { type: 'text', name: 'email', value: this.state.email, onChange: this.handleChange })
+            _react2.default.createElement('input', { type: 'text', name: 'email', value: this.state.email, placeholder: 'email', onChange: this.handleChange })
           ),
           _react2.default.createElement(
             _semanticUiReact.Form.Field,
             null,
-            _react2.default.createElement('input', { type: 'text', name: 'password', value: this.state.password, onChange: this.handleChange })
+            _react2.default.createElement('input', { type: 'text', name: 'password', placeholder: 'password', value: this.state.password, onChange: this.handleChange })
           ),
           _react2.default.createElement(
             _semanticUiReact.Button,

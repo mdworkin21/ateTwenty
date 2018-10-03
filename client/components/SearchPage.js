@@ -85,7 +85,7 @@ class SearchPage extends Component {
               <Button onClick={this.handleClear} name='clear' type="submit"/>
             </Form.Field>
             <Form.Field>
-              <input type="number" name="quantity" onChange={this.handleChange} value={this.state.quantity} id='quantity'/>
+              <input type="number" name="quantity" min="0" onChange={this.handleChange} value={this.state.quantity} id='quantity'/>
             </Form.Field>
             <MeasurementTypes />
             <DropDownFoodGroups/>
