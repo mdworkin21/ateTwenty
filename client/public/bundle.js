@@ -1277,8 +1277,7 @@ var MacroCalc = function (_Component) {
               { onClick: this.handleSubmit },
               'Submit'
             )
-          ),
-          _react2.default.createElement(_NavBar2.default, null)
+          )
         )
       );
     }
@@ -1286,6 +1285,9 @@ var MacroCalc = function (_Component) {
 
   return MacroCalc;
 }(_react.Component);
+
+//Uncomment Navbar and fix placement when styiling
+
 
 exports.default = MacroCalc;
 
