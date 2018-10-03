@@ -23,11 +23,6 @@ router.post('/checkUser', async (req, res, next) => {
     } else if (user.password !== req.body.password) {
       res.status(401).send('Wrong username and/or password')
     } else {
-      //HERE"S THE MOD
-      // console.log(req.session.passport)
-      console.log('WHYYYY',req.user)
-      // req.session.passport.user = user
-      // console.log(req.session.passport.user )
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch(err){
@@ -38,7 +33,9 @@ router.post('/checkUser', async (req, res, next) => {
 router.post('/newUser', async (req, res, next) => {
   try{
     const newUser = await User.create(req.body)
-    res.status(201).send(newUser)
+    req.login(newUser, err => (err ? next(err) : res.status(201).send(newUser)))
+
+    // res.status(201).send(newUser)
   }catch(err){
     next(err)
   }

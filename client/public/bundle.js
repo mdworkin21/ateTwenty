@@ -2048,7 +2048,10 @@ var SignUp = function (_Component) {
                 newUser = _context.sent;
 
                 console.log(newUser.status);
+                console.log('NEWWWWW', newUser);
+
                 if (newUser.status === 201) {
+                  console.log("POOOOOP");
                   this.props.setUser(newUser.data.id);
                 }
                 this.setState({
@@ -2057,21 +2060,21 @@ var SignUp = function (_Component) {
                   password: '',
                   redirect: true
                 });
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context['catch'](1);
 
                 console.log(_context.t0);
 
-              case 13:
+              case 14:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 10]]);
+        }, _callee, this, [[1, 11]]);
       }));
 
       function handleSubmit(_x) {
@@ -2133,7 +2136,7 @@ var SignUp = function (_Component) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setUser: function setUser(user) {
-      return dispatch((0, _store.getUser)(user));
+      return dispatch((0, _store.getUserFromPassport)(user));
     }
   };
 };
