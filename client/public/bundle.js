@@ -1504,6 +1504,8 @@ var _crypto = __webpack_require__(/*! crypto */ "./node_modules/crypto-browserif
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1519,7 +1521,7 @@ var SearchImg = function (_Component) {
     var _this = _possibleConstructorReturn(this, (SearchImg.__proto__ || Object.getPrototypeOf(SearchImg)).call(this));
 
     _this.state = {
-      whatever: ''
+      image: ''
     };
     _this.accessCamera = _this.accessCamera.bind(_this);
     return _this;
@@ -1527,8 +1529,9 @@ var SearchImg = function (_Component) {
 
   _createClass(SearchImg, [{
     key: 'accessCamera',
-    value: function accessCamera() {
-      console.log('pooper');
+    value: function accessCamera(event) {
+      console.log('pooper', event.target.files[0].name);
+      this.setState(_defineProperty({}, event.target.name, event.target.files[0].name));
     }
   }, {
     key: 'render',
@@ -1539,7 +1542,7 @@ var SearchImg = function (_Component) {
         _react2.default.createElement(
           _semanticUiReact.Form,
           null,
-          _react2.default.createElement('input', { type: 'file', accept: 'image/*' })
+          _react2.default.createElement('input', { name: 'image', type: 'file', accept: 'image/*', onChange: this.accessCamera, value: '' })
         )
       );
     }

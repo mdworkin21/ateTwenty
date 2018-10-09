@@ -8,22 +8,25 @@ class SearchImg extends Component {
   constructor(){
     super()
     this.state = {
-      whatever: ''
+      image: ''
     }
     this.accessCamera = this.accessCamera.bind(this)
   }
 
-  accessCamera(){
-    console.log('pooper')
+  accessCamera(event){
+    console.log('pooper', event.target.files[0].name)
+    this.setState({
+      [event.target.name]: event.target.files[0].name
+    })
   }
-
+  
+  
+  
   render(){
     return(
         <React.Fragment>
           <Form>
-          <input type="file" accept="image/*"/>
-          {/* <Button onClick={this.accessCamera} label="camera"/> */}
-
+          <input name='image' type="file" accept="image/*" onChange={this.accessCamera} value=''/>
           </Form>
 
         </React.Fragment>
