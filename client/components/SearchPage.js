@@ -11,6 +11,7 @@ import {connect} from 'react-redux'
 import {changeSearchedValue} from '../store'
 import {nutritionInfoByMeasurement} from '../utilities/measurementConv'
 import MeasurementTypes from './MeasurementSel'
+import SearchImg from './SearchImg'
 
 
 
@@ -82,7 +83,7 @@ class SearchPage extends Component {
             <Form.Field >
               <input type="text" name="search"  onChange={this.handleChange} value={this.state.search}/>
               <Button onClick={this.handleSubmit} icon='search' type="submit" />
-              <Button onClick={this.handleClear} name='clear' type="submit"/>
+              <Button onClick={this.handleClear} label='clear' name='clear' type="submit"/>
             </Form.Field>
             <Form.Field>
               <input type="number" name="quantity" min="0" onChange={this.handleChange} value={this.state.quantity} id='quantity'/>
@@ -90,6 +91,7 @@ class SearchPage extends Component {
             <MeasurementTypes />
             <DropDownFoodGroups/>
           </Form>
+            <SearchImg />
        
           <div id="searchResults">
           <SearchResults nutrientArr={this.state.nutrientArr} />
