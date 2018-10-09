@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {Form, Button} from 'semantic-ui-react'
 import axios from 'axios'
-import { timingSafeEqual } from 'crypto';
+import regeneratorRuntime from "regenerator-runtime";
+
 
 
 class SearchImg extends Component {
@@ -13,16 +14,20 @@ class SearchImg extends Component {
     this.accessCamera = this.accessCamera.bind(this)
   }
 
-  accessCamera(event){
-    console.log('pooper', event.target.files[0].name)
+  async accessCamera(event){
+
+    console.log(this.state.image)
     this.setState({
-      [event.target.name]: event.target.files[0].name
+      [event.target.name]: event.target.files[0]
     })
+    //Some utility function here that manipulates image
+    // const image = await axios.post('/api/clarifai', event.target.files[0])
+    // console.log('IMG', "IMGDATAOUTPUTS", image.data.outputs[0].data.concepts)
   }
   
   
-  
   render(){
+    console.log('STATE', this.state)
     return(
         <React.Fragment>
           <Form>

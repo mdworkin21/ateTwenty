@@ -17,6 +17,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "clarifai": "^2.8.1",
     "connect-session-sequelize": "^5.2.2",
     "cryptiles": "^4.1.2",
     "express": "^4.16.3",

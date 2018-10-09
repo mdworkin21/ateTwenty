@@ -10,7 +10,6 @@ router.get('/:id', async (req, res, next) => {
         userId: req.params.id
       }
     })
-    console.log("HIT BACK", allFood)
 
     res.status(200).send(allFood)
   } catch(err){
