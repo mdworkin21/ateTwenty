@@ -8,9 +8,11 @@ const app = new Clarifai.App({
 
 router.post('/', (req, res, next) => {
   try{
-    // console.log('BODYYYYY', req.body)
-    app.models.predict("bd367be194cf45149e75f01d59f77ba7", 'https://images-na.ssl-images-amazon.com/images/I/811fGdwqf%2BL._SX355_.jpg').then(
+    console.log('BODYYYYY', req.body.dataImg)
+    
+    app.models.predict(Clarifai.GENERAL_MODEL, {base64: req.body.dataImg}).then(
      function(response) {
+       console.log('POOPFACE')
        res.send(response)
        console.log(response);
      },

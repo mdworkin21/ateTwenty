@@ -1506,9 +1506,9 @@ var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1528,25 +1528,67 @@ var SearchImg = function (_Component) {
       image: ''
     };
     _this.accessCamera = _this.accessCamera.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.uploadFile = _this.uploadFile.bind(_this);
     return _this;
   }
 
   _createClass(SearchImg, [{
     key: 'accessCamera',
+    value: function accessCamera(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.files[0]));
+    }
+  }, {
+    key: 'uploadFile',
+    value: function uploadFile(e) {
+      var ctx = this.refs.canvas.getContext('2d');
+      var url = URL.createObjectURL(e.target.files[0]);
+      var img = new Image();
+
+      img.src = url;
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0, 600, 600, 0, 0, 200, 200);
+      };
+
+      var dataImg = this.refs.canvas.toDataURL();
+      console.log(dataImg);
+    }
+  }, {
+    key: 'handleSubmit',
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(event) {
+        var ctx, url, img, dataImg, image;
         return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                console.log(this.state);
+                event.preventDefault();
 
-                console.log(this.state.image);
-                this.setState(_defineProperty({}, event.target.name, event.target.files[0]));
-                //Some utility function here that manipulates image
-                // const image = await axios.post('/api/clarifai', event.target.files[0])
-                // console.log('IMG', "IMGDATAOUTPUTS", image.data.outputs[0].data.concepts)
+                ctx = this.refs.canvas.getContext('2d');
+                url = URL.createObjectURL(this.state.image);
+                img = new Image();
 
-              case 2:
+
+                img.src = url;
+                img.onload = function () {
+                  ctx.drawImage(img, 0, 0, 600, 600, 0, 0, 200, 200);
+                };
+                //Is this in base64?
+                dataImg = this.refs.canvas.toDataURL();
+
+                console.log('DM', dataImg);
+
+                // Some utility function here that manipulates image^
+                _context.next = 11;
+                return _axios2.default.post('/api/clarifai', { dataImg: dataImg });
+
+              case 11:
+                image = _context.sent;
+
+                console.log('IMG', "IMGDATAOUTPUTS", image.data.outputs[0].data.concepts);
+
+              case 13:
               case 'end':
                 return _context.stop();
             }
@@ -1554,24 +1596,28 @@ var SearchImg = function (_Component) {
         }, _callee, this);
       }));
 
-      function accessCamera(_x) {
+      function handleSubmit(_x) {
         return _ref.apply(this, arguments);
       }
 
-      return accessCamera;
+      return handleSubmit;
     }()
   }, {
     key: 'render',
     value: function render() {
-      console.log('STATE', this.state);
+      // console.log(this.state.image, this.refs.canvas)
+
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
         _react2.default.createElement(
           _semanticUiReact.Form,
           null,
-          _react2.default.createElement('input', { name: 'image', type: 'file', accept: 'image/*', onChange: this.accessCamera, value: '' })
-        )
+          _react2.default.createElement('input', { name: 'image', type: 'file', accept: 'image/*', onChange: this.accessCamera }),
+          _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit })
+        ),
+        _react2.default.createElement('canvas', { ref: 'canvas', width: 640, height: 425 }),
+        _react2.default.createElement('img', { ref: 'image', src: this.state.image })
       );
     }
   }]);
