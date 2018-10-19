@@ -1508,8 +1508,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1527,68 +1525,31 @@ var SearchImg = function (_Component) {
     _this.state = {
       image: ''
     };
-    _this.accessCamera = _this.accessCamera.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.uploadFile = _this.uploadFile.bind(_this);
+    _this.gotStream = _this.gotStream.bind(_this);
+    _this.grabWebCamVideo = _this.grabWebCamVideo.bind(_this);
+    _this.snapPhoto = _this.snapPhoto.bind(_this);
+    _this.sendPhoto = _this.sendPhoto.bind(_this);
     return _this;
   }
 
   _createClass(SearchImg, [{
-    key: 'accessCamera',
-    value: function accessCamera(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.files[0]));
-    }
-  }, {
-    key: 'uploadFile',
-    value: function uploadFile(e) {
-      var ctx = this.refs.canvas.getContext('2d');
-      var url = URL.createObjectURL(e.target.files[0]);
-      var img = new Image();
-
-      img.src = url;
-      img.onload = function () {
-        ctx.drawImage(img, 0, 0, 600, 600, 0, 0, 200, 200);
-      };
-
-      var dataImg = this.refs.canvas.toDataURL();
-      console.log(dataImg);
-    }
-  }, {
-    key: 'handleSubmit',
+    key: 'sendPhoto',
     value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(event) {
-        var ctx, url, img, dataImg, image;
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee() {
+        var sentImage;
         return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log(this.state);
-                event.preventDefault();
+                _context.next = 2;
+                return _axios2.default.post('/api/clarifai', { file: this.photo.toDataURL() });
 
-                ctx = this.refs.canvas.getContext('2d');
-                url = URL.createObjectURL(this.state.image);
-                img = new Image();
+              case 2:
+                sentImage = _context.sent;
 
+                console.log(sentImage);
 
-                img.src = url;
-                img.onload = function () {
-                  ctx.drawImage(img, 0, 0, 600, 600, 0, 0, 200, 200);
-                };
-                //Is this in base64?
-                dataImg = this.refs.canvas.toDataURL();
-
-                console.log('DM', dataImg);
-
-                // Some utility function here that manipulates image^
-                _context.next = 11;
-                return _axios2.default.post('/api/clarifai', { dataImg: dataImg });
-
-              case 11:
-                image = _context.sent;
-
-                console.log('IMG', "IMGDATAOUTPUTS", image.data.outputs[0].data.concepts);
-
-              case 13:
+              case 4:
               case 'end':
                 return _context.stop();
             }
@@ -1596,28 +1557,79 @@ var SearchImg = function (_Component) {
         }, _callee, this);
       }));
 
-      function handleSubmit(_x) {
+      function sendPhoto() {
         return _ref.apply(this, arguments);
       }
 
-      return handleSubmit;
+      return sendPhoto;
     }()
+  }, {
+    key: 'grabWebCamVideo',
+    value: function grabWebCamVideo() {
+      console.log('Getting user media (video) ...');
+      navigator.mediaDevices.getUserMedia({
+        video: true
+      }).then(this.gotStream).catch(function (e) {
+        alert('getUserMedia() error: ' + e.name);
+      });
+    }
+  }, {
+    key: 'gotStream',
+    value: function gotStream(stream) {
+      var photo = this.photo;
+      console.log('getUserMedia video stream URL:', stream);
+      window.stream = stream; // stream available to console
+      this.video.srcObject = stream;
+      this.video.onloadedmetadata = function () {
+        photo.width = 200;
+        photo.height = 200;
+      };
+    }
+  }, {
+    key: 'snapPhoto',
+    value: function snapPhoto() {
+      var photoContext = this.photo.getContext('2d');
+      photoContext.drawImage(this.video, 0, 0, this.photo.width, this.photo.height);
+    }
   }, {
     key: 'render',
     value: function render() {
-      // console.log(this.state.image, this.refs.canvas)
+      var _this2 = this;
 
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
         _react2.default.createElement(
-          _semanticUiReact.Form,
-          null,
-          _react2.default.createElement('input', { name: 'image', type: 'file', accept: 'image/*', onChange: this.accessCamera }),
-          _react2.default.createElement(_semanticUiReact.Button, { onClick: this.handleSubmit })
+          'div',
+          { id: 'videoCanvas' },
+          _react2.default.createElement('video', { autoPlay: true, playsInline: true, ref: function ref(input) {
+              return _this2.video = input;
+            } }),
+          _react2.default.createElement('canvas', { ref: function ref(input) {
+              return _this2.photo = input;
+            } }),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.grabWebCamVideo },
+            'CAM ON'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.sendPhoto },
+            'SUBMIT'
+          )
         ),
-        _react2.default.createElement('canvas', { ref: 'canvas', width: 640, height: 425 }),
-        _react2.default.createElement('img', { ref: 'image', src: this.state.image })
+        _react2.default.createElement(
+          'div',
+          { id: 'buttons' },
+          _react2.default.createElement(
+            'button',
+            { ref: function ref(input) {
+                return _this2.snapBtn = input;
+              }, onClick: this.snapPhoto },
+            'Snap'
+          )
+        )
       );
     }
   }]);

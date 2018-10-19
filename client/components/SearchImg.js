@@ -4,75 +4,67 @@ import axios from 'axios'
 import regeneratorRuntime from "regenerator-runtime";
 
 
-
 class SearchImg extends Component {
   constructor(){
     super()
     this.state = {
       image: ''
     }
-    this.accessCamera = this.accessCamera.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.uploadFile = this.uploadFile.bind(this)
+   this.gotStream = this.gotStream.bind(this)
+   this.grabWebCamVideo = this.grabWebCamVideo.bind(this)
+   this.snapPhoto = this.snapPhoto.bind(this)
+   this.sendPhoto = this.sendPhoto.bind(this)
   }
 
- 
-  accessCamera(event){ 
-    this.setState({
-      [event.target.name]: event.target.files[0]
-    })
-  }
-  
-  uploadFile(e) {
-    let ctx = this.refs.canvas.getContext('2d');
-    let url = URL.createObjectURL(e.target.files[0]);
-    let img = new Image();
- 
-    img.src = url;
-    img.onload = function () {    
-        ctx.drawImage(img, 0, 0, 600, 600,
-             0, 0, 200, 200);    
-    }
- 
-    let dataImg = this.refs.canvas.toDataURL();
-    console.log(dataImg);
- }
 
-  async handleSubmit(event){
-    console.log(this.state)
-    event.preventDefault()
-
-    let ctx = this.refs.canvas.getContext('2d');
-    let url = URL.createObjectURL(this.state.image);
-    let img = new Image();
- 
-    img.src = url;
-    img.onload = function () {    
-        ctx.drawImage(img, 0, 0, 600, 600,
-             0, 0, 200, 200);    
-    }
-    //Is this in base64?
-    let dataImg = this.refs.canvas.toDataURL();
-    console.log('DM',dataImg);
+  async sendPhoto() {
+    let sentImage = await axios.post('/api/clarifai', {file: this.photo.toDataURL()})
+    console.log(sentImage)
     
+  }
 
-    // Some utility function here that manipulates image^
-    const image = await axios.post('/api/clarifai', {dataImg})
-    console.log('IMG', "IMGDATAOUTPUTS", image.data.outputs[0].data.concepts)
-
+  
+  grabWebCamVideo() {
+    console.log('Getting user media (video) ...');
+    navigator.mediaDevices.getUserMedia({
+      video: true
+    })
+    .then(this.gotStream)
+    .catch(function(e) {
+      alert('getUserMedia() error: ' + e.name);
+    });
   }
   
-  render(){
-    // console.log(this.state.image, this.refs.canvas)
+  gotStream(stream) {
+    let photo = this.photo 
+    console.log('getUserMedia video stream URL:', stream);
+    window.stream = stream; // stream available to console
+    this.video.srcObject = stream;
+    this.video.onloadedmetadata = function() {
+      photo.width = 200;
+      photo.height = 200;
+    };
+  }
+  
+  snapPhoto() {
+    let photoContext = this.photo.getContext('2d')
+    photoContext.drawImage(this.video, 0, 0, this.photo.width, this.photo.height);      
+  }
 
+  render(){ 
     return(
         <React.Fragment>
-          <Form>
-          <input name='image' type="file" accept="image/*" onChange={this.accessCamera} />
-          <Button onClick={this.handleSubmit} />
-          </Form>
-          <canvas ref="canvas" width={640} height={425} />
-          <img ref="image" src={this.state.image}/>
+          <div id="videoCanvas">
+            <video autoPlay playsInline ref={(input) => this.video = input}></video>
+            <canvas ref={(input) => this.photo = input}></canvas>
+            <button onClick={this.grabWebCamVideo}>CAM ON</button>
+            <button onClick ={this.sendPhoto}>SUBMIT</button>
+          </div>  
+
+          <div id="buttons">
+            <button ref={(input) => this.snapBtn = input} onClick={this.snapPhoto}>Snap</button>
+            
+          </div>
         </React.Fragment>
       
     )
@@ -80,3 +72,4 @@ class SearchImg extends Component {
 }
 
 export default SearchImg
+

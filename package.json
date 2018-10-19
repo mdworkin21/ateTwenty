@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/vision": "^0.22.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "clarifai": "^2.8.1",
@@ -32,6 +33,7 @@
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "react": "^16.5.2",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
