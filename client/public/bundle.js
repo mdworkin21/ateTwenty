@@ -610,14 +610,19 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//This might not be best way, we're using threading to pass down method and set state on grandparent. Consider refactor
+
 var ImgResults = function ImgResults(props) {
+  console.log(props.setConcept);
   return _react2.default.createElement(
     _react2.default.Fragment,
     null,
     props.concepts.map(function (element) {
       return _react2.default.createElement(
         'button',
-        { key: element.id },
+        { key: element.id, onClick: function onClick() {
+            return props.setConcept(element.name);
+          } },
         element.name
       );
     })
@@ -1612,9 +1617,6 @@ var SearchImg = function (_Component) {
   }, {
     key: 'grabWebCamVideo',
     value: function grabWebCamVideo() {
-      var constraints = {
-        facingMode: 'environment'
-      };
       console.log('Getting user media (video) ...');
       navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(this.gotStream).catch(function (e) {
         alert('getUserMedia() error: ' + e.name);
@@ -1678,7 +1680,7 @@ var SearchImg = function (_Component) {
             'Snap'
           )
         ),
-        _react2.default.createElement(_ImgResults2.default, { concepts: this.state.concepts })
+        _react2.default.createElement(_ImgResults2.default, { concepts: this.state.concepts, setConcept: this.props.setConcept })
       );
     }
   }]);
@@ -1778,10 +1780,18 @@ var SearchPage = function (_Component) {
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleClear = _this.handleClear.bind(_this);
+    _this.setConcept = _this.setConcept.bind(_this);
     return _this;
   }
 
   _createClass(SearchPage, [{
+    key: 'setConcept',
+    value: function setConcept(concept) {
+      this.setState({
+        search: concept
+      });
+    }
+  }, {
     key: 'handleChange',
     value: function handleChange(event) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
@@ -1865,6 +1875,7 @@ var SearchPage = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state.search);
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -1886,7 +1897,7 @@ var SearchPage = function (_Component) {
           _react2.default.createElement(_MeasurementSel2.default, null),
           _react2.default.createElement(_FoodGroups2.default, null)
         ),
-        _react2.default.createElement(_SearchImg2.default, null),
+        _react2.default.createElement(_SearchImg2.default, { setConcept: this.setConcept }),
         _react2.default.createElement(
           'div',
           { id: 'searchResults' },
@@ -2724,7 +2735,8 @@ var initialState = {
     protein: "",
     carb: "",
     fat: ""
-  }
+  },
+  searchimage: ''
 
   //Constants for Action Types
 };var GET_USER = 'GET_USER';

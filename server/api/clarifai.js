@@ -7,6 +7,7 @@ const app = new Clarifai.App({
  router.post('/', (req, res, next) => {
    try{
     let sliced = req.body.file.split(',')
+    //The string as first parameter is the Clarifai food model 
     app.models.predict("bd367be194cf45149e75f01d59f77ba7", {base64: sliced[1]}).then(
      function(response) {
        console.log(response);

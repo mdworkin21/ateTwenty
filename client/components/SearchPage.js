@@ -28,8 +28,14 @@ class SearchPage extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.setConcept = this.setConcept.bind(this)
   }
 
+  setConcept(concept){
+    this.setState({
+      search: concept
+    })
+  }
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value
@@ -76,6 +82,7 @@ class SearchPage extends Component {
   }
 
   render(){
+    console.log(this.state.search)
         return (
           <React.Fragment>
           
@@ -91,7 +98,7 @@ class SearchPage extends Component {
             <MeasurementTypes />
             <DropDownFoodGroups/>
           </Form>
-            <SearchImg />
+            <SearchImg setConcept={this.setConcept} />
        
           <div id="searchResults">
           <SearchResults nutrientArr={this.state.nutrientArr} />

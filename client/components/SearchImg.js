@@ -28,16 +28,12 @@ class SearchImg extends Component {
   }
   
   grabWebCamVideo() {
-    const constraints = {
-      facingMode: 'environment',
-    }
     console.log('Getting user media (video) ...');
     navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}})
     .then(this.gotStream)
     .catch(function(e) {
       alert('getUserMedia() error: ' + e.name);
     })
-   
   }
   
   gotStream(stream) {
@@ -70,7 +66,7 @@ class SearchImg extends Component {
           <div id="buttons">
             <button ref={(input) => this.snapBtn = input} onClick={this.snapPhoto}>Snap</button>
           </div>
-        <ImgResults concepts={this.state.concepts} />
+        <ImgResults concepts={this.state.concepts} setConcept={this.props.setConcept} />
 
         </React.Fragment>
       

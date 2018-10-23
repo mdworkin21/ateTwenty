@@ -23,7 +23,8 @@ const initialState = {
     protein: "",
     carb: "",
     fat: ""
-  }
+  },
+  searchimage: ''
 }
 
 //Constants for Action Types
