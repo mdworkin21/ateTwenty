@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import {Form, Button} from 'semantic-ui-react'
 import axios from 'axios'
 import regeneratorRuntime from "regenerator-runtime";
-
+import ImgResults from './ImgResults'
 
 class SearchImg extends Component {
   constructor(){
     super()
     this.state = {
-      image: ''
+      image: '',
+      concepts: []
     }
    this.gotStream = this.gotStream.bind(this)
    this.grabWebCamVideo = this.grabWebCamVideo.bind(this)
@@ -19,8 +20,10 @@ class SearchImg extends Component {
 
   async sendPhoto() {
     let sentImage = await axios.post('/api/clarifai', {file: this.photo.toDataURL()})
-    console.log(sentImage)
-    
+    console.log('DATA', sentImage.data.rawData.outputs[0].data.concepts)
+    this.setState({
+      concepts: sentImage.data.rawData.outputs[0].data.concepts
+    })
   }
 
   
@@ -63,8 +66,9 @@ class SearchImg extends Component {
 
           <div id="buttons">
             <button ref={(input) => this.snapBtn = input} onClick={this.snapPhoto}>Snap</button>
-            
           </div>
+        <ImgResults concepts={this.state.concepts} />
+
         </React.Fragment>
       
     )

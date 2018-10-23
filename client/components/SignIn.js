@@ -5,6 +5,7 @@ import regeneratorRuntime from "regenerator-runtime";
 import {Redirect} from 'react-router-dom'
 import {getUserFromPassport} from '../store'
 import {connect} from 'react-redux'
+import ImgResults from './ImgResults';
 
 
 class SignIn extends Component {

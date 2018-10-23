@@ -590,6 +590,45 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
+/***/ "./client/components/ImgResults.js":
+/*!*****************************************!*\
+  !*** ./client/components/ImgResults.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ImgResults = function ImgResults(props) {
+  console.log('PROPS', props.concepts);
+  return _react2.default.createElement(
+    _react2.default.Fragment,
+    null,
+    props.concepts.map(function (element) {
+      return _react2.default.createElement(
+        'button',
+        { key: element.id },
+        element.name
+      );
+    })
+  );
+};
+
+exports.default = ImgResults;
+
+/***/ }),
+
 /***/ "./client/components/Landing.js":
 /*!**************************************!*\
   !*** ./client/components/Landing.js ***!
@@ -1504,6 +1543,10 @@ var _regeneratorRuntime = __webpack_require__(/*! regenerator-runtime */ "./node
 
 var _regeneratorRuntime2 = _interopRequireDefault(_regeneratorRuntime);
 
+var _ImgResults = __webpack_require__(/*! ./ImgResults */ "./client/components/ImgResults.js");
+
+var _ImgResults2 = _interopRequireDefault(_ImgResults);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1523,7 +1566,8 @@ var SearchImg = function (_Component) {
     var _this = _possibleConstructorReturn(this, (SearchImg.__proto__ || Object.getPrototypeOf(SearchImg)).call(this));
 
     _this.state = {
-      image: ''
+      image: '',
+      concepts: []
     };
     _this.gotStream = _this.gotStream.bind(_this);
     _this.grabWebCamVideo = _this.grabWebCamVideo.bind(_this);
@@ -1547,9 +1591,12 @@ var SearchImg = function (_Component) {
               case 2:
                 sentImage = _context.sent;
 
-                console.log(sentImage);
+                console.log('DATA', sentImage.data.rawData.outputs[0].data.concepts);
+                this.setState({
+                  concepts: sentImage.data.rawData.outputs[0].data.concepts
+                });
 
-              case 4:
+              case 5:
               case 'end':
                 return _context.stop();
             }
@@ -1629,7 +1676,8 @@ var SearchImg = function (_Component) {
               }, onClick: this.snapPhoto },
             'Snap'
           )
-        )
+        ),
+        _react2.default.createElement(_ImgResults2.default, { concepts: this.state.concepts })
       );
     }
   }]);
@@ -2080,6 +2128,10 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _ImgResults = __webpack_require__(/*! ./ImgResults */ "./client/components/ImgResults.js");
+
+var _ImgResults2 = _interopRequireDefault(_ImgResults);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
