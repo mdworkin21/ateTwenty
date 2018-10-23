@@ -2144,6 +2144,10 @@ var _ImgResults = __webpack_require__(/*! ./ImgResults */ "./client/components/I
 
 var _ImgResults2 = _interopRequireDefault(_ImgResults);
 
+var _Homepage = __webpack_require__(/*! ./Homepage */ "./client/components/Homepage.js");
+
+var _Homepage2 = _interopRequireDefault(_Homepage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2169,7 +2173,8 @@ var SignIn = function (_Component) {
       email: '',
       password: '',
       redirectHome: false,
-      signup: false
+      signup: false,
+      modal: false
     };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.checkUser = _this.checkUser.bind(_this);
@@ -2247,6 +2252,13 @@ var SignIn = function (_Component) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.setState({
+        modal: true
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _from$signup = { from: { pathname: "/home" }, signup: { pathname: "/signup" } },
@@ -2264,27 +2276,31 @@ var SignIn = function (_Component) {
         _react2.default.Fragment,
         null,
         _react2.default.createElement(
-          _semanticUiReact.Form,
-          null,
+          _semanticUiReact.Modal,
+          { open: this.state.modal },
           _react2.default.createElement(
-            _semanticUiReact.Form.Field,
+            _semanticUiReact.Form,
             null,
-            _react2.default.createElement('input', { type: 'text', name: 'email', placeholder: 'email', onChange: this.handleChange, value: this.state.email })
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement('input', { type: 'text', name: 'password', placeholder: 'password', onChange: this.handleChange, value: this.state.password })
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Button,
-            { onClick: this.checkUser, type: 'submit' },
-            'Log In '
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Button,
-            { onClick: this.signup, type: 'submit' },
-            'Sign Up'
+            _react2.default.createElement(
+              _semanticUiReact.Form.Field,
+              null,
+              _react2.default.createElement('input', { type: 'text', name: 'email', placeholder: 'email', onChange: this.handleChange, value: this.state.email })
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Form.Field,
+              null,
+              _react2.default.createElement('input', { type: 'text', name: 'password', placeholder: 'password', onChange: this.handleChange, value: this.state.password })
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Button,
+              { onClick: this.checkUser, type: 'submit' },
+              'Log In '
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Button,
+              { onClick: this.signup, type: 'submit' },
+              'Sign Up'
+            )
           )
         )
       );

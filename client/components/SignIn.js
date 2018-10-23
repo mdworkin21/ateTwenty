@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import { Form, Button, ButtonGroup } from 'semantic-ui-react'
+import { Form, Button, ButtonGroup, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import regeneratorRuntime from "regenerator-runtime";
 import {Redirect} from 'react-router-dom'
 import {getUserFromPassport} from '../store'
 import {connect} from 'react-redux'
 import ImgResults from './ImgResults';
-
+import Homepage from './Homepage'
 
 class SignIn extends Component {
   constructor(){
@@ -16,7 +16,8 @@ class SignIn extends Component {
       email: '',
       password: '',
       redirectHome: false,
-      signup: false
+      signup: false,
+      modal: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.checkUser = this.checkUser.bind(this)
@@ -62,6 +63,12 @@ class SignIn extends Component {
     })
   }
 
+  componentDidMount(){
+    this.setState({
+      modal: true
+    })
+  }
+
   render(){
     const { from, signup} = { from: { pathname: "/home" }, signup: {pathname: "/signup"} } 
 
@@ -73,20 +80,22 @@ class SignIn extends Component {
     
     return(
       <React.Fragment>
-        <Form>
+        <Modal open={this.state.modal}>
+          <Form>
 
-          <Form.Field>
-            <input type="text" name="email" placeholder='email' onChange={this.handleChange} value={this.state.email}/>
-          </Form.Field>
+            <Form.Field>
+              <input type="text" name="email" placeholder='email' onChange={this.handleChange} value={this.state.email}/>
+            </Form.Field>
 
-          <Form.Field>
-            <input type="text" name="password" placeholder='password' onChange={this.handleChange} value={this.state.password}/>
-          </Form.Field>
+            <Form.Field>
+              <input type="text" name="password" placeholder='password' onChange={this.handleChange} value={this.state.password}/>
+            </Form.Field>
 
-          <Button onClick={this.checkUser}  type="submit" >Log In </Button>
-          <Button onClick={this.signup} type="submit">Sign Up</Button>
+            <Button onClick={this.checkUser}  type="submit" >Log In </Button>
+            <Button onClick={this.signup} type="submit">Sign Up</Button>
 
-        </Form>
+          </Form>
+        </Modal>
       </React.Fragment>
     )
   }
