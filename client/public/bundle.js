@@ -661,11 +661,6 @@ var Landing = function Landing() {
   return _react2.default.createElement(
     _react2.default.Fragment,
     null,
-    _react2.default.createElement(
-      'h1',
-      null,
-      'Welcome. Please Log In'
-    ),
     _react2.default.createElement(_SignIn2.default, null)
   );
 };
@@ -2277,14 +2272,19 @@ var SignIn = function (_Component) {
         null,
         _react2.default.createElement(
           _semanticUiReact.Modal,
-          { open: this.state.modal },
+          { open: this.state.modal, centered: true, className: 'modal', size: 'small' },
+          _react2.default.createElement(
+            'h1',
+            { className: 'welcome8020' },
+            '80/20'
+          ),
           _react2.default.createElement(
             _semanticUiReact.Form,
             null,
             _react2.default.createElement(
               _semanticUiReact.Form.Field,
               null,
-              _react2.default.createElement('input', { type: 'text', name: 'email', placeholder: 'email', onChange: this.handleChange, value: this.state.email })
+              _react2.default.createElement('input', { type: 'text', name: 'email', placeholder: 'email', onChange: this.handleChange, value: this.state.email, width: 'thirteen' })
             ),
             _react2.default.createElement(
               _semanticUiReact.Form.Field,
@@ -2293,7 +2293,7 @@ var SignIn = function (_Component) {
             ),
             _react2.default.createElement(
               _semanticUiReact.Button,
-              { onClick: this.checkUser, type: 'submit' },
+              { onClick: this.checkUser, type: 'submit', size: 'medium' },
               'Log In '
             ),
             _react2.default.createElement(

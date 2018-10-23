@@ -87,3 +87,21 @@ div.ui.menu.top{
 #quantity {
   width: 5%;
 }
+
+
+/* ModalSIgnin */
+.modal{
+  height: 800px;
+}
+
+.welcome8020{
+  font-size: 10em;
+  position: relative;
+  top: 100px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+
+

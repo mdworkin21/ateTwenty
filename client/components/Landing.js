@@ -3,8 +3,7 @@ import SignIn from './SignIn'
 
 const Landing = () => {
   return (
-    <React.Fragment>
-      <h1>Welcome. Please Log In</h1> 
+    <React.Fragment> 
       <SignIn />
     </React.Fragment>
   )
