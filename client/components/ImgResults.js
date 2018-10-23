@@ -1,7 +1,6 @@
 import React from 'react'
 
 const ImgResults = (props) => {
-  console.log('PROPS', props.concepts)
   return (
     <React.Fragment>
       {props.concepts.map(element => {

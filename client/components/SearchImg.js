@@ -20,17 +20,18 @@ class SearchImg extends Component {
 
   async sendPhoto() {
     let sentImage = await axios.post('/api/clarifai', {file: this.photo.toDataURL()})
-    console.log('DATA', sentImage.data.rawData.outputs[0].data.concepts)
+    let concepts = sentImage.data.rawData.outputs[0].data.concepts
     this.setState({
-      concepts: sentImage.data.rawData.outputs[0].data.concepts
+      concepts: concepts
     })
+   
   }
-
   
   grabWebCamVideo() {
     console.log('Getting user media (video) ...');
     navigator.mediaDevices.getUserMedia({
-      video: true
+      video: true,
+      facingMode: 'environment' ? 'environment' : 'user'
     })
     .then(this.gotStream)
     .catch(function(e) {
@@ -51,7 +52,8 @@ class SearchImg extends Component {
   
   snapPhoto() {
     let photoContext = this.photo.getContext('2d')
-    photoContext.drawImage(this.video, 0, 0, this.photo.width, this.photo.height);      
+    photoContext.drawImage(this.video, 0, 0, this.photo.width, this.photo.height);   
+    this.video.srcObject.getTracks()[0].stop()
   }
 
   render(){ 

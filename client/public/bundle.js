@@ -611,7 +611,6 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ImgResults = function ImgResults(props) {
-  console.log('PROPS', props.concepts);
   return _react2.default.createElement(
     _react2.default.Fragment,
     null,
@@ -1580,7 +1579,7 @@ var SearchImg = function (_Component) {
     key: 'sendPhoto',
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee() {
-        var sentImage;
+        var sentImage, concepts;
         return _regeneratorRuntime2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1590,10 +1589,10 @@ var SearchImg = function (_Component) {
 
               case 2:
                 sentImage = _context.sent;
+                concepts = sentImage.data.rawData.outputs[0].data.concepts;
 
-                console.log('DATA', sentImage.data.rawData.outputs[0].data.concepts);
                 this.setState({
-                  concepts: sentImage.data.rawData.outputs[0].data.concepts
+                  concepts: concepts
                 });
 
               case 5:
@@ -1615,7 +1614,8 @@ var SearchImg = function (_Component) {
     value: function grabWebCamVideo() {
       console.log('Getting user media (video) ...');
       navigator.mediaDevices.getUserMedia({
-        video: true
+        video: true,
+        facingMode: 'environment' ? 'environment' : undefined
       }).then(this.gotStream).catch(function (e) {
         alert('getUserMedia() error: ' + e.name);
       });
@@ -1637,6 +1637,7 @@ var SearchImg = function (_Component) {
     value: function snapPhoto() {
       var photoContext = this.photo.getContext('2d');
       photoContext.drawImage(this.video, 0, 0, this.photo.width, this.photo.height);
+      this.video.srcObject.getTracks()[0].stop();
     }
   }, {
     key: 'render',
