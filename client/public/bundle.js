@@ -1612,11 +1612,11 @@ var SearchImg = function (_Component) {
   }, {
     key: 'grabWebCamVideo',
     value: function grabWebCamVideo() {
-      console.log('Getting user media (video) ...');
-      navigator.mediaDevices.getUserMedia({
-        video: true,
+      var constraints = {
         facingMode: 'environment'
-      }).then(this.gotStream).catch(function (e) {
+      };
+      console.log('Getting user media (video) ...');
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(this.gotStream).catch(function (e) {
         alert('getUserMedia() error: ' + e.name);
       });
     }

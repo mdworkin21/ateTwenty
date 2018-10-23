@@ -28,15 +28,16 @@ class SearchImg extends Component {
   }
   
   grabWebCamVideo() {
+    const constraints = {
+      facingMode: 'environment',
+    }
     console.log('Getting user media (video) ...');
-    navigator.mediaDevices.getUserMedia({
-      video: true,
-      facingMode: 'environment' 
-    })
+    navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}})
     .then(this.gotStream)
     .catch(function(e) {
       alert('getUserMedia() error: ' + e.name);
-    });
+    })
+   
   }
   
   gotStream(stream) {
