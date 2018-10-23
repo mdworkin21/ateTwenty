@@ -31,7 +31,7 @@ class SearchImg extends Component {
     console.log('Getting user media (video) ...');
     navigator.mediaDevices.getUserMedia({
       video: true,
-      facingMode: 'environment' ? 'environment' : 'user'
+      facingMode: 'environment' 
     })
     .then(this.gotStream)
     .catch(function(e) {

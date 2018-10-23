@@ -1615,7 +1615,7 @@ var SearchImg = function (_Component) {
       console.log('Getting user media (video) ...');
       navigator.mediaDevices.getUserMedia({
         video: true,
-        facingMode: 'environment' ? 'environment' : undefined
+        facingMode: 'environment'
       }).then(this.gotStream).catch(function (e) {
         alert('getUserMedia() error: ' + e.name);
       });
