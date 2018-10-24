@@ -50,7 +50,6 @@ class SignUp extends Component {
   }
 
   render(){
-    console.log('STATE', this.state)
     const { from, signup} = { from: { pathname: "/calc" }}
     if (this.state.redirect) {
       return <Redirect to={from} />

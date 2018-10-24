@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Checkbox, Popup, Radio} from 'semantic-ui-react'
+import { Form, Checkbox, Popup, Radio, Segment, Grid, Header} from 'semantic-ui-react'
 import {feetToCm, inchesToCm, totalHeight, poundsToKg, MifflinForMen,MifflinForWomen, TDEECalc, dailyCalIntake, dailyProtein, dailyCarb, dailyFat} from '../utilities/MacroEquations'
 import NavBar from './NavBar'
 import DailyGoals from './MacTotals'
@@ -67,10 +67,16 @@ export default class MacroCalc extends Component {
     return this.state.alert ? <DailyGoals state={this.state}/> : (
       <React.Fragment>
       <div className="macFormContainer">
-        <Form className='ui form form ui form'>
-        <h1>Calculate Your Macros</h1>
-          <Form.Group widths='equal' id="calcInputs">
-            
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+        <Form className='ui form form ui form' size='large'>
+        <Header>
+          Calculate Your Macros
+        </Header>
+         
+        
+          <Segment widths='equal' id="calcInputs">
+            <Header textAlign='center'>Your Stats</Header>
             <Form.Input fluid required label='Age' type="number" min="0" name="age" value={this.state.age} onChange={this.handleChange} placeholder='Age'  />
             
             <Form.Select fluid required label='Gender' options={options} placeholder='Gender' name="gender" value={this.state.gender} onChange={this.handleChange}/>
@@ -80,10 +86,11 @@ export default class MacroCalc extends Component {
             <Form.Input fluid required label='Height (in)' type="number" min="0" placeholder='Inches' name="inches" value={this.state.inches} onChange={this.handleChange} />
 
             <Form.Input fluid required label='Weight (pds)' placeholder='Weight (pds)' type="number" min="0" name="weight" value={this.state.weight} onChange={this.handleChange} />
-          </Form.Group>
+          </Segment>
+         
 
-          <Form.Group inline required id='titles'>
-          <label required>Activity Level</label>
+          <Segment inline='true' required id='titles'>
+            <Header textAlign='center'>Activity Level</Header>
           
           <Popup 
               className='change'
@@ -136,10 +143,10 @@ export default class MacroCalc extends Component {
             />}
             content="Any activity that burns: 800+ calories (male), 650+ calories (female)"
             basic />
-        </Form.Group>
+        </Segment>
         
-        <Form.Group inline>
-        <label>Fitness Goals</label>
+        <Segment inline='true'>
+         <Header textAlign='center'>Fitness Goals</Header>
         <Form.Radio
             label='Lose'
             value='lose'
@@ -160,12 +167,14 @@ export default class MacroCalc extends Component {
             name='goals'
             onChange={this.handleChange}
             />
-        </Form.Group>
-        <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
+        </Segment>
+        <Form.Button color='blue' onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
+        </Grid.Column>
+        </Grid>
 
-      {/* <NavBar/> */}
       </div>
+      {/* <NavBar/> */}
       </React.Fragment>
     )
   }
