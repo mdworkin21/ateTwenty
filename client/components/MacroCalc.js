@@ -1,13 +1,27 @@
 import React, {Component} from 'react'
-import { Form, Checkbox, Popup, Radio, Segment, Grid, Header} from 'semantic-ui-react'
+import { Form, Segment, Grid, Header} from 'semantic-ui-react'
 import {feetToCm, inchesToCm, totalHeight, poundsToKg, MifflinForMen,MifflinForWomen, TDEECalc, dailyCalIntake, dailyProtein, dailyCarb, dailyFat} from '../utilities/MacroEquations'
 import NavBar from './NavBar'
 import DailyGoals from './MacTotals'
 
 
-const options = [
+const gender = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },
+]
+
+const activityLevel= [
+  {key: 's', text: 'Sedentary: What\'s walking?', value: 'sedentary'},
+  {key: 'la', text: 'Lightly Active: You burn 250-500 cal (male), 200-400 cal(female) ', value: 'light'},
+  {key: 'ma', text: 'Moderately Active: You burn 500-650 cal (male), 350-500 cal (female)', value: 'moderate'},
+  {key: 'va', text: 'Very Active: You burn 650-800 cal (male), 500-650 cal (female)', value: 'very'},
+  {key: 'ea', text: 'Extremely Active: You burn 800+ cal (male), 650+ cal (female)', value: 'extremely'}
+]
+
+const fitnessGoals = [
+  {key: 'l', text: 'Lose', value: 'lose'},
+  {key: 'm', text: 'Maintain', value: 'maintain'},
+  {key: 'lg', text: 'Gain', value: 'gain'}
 ]
 
 export default class MacroCalc extends Component {
@@ -20,7 +34,7 @@ export default class MacroCalc extends Component {
       inches: '',
       weight: '',
       activity: '',
-      goals: false,
+      goals: '',
       totals: {},
       alert: false
     }
@@ -64,115 +78,40 @@ export default class MacroCalc extends Component {
   }
 
   render(){
+    console.log(this.state)
     return this.state.alert ? <DailyGoals state={this.state}/> : (
       <React.Fragment>
       <div className="macFormContainer">
-        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+        <Grid  textAlign='center' style={{ height: '100%' }} >
         <Grid.Column style={{ maxWidth: 450 }}>
+        <Segment>
         <Form className='ui form form ui form' size='large'>
-        <Header>
-          Calculate Your Macros
-        </Header>
-         
-        
+        <Header>Calculate Your Macros</Header>
+
           <Segment widths='equal' id="calcInputs">
             <Header textAlign='center'>Your Stats</Header>
-            <Form.Input fluid required label='Age' type="number" min="0" name="age" value={this.state.age} onChange={this.handleChange} placeholder='Age'  />
-            
-            <Form.Select fluid required label='Gender' options={options} placeholder='Gender' name="gender" value={this.state.gender} onChange={this.handleChange}/>
-
+            <Form.Input fluid required label='Age' type="number" min="0" name="age" value={this.state.age} onChange={this.handleChange} placeholder='Age'/>
+            <Form.Select fluid required label='Gender' options={gender} placeholder='Gender' name="gender" value={this.state.gender} onChange={this.handleChange}/>
             <Form.Input fluid required label='Height (ft)' type="number" min="0" placeholder='Feet' name="feet" value={this.state.feet} onChange={this.handleChange}/>
-          
             <Form.Input fluid required label='Height (in)' type="number" min="0" placeholder='Inches' name="inches" value={this.state.inches} onChange={this.handleChange} />
-
             <Form.Input fluid required label='Weight (pds)' placeholder='Weight (pds)' type="number" min="0" name="weight" value={this.state.weight} onChange={this.handleChange} />
           </Segment>
-         
 
-          <Segment inline='true' required id='titles'>
-            <Header textAlign='center'>Activity Level</Header>
-          
-          <Popup 
-              className='change'
-              trigger={<Form.Radio
-              label='Sedentary'
-              value='sedentary'
-              name="activity"
-              onChange={this.handleChange}
-            />}
-            content="I barely get out of bed. But I walk to get food, pee, and maybe walk the dog"
-            basic 
-          />
+          <Segment inline='true' required id='titles'> 
+            <Header textAlign='center'>Activity Level</Header>  
+            <Form.Select fluid required options={activityLevel} placeholder='Activity Level' name="activity" value={this.state.activity} onChange={this.handleChange}/>
+          </Segment>
 
-          <Popup 
-            trigger={<Form.Radio
-            label='Lightly Active'
-            value='light'
-            name="activity"
-            onClick={this.handleChange}
-            />}
-          content="Any activity that burns: 250-500 calories (male), 200-400 calories(female)"
-          basic />
+          <Segment inline='true'>
+            <Header textAlign='center'>Fitness Goals</Header>
+            <Form.Select fluid required  options={fitnessGoals} placeholder='Goals' name="goals" value={this.state.goals} onChange={this.handleChange}/>
+          </Segment>
 
-          <Popup 
-            trigger={<Form.Radio
-            label='Moderately Active'
-            value='moderate'
-            name="activity"
-            onChange={this.handleChange}
-            />}
-          content="Any activity that burns: 500-650 calories (male), 350-500 calories (female)"
-          basic />
-
-          <Popup 
-            trigger={<Form.Radio
-            label='Very Active'
-            value='very'
-            name="activity"
-            onChange={this.handleChange}
-            />}
-            content="Any activity that burns: 650-800 calories (male), 500-650 calories (female)"
-            basic />
-
-          <Popup 
-            trigger={<Radio
-            label='Extremely Active'
-            value='extremely'
-            name="activity"
-            onChange={this.handleChange}
-            />}
-            content="Any activity that burns: 800+ calories (male), 650+ calories (female)"
-            basic />
-        </Segment>
-        
-        <Segment inline='true'>
-         <Header textAlign='center'>Fitness Goals</Header>
-        <Form.Radio
-            label='Lose'
-            value='lose'
-            name='goals'
-            onChange={this.handleChange}
-            />
-
-        <Form.Radio
-            label='Maintain'
-            value='maintain'
-            name="goals"
-            onChange={this.handleChange}
-            />
-
-        <Form.Radio
-            label='Gain'
-            value='gain'
-            name='goals'
-            onChange={this.handleChange}
-            />
-        </Segment>
-        <Form.Button color='blue' onClick={this.handleSubmit}>Submit</Form.Button>
+          <Form.Button color='blue' onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
+        </Segment>
         </Grid.Column>
         </Grid>
-
       </div>
       {/* <NavBar/> */}
       </React.Fragment>

@@ -1126,7 +1126,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var options = [{ key: 'm', text: 'Male', value: 'male' }, { key: 'f', text: 'Female', value: 'female' }];
+var gender = [{ key: 'm', text: 'Male', value: 'male' }, { key: 'f', text: 'Female', value: 'female' }];
+
+var activityLevel = [{ key: 's', text: 'Sedentary: What\'s walking?', value: 'sedentary' }, { key: 'la', text: 'Lightly Active: You burn 250-500 cal (male), 200-400 cal(female) ', value: 'light' }, { key: 'ma', text: 'Moderately Active: You burn 500-650 cal (male), 350-500 cal (female)', value: 'moderate' }, { key: 'va', text: 'Very Active: You burn 650-800 cal (male), 500-650 cal (female)', value: 'very' }, { key: 'ea', text: 'Extremely Active: You burn 800+ cal (male), 650+ cal (female)', value: 'extremely' }];
+
+var fitnessGoals = [{ key: 'l', text: 'Lose', value: 'lose' }, { key: 'm', text: 'Maintain', value: 'maintain' }, { key: 'lg', text: 'Gain', value: 'gain' }];
 
 var MacroCalc = function (_Component) {
   _inherits(MacroCalc, _Component);
@@ -1149,7 +1153,7 @@ var MacroCalc = function (_Component) {
       inches: '',
       weight: '',
       activity: '',
-      goals: false,
+      goals: '',
       totals: {},
       alert: false
     };
@@ -1196,6 +1200,7 @@ var MacroCalc = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state);
       return this.state.alert ? _react2.default.createElement(_MacTotals2.default, { state: this.state }) : _react2.default.createElement(
         _react2.default.Fragment,
         null,
@@ -1204,119 +1209,60 @@ var MacroCalc = function (_Component) {
           { className: 'macFormContainer' },
           _react2.default.createElement(
             _semanticUiReact.Grid,
-            { textAlign: 'center', style: { height: '100%' }, verticalAlign: 'middle' },
+            { textAlign: 'center', style: { height: '100%' } },
             _react2.default.createElement(
               _semanticUiReact.Grid.Column,
               { style: { maxWidth: 450 } },
               _react2.default.createElement(
-                _semanticUiReact.Form,
-                { className: 'ui form form ui form', size: 'large' },
+                _semanticUiReact.Segment,
+                null,
                 _react2.default.createElement(
-                  _semanticUiReact.Header,
-                  null,
-                  'Calculate Your Macros'
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Segment,
-                  { widths: 'equal', id: 'calcInputs' },
+                  _semanticUiReact.Form,
+                  { className: 'ui form form ui form', size: 'large' },
                   _react2.default.createElement(
                     _semanticUiReact.Header,
-                    { textAlign: 'center' },
-                    'Your Stats'
+                    null,
+                    'Calculate Your Macros'
                   ),
-                  _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Age', type: 'number', min: '0', name: 'age', value: this.state.age, onChange: this.handleChange, placeholder: 'Age' }),
-                  _react2.default.createElement(_semanticUiReact.Form.Select, { fluid: true, required: true, label: 'Gender', options: options, placeholder: 'Gender', name: 'gender', value: this.state.gender, onChange: this.handleChange }),
-                  _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Height (ft)', type: 'number', min: '0', placeholder: 'Feet', name: 'feet', value: this.state.feet, onChange: this.handleChange }),
-                  _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Height (in)', type: 'number', min: '0', placeholder: 'Inches', name: 'inches', value: this.state.inches, onChange: this.handleChange }),
-                  _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Weight (pds)', placeholder: 'Weight (pds)', type: 'number', min: '0', name: 'weight', value: this.state.weight, onChange: this.handleChange })
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Segment,
-                  { inline: 'true', required: true, id: 'titles' },
                   _react2.default.createElement(
-                    _semanticUiReact.Header,
-                    { textAlign: 'center' },
-                    'Activity Level'
+                    _semanticUiReact.Segment,
+                    { widths: 'equal', id: 'calcInputs' },
+                    _react2.default.createElement(
+                      _semanticUiReact.Header,
+                      { textAlign: 'center' },
+                      'Your Stats'
+                    ),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Age', type: 'number', min: '0', name: 'age', value: this.state.age, onChange: this.handleChange, placeholder: 'Age' }),
+                    _react2.default.createElement(_semanticUiReact.Form.Select, { fluid: true, required: true, label: 'Gender', options: gender, placeholder: 'Gender', name: 'gender', value: this.state.gender, onChange: this.handleChange }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Height (ft)', type: 'number', min: '0', placeholder: 'Feet', name: 'feet', value: this.state.feet, onChange: this.handleChange }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Height (in)', type: 'number', min: '0', placeholder: 'Inches', name: 'inches', value: this.state.inches, onChange: this.handleChange }),
+                    _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, required: true, label: 'Weight (pds)', placeholder: 'Weight (pds)', type: 'number', min: '0', name: 'weight', value: this.state.weight, onChange: this.handleChange })
                   ),
-                  _react2.default.createElement(_semanticUiReact.Popup, {
-                    className: 'change',
-                    trigger: _react2.default.createElement(_semanticUiReact.Form.Radio, {
-                      label: 'Sedentary',
-                      value: 'sedentary',
-                      name: 'activity',
-                      onChange: this.handleChange
-                    }),
-                    content: 'I barely get out of bed. But I walk to get food, pee, and maybe walk the dog',
-                    basic: true
-                  }),
-                  _react2.default.createElement(_semanticUiReact.Popup, {
-                    trigger: _react2.default.createElement(_semanticUiReact.Form.Radio, {
-                      label: 'Lightly Active',
-                      value: 'light',
-                      name: 'activity',
-                      onClick: this.handleChange
-                    }),
-                    content: 'Any activity that burns: 250-500 calories (male), 200-400 calories(female)',
-                    basic: true }),
-                  _react2.default.createElement(_semanticUiReact.Popup, {
-                    trigger: _react2.default.createElement(_semanticUiReact.Form.Radio, {
-                      label: 'Moderately Active',
-                      value: 'moderate',
-                      name: 'activity',
-                      onChange: this.handleChange
-                    }),
-                    content: 'Any activity that burns: 500-650 calories (male), 350-500 calories (female)',
-                    basic: true }),
-                  _react2.default.createElement(_semanticUiReact.Popup, {
-                    trigger: _react2.default.createElement(_semanticUiReact.Form.Radio, {
-                      label: 'Very Active',
-                      value: 'very',
-                      name: 'activity',
-                      onChange: this.handleChange
-                    }),
-                    content: 'Any activity that burns: 650-800 calories (male), 500-650 calories (female)',
-                    basic: true }),
-                  _react2.default.createElement(_semanticUiReact.Popup, {
-                    trigger: _react2.default.createElement(_semanticUiReact.Radio, {
-                      label: 'Extremely Active',
-                      value: 'extremely',
-                      name: 'activity',
-                      onChange: this.handleChange
-                    }),
-                    content: 'Any activity that burns: 800+ calories (male), 650+ calories (female)',
-                    basic: true })
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Segment,
-                  { inline: 'true' },
                   _react2.default.createElement(
-                    _semanticUiReact.Header,
-                    { textAlign: 'center' },
-                    'Fitness Goals'
+                    _semanticUiReact.Segment,
+                    { inline: 'true', required: true, id: 'titles' },
+                    _react2.default.createElement(
+                      _semanticUiReact.Header,
+                      { textAlign: 'center' },
+                      'Activity Level'
+                    ),
+                    _react2.default.createElement(_semanticUiReact.Form.Select, { fluid: true, required: true, options: activityLevel, placeholder: 'Activity Level', name: 'activity', value: this.state.activity, onChange: this.handleChange })
                   ),
-                  _react2.default.createElement(_semanticUiReact.Form.Radio, {
-                    label: 'Lose',
-                    value: 'lose',
-                    name: 'goals',
-                    onChange: this.handleChange
-                  }),
-                  _react2.default.createElement(_semanticUiReact.Form.Radio, {
-                    label: 'Maintain',
-                    value: 'maintain',
-                    name: 'goals',
-                    onChange: this.handleChange
-                  }),
-                  _react2.default.createElement(_semanticUiReact.Form.Radio, {
-                    label: 'Gain',
-                    value: 'gain',
-                    name: 'goals',
-                    onChange: this.handleChange
-                  })
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Form.Button,
-                  { color: 'blue', onClick: this.handleSubmit },
-                  'Submit'
+                  _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    { inline: 'true' },
+                    _react2.default.createElement(
+                      _semanticUiReact.Header,
+                      { textAlign: 'center' },
+                      'Fitness Goals'
+                    ),
+                    _react2.default.createElement(_semanticUiReact.Form.Select, { fluid: true, required: true, options: fitnessGoals, placeholder: 'Goals', name: 'goals', value: this.state.goals, onChange: this.handleChange })
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Form.Button,
+                    { color: 'blue', onClick: this.handleSubmit },
+                    'Submit'
+                  )
                 )
               )
             )
