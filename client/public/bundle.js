@@ -2167,25 +2167,14 @@ var SignIn = function (_Component) {
       name: '',
       email: '',
       password: '',
-      redirectHome: false,
-      signup: false,
-      modal: false
+      redirectHome: false
     };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.checkUser = _this.checkUser.bind(_this);
-    _this.signup = _this.signup.bind(_this);
     return _this;
   }
 
   _createClass(SignIn, [{
-    key: 'signup',
-    value: function signup(event) {
-      event.preventDefault();
-      this.setState({
-        signup: true
-      });
-    }
-  }, {
     key: 'checkUser',
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime2.default.mark(function _callee(event) {
@@ -2256,50 +2245,56 @@ var SignIn = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _from$signup = { from: { pathname: "/home" }, signup: { pathname: "/signup" } },
-          from = _from$signup.from,
-          signup = _from$signup.signup;
-
+      var _from = { from: { pathname: "/home" } },
+          from = _from.from;
 
       if (this.state.redirectHome) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: from });
-      } else if (this.state.signup) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, { to: signup });
       }
 
       return _react2.default.createElement(
-        _react2.default.Fragment,
-        null,
+        'div',
+        { className: 'login-form' },
         _react2.default.createElement(
-          _semanticUiReact.Modal,
-          { open: this.state.modal, centered: true, className: 'modal', size: 'small' },
+          'style',
+          null,
+          '\n      body > div,\n      body > div > div,\n      body > div > div > div.login-form {\n        height: 100%;\n      }\n    '
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid,
+          { textAlign: 'center', style: { height: '100%' }, verticalAlign: 'middle' },
           _react2.default.createElement(
-            'h1',
-            { className: 'welcome8020' },
-            '80/20'
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Form,
-            null,
+            _semanticUiReact.Grid.Column,
+            { style: { maxWidth: 450 } },
             _react2.default.createElement(
-              _semanticUiReact.Form.Field,
+              _semanticUiReact.Header,
+              { as: 'h2', color: 'blue', textAlign: 'center' },
+              'Welcome to 80/20!'
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Form,
+              { size: 'large' },
+              _react2.default.createElement(
+                _semanticUiReact.Segment,
+                { stacked: true },
+                _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, icon: 'user', iconPosition: 'left', placeholder: 'E-mail address', name: 'email', onChange: this.handleChange }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', name: 'password', placeholder: 'Password', type: 'password', onChange: this.handleChange }),
+                _react2.default.createElement(
+                  _semanticUiReact.Button,
+                  { fluid: true, color: 'blue', onClick: this.checkUser, type: 'submit', size: 'large' },
+                  'Login '
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Message,
               null,
-              _react2.default.createElement('input', { type: 'text', name: 'email', placeholder: 'email', onChange: this.handleChange, value: this.state.email, width: 'thirteen' })
-            ),
-            _react2.default.createElement(
-              _semanticUiReact.Form.Field,
-              null,
-              _react2.default.createElement('input', { type: 'text', name: 'password', placeholder: 'password', onChange: this.handleChange, value: this.state.password })
-            ),
-            _react2.default.createElement(
-              _semanticUiReact.Button,
-              { onClick: this.checkUser, type: 'submit', size: 'medium' },
-              'Log In '
-            ),
-            _react2.default.createElement(
-              _semanticUiReact.Button,
-              { onClick: this.signup, type: 'submit' },
-              'Sign Up'
+              'New to us? ',
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/signup' },
+                'Sign Up'
+              )
             )
           )
         )

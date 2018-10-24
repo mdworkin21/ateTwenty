@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import { Form, Button, ButtonGroup, Modal } from 'semantic-ui-react'
+import { Form, Button, Grid, GridColumn, Header, Image, Segment, Message } from 'semantic-ui-react'
 import axios from 'axios'
 import regeneratorRuntime from "regenerator-runtime";
-import {Redirect} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {getUserFromPassport} from '../store'
 import {connect} from 'react-redux'
 import ImgResults from './ImgResults';
@@ -16,19 +16,9 @@ class SignIn extends Component {
       email: '',
       password: '',
       redirectHome: false,
-      signup: false,
-      modal: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.checkUser = this.checkUser.bind(this)
-    this.signup = this.signup.bind(this)
-  }
-
-  signup(event){
-    event.preventDefault()
-    this.setState({
-      signup: true
-    })
   }
 
   async checkUser(event){
@@ -70,33 +60,38 @@ class SignIn extends Component {
   }
 
   render(){
-    const { from, signup} = { from: { pathname: "/home" }, signup: {pathname: "/signup"} } 
-
+    const { from} = { from: { pathname: "/home" } } 
     if (this.state.redirectHome) {
       return <Redirect to={from} />
-    } else if (this.state.signup) {
-      return <Redirect to={signup} />
-    } 
+    }
     
     return(
-      <React.Fragment>
-        <Modal open={this.state.modal} centered={true} className={'modal'} size={'small'}>
-          <h1 className='welcome8020'>80/20</h1>
-          <Form >
-            <Form.Field>
-              <input type="text" name="email" placeholder='email' onChange={this.handleChange} value={this.state.email} width={'thirteen'}/>
-            </Form.Field>
-
-            <Form.Field >
-              <input type="text" name="password" placeholder='password' onChange={this.handleChange} value={this.state.password} />
-            </Form.Field>
-
-            <Button onClick={this.checkUser}  type="submit" size='medium' >Log In </Button>
-            <Button onClick={this.signup} type="submit">Sign Up</Button>
-
-          </Form>
-        </Modal>
-      </React.Fragment>
+      <div className='login-form'>
+       <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='blue' textAlign='center'>
+              Welcome to 80/20!
+            </Header>
+            <Form size='large' >
+              <Segment stacked>
+                <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' name="email" onChange={this.handleChange} />
+                <Form.Input fluid icon='lock' iconPosition='left'  name='password' placeholder='Password' type='password' onChange={this.handleChange}/>
+                <Button fluid color='blue' onClick={this.checkUser}  type="submit" size='large'>Login </Button>
+              </Segment>
+            </Form>
+            <Message>
+          New to us? <Link to='/signup'>Sign Up</Link>
+        </Message>
+          </Grid.Column>
+        </Grid>
+      </div>
     )
   }
 }

@@ -21,8 +21,6 @@ class Homepage extends React.Component {
   async componentDidMount(){
     await this.props.setUser(this.props.state.user)
     await this.props.displayTotals(this.props.state.user)
-
-
   }
 
   render(){

@@ -90,18 +90,20 @@ div.ui.menu.top{
 
 
 /* ModalSIgnin */
-.modal{
-  height: 800px;
-}
+/* .signInForm{
+  position: relative;
+  top: 30vh;
+  
+} */
 
-.welcome8020{
-  font-size: 10em;
+/* .welcome8020{
+  font-size: 7em;
   position: relative;
   top: 100px;
-  display: flex;
-  justify-content: center;
+  left: 22%;
   margin-bottom: 100px;
-}
+  display: flex;
+} */
 
 
 

@@ -7,7 +7,6 @@ const Landing = () => {
       <SignIn />
     </React.Fragment>
   )
-
 }
 
 export default Landing
