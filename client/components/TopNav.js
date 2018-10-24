@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import {Menu, Icon, Button} from 'semantic-ui-react'
 import axios from 'axios'
+import DisplayGoals from './DisplayGoals'
 
 
 export default class TopNav extends Component {
@@ -29,7 +30,8 @@ export default class TopNav extends Component {
       return <Redirect to={from} />;
     }
     return (
-      <Menu icon className="div ui menu top">
+      <Menu icon className="div ui menu top" id='poopbucket'>
+          <DisplayGoals />
         <Menu.Item name='plus'> 
           <Link to="/search"> <Icon name='plus'/></Link>
         </Menu.Item>

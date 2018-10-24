@@ -4,9 +4,14 @@
   display: flex;
   justify-content: center;
   position: relative;
-  top: 2vw;
+  top: 4vw;
   z-index: 0;
+  font-size: 4vw;
+  padding-bottom: 4vw;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif 
 }
+
+
 
 /* MacroCalc */
 
@@ -57,10 +62,13 @@ div.ui.menu.top{
   z-index: 1;
   }
 
+
 /* DailyGoals */
-#goals{
-  display: flex
+#goalsContainer{
+display: flex
 }
+
+
 
 
 /* Log */
@@ -88,16 +96,22 @@ div.ui.menu.top{
   width: 5%;
 }
 
-/* .login-form {
-  height: 100%;
-  top: 40vw;
-} */
-
-
+/* buttons to accept goals */
 #buttonSetGoals{
   background-color: #358caa
 }
 
 #bossyPants2{
   background-color: #ff5252;
+}
+
+
+
+/* Media Queries */
+@media(max-width: 600px){
+  #welcome{
+    top: 8vw;
+    padding-bottom: 8vw;
+    padding-top: 5vw;
+  }
 }

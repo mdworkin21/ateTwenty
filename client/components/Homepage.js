@@ -9,13 +9,12 @@ import {getUserFromPassport, getFoodTotals} from '../store'
 import regeneratorRuntime from "regenerator-runtime";
 
 
-class Homepage extends React.Component {
+class Homepage extends Component {
   constructor(){
     super()
     this.state = {
       redirect: false
     }
-  
   }
 
   async componentDidMount(){
@@ -30,9 +29,7 @@ class Homepage extends React.Component {
     return(
       <React.Fragment>
         <TopNav />
-        <h1 id='welcome'>Welcome to AteTwenty!</h1>
-        <DisplayGoals />
-        <h2>CURRENT TOTALS</h2>
+        <h1 id='welcome'>Dashboard</h1>
         <CurrentTotal />
         <h1>{`${date}`}</h1>
         <Log />

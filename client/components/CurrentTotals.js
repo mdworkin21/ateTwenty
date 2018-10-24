@@ -6,25 +6,37 @@ import {connect} from 'react-redux'
  const CurrentTotal = (props) =>  {
     return (
         <React.Fragment>
-          <Grid>
-            <Grid.Row>
-              <Segment className="display" id="cal">
-                Calories<br/><br/>{props.state.cal.toFixed(2)}
-              </Segment>
+        <Segment >
+          <Grid doubling columns={4}>
+            <Grid.Row centered >
 
-              <Segment className="display" id="protein">
-                Protein<br/><br/>{props.state.protein.toFixed(2)}
-              </Segment>
+              <Grid.Column textAlign='center' width={2}>
+                <Segment>
+                  Calories: {props.state.cal.toFixed(2)}
+                </Segment>
+                </Grid.Column>
 
-              <Segment className="display" id="carb">
-                Carb<br/><br/>{props.state.carb.toFixed(2)}
-              </Segment>
+                <Grid.Column textAlign='center' width={2}>
+                <Segment>
+                  Protein: {props.state.protein.toFixed(2)}
+                </Segment>
+                </Grid.Column>
 
-              <Segment className="display" id="fat"> 
-                Fat<br/><br/>{props.state.fat.toFixed(2)}
-              </Segment>
+                <Grid.Column textAlign='center' width={2}>
+                <Segment>
+                  Carb: {props.state.carb.toFixed(2)}
+                </Segment>
+                </Grid.Column>
+
+                <Grid.Column textAlign='center' width={2}>
+                <Segment> 
+                  Fat: {props.state.fat.toFixed(2)}
+                </Segment>
+
+                </Grid.Column>
               </Grid.Row>
             </Grid>
+            </Segment>
         </React.Fragment>
       )
     

@@ -115,42 +115,54 @@ var CurrentTotal = function CurrentTotal(props) {
     _react2.default.Fragment,
     null,
     _react2.default.createElement(
-      _semanticUiReact.Grid,
+      _semanticUiReact.Segment,
       null,
       _react2.default.createElement(
-        _semanticUiReact.Grid.Row,
-        null,
+        _semanticUiReact.Grid,
+        { doubling: true, columns: 4 },
         _react2.default.createElement(
-          _semanticUiReact.Segment,
-          { className: 'display', id: 'cal' },
-          'Calories',
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          props.state.cal.toFixed(2)
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Segment,
-          { className: 'display', id: 'protein' },
-          'Protein',
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          props.state.protein.toFixed(2)
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Segment,
-          { className: 'display', id: 'carb' },
-          'Carb',
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          props.state.carb.toFixed(2)
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Segment,
-          { className: 'display', id: 'fat' },
-          'Fat',
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          props.state.fat.toFixed(2)
+          _semanticUiReact.Grid.Row,
+          { centered: true },
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { textAlign: 'center', width: 2 },
+            _react2.default.createElement(
+              _semanticUiReact.Segment,
+              null,
+              'Calories: ',
+              props.state.cal.toFixed(2)
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { textAlign: 'center', width: 2 },
+            _react2.default.createElement(
+              _semanticUiReact.Segment,
+              null,
+              'Protein: ',
+              props.state.protein.toFixed(2)
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { textAlign: 'center', width: 2 },
+            _react2.default.createElement(
+              _semanticUiReact.Segment,
+              null,
+              'Carb: ',
+              props.state.carb.toFixed(2)
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { textAlign: 'center', width: 2 },
+            _react2.default.createElement(
+              _semanticUiReact.Segment,
+              null,
+              'Fat: ',
+              props.state.fat.toFixed(2)
+            )
+          )
         )
       )
     )
@@ -248,11 +260,11 @@ var DisplayGoals = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { id: 'goals' },
+        { id: 'goalsContainer' },
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
           { name: 'Goals', id: 'title', className: 'item' },
-          'Goals'
+          'Daily Goals'
         ),
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
@@ -490,8 +502,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Homepage = function (_React$Component) {
-  _inherits(Homepage, _React$Component);
+var Homepage = function (_Component) {
+  _inherits(Homepage, _Component);
 
   function Homepage() {
     _classCallCheck(this, Homepage);
@@ -501,7 +513,6 @@ var Homepage = function (_React$Component) {
     _this.state = {
       redirect: false
     };
-
     return _this;
   }
 
@@ -547,13 +558,7 @@ var Homepage = function (_React$Component) {
         _react2.default.createElement(
           'h1',
           { id: 'welcome' },
-          'Welcome to AteTwenty!'
-        ),
-        _react2.default.createElement(_DisplayGoals2.default, null),
-        _react2.default.createElement(
-          'h2',
-          null,
-          'CURRENT TOTALS'
+          'Dashboard'
         ),
         _react2.default.createElement(_CurrentTotals2.default, null),
         _react2.default.createElement(
@@ -568,7 +573,7 @@ var Homepage = function (_React$Component) {
   }]);
 
   return Homepage;
-}(_react2.default.Component);
+}(_react.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
   return { state: state };
@@ -2540,6 +2545,10 @@ var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _DisplayGoals = __webpack_require__(/*! ./DisplayGoals */ "./client/components/DisplayGoals.js");
+
+var _DisplayGoals2 = _interopRequireDefault(_DisplayGoals);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2585,7 +2594,8 @@ var TopNav = function (_Component) {
       }
       return _react2.default.createElement(
         _semanticUiReact.Menu,
-        { icon: true, className: 'div ui menu top' },
+        { icon: true, className: 'div ui menu top', id: 'poopbucket' },
+        _react2.default.createElement(_DisplayGoals2.default, null),
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
           { name: 'plus' },

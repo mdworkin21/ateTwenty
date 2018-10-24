@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Card, Icon, Button, Modal, Divider} from 'semantic-ui-react'
+import {Button, Modal, Divider} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {setDailyGoal} from '../store'
 import Homepage from './Homepage'
@@ -48,11 +48,8 @@ class DailyGoals extends Component{
      return (
       <div className="addCard">
       <Modal open={this.props.state.alert} style={{maxWidth: 450, textAlign:'center'}}>
-        {/* <Card> */}
           <Modal.Content>
-          <Modal.Header>
-            <h1>Your Daily Goals</h1>
-          </Modal.Header>
+          <Modal.Header><h1>Your Daily Goals</h1></Modal.Header>
           <Divider section />
           <Modal.Content content={<h3>Calories: {this.props.state.totals.calGoal} </h3> }/>
           <Divider section />
@@ -63,16 +60,12 @@ class DailyGoals extends Component{
           <Modal.Content content={<h3>Fat: {this.props.state.totals.fatGoal} grams</h3>} />
           </Modal.Content>
           <Divider section />
-
           <Modal.Content extra='true'>
-            {/* <Icon name='plus' />
-            Click to set daily goals */}
             <div id="buttonContainer">
               <Button fluid  color='blue' onClick={this.handleSubmit} size='large'> Set as Daily Goal?</Button>
               <Button fluid  id="bossyPants2" onClick={this.tryAgain} size='large'> Nah, Let Me Try Again </Button>
             </div>
           </Modal.Content>
-        {/* </Card> */}
         </Modal>
       </div>
     )
