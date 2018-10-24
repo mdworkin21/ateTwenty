@@ -78,7 +78,6 @@ export default class MacroCalc extends Component {
   }
 
   render(){
-    console.log(this.state)
     return this.state.alert ? <DailyGoals state={this.state}/> : (
       <React.Fragment>
       <div className="macFormContainer">

@@ -1032,27 +1032,68 @@ var DailyGoals = function (_Component) {
           'div',
           { className: 'addCard' },
           _react2.default.createElement(
-            _semanticUiReact.Card,
-            null,
-            _react2.default.createElement(_semanticUiReact.Card.Content, { header: 'Your Daily Goals' }),
-            _react2.default.createElement(_semanticUiReact.Card.Content, { description: 'Calories: ' + this.props.state.totals.calGoal + ' calories' }),
-            _react2.default.createElement(_semanticUiReact.Card.Content, { description: 'Protein: ' + this.props.state.totals.proteinGoal + ' grams' }),
-            _react2.default.createElement(_semanticUiReact.Card.Content, { description: 'Carb: ' + this.props.state.totals.carbGoal + ' grams' }),
-            _react2.default.createElement(_semanticUiReact.Card.Content, { description: 'Fat: ' + this.props.state.totals.fatGoal + ' grams' }),
+            _semanticUiReact.Modal,
+            { open: this.props.state.alert, style: { maxWidth: 450, textAlign: 'center' } },
             _react2.default.createElement(
-              _semanticUiReact.Card.Content,
-              { extra: true },
+              _semanticUiReact.Modal.Content,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Modal.Header,
+                null,
+                _react2.default.createElement(
+                  'h1',
+                  null,
+                  'Your Daily Goals'
+                )
+              ),
+              _react2.default.createElement(_semanticUiReact.Divider, { section: true }),
+              _react2.default.createElement(_semanticUiReact.Modal.Content, { content: _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Calories: ',
+                  this.props.state.totals.calGoal,
+                  ' '
+                ) }),
+              _react2.default.createElement(_semanticUiReact.Divider, { section: true }),
+              _react2.default.createElement(_semanticUiReact.Modal.Content, { content: _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Protein: ',
+                  this.props.state.totals.proteinGoal,
+                  ' grams '
+                ) }),
+              _react2.default.createElement(_semanticUiReact.Divider, { section: true }),
+              _react2.default.createElement(_semanticUiReact.Modal.Content, { content: _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Carb: ',
+                  this.props.state.totals.carbGoal,
+                  ' grams'
+                ) }),
+              _react2.default.createElement(_semanticUiReact.Divider, { section: true }),
+              _react2.default.createElement(_semanticUiReact.Modal.Content, { content: _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Fat: ',
+                  this.props.state.totals.fatGoal,
+                  ' grams'
+                ) })
+            ),
+            _react2.default.createElement(_semanticUiReact.Divider, { section: true }),
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Content,
+              { extra: 'true' },
               _react2.default.createElement(
                 'div',
                 { id: 'buttonContainer' },
                 _react2.default.createElement(
                   _semanticUiReact.Button,
-                  { id: 'buttonSetGoals', onClick: this.handleSubmit },
+                  { fluid: true, color: 'blue', onClick: this.handleSubmit, size: 'large' },
                   ' Set as Daily Goal?'
                 ),
                 _react2.default.createElement(
                   _semanticUiReact.Button,
-                  { id: 'bossyPants2', onClick: this.tryAgain },
+                  { fluid: true, id: 'bossyPants2', onClick: this.tryAgain, size: 'large' },
                   ' Nah, Let Me Try Again '
                 )
               )
@@ -1200,7 +1241,6 @@ var MacroCalc = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state);
       return this.state.alert ? _react2.default.createElement(_MacTotals2.default, { state: this.state }) : _react2.default.createElement(
         _react2.default.Fragment,
         null,

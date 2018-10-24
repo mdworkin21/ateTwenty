@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Card, Icon, Button } from 'semantic-ui-react'
+import { Card, Icon, Button, Modal, Divider} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {setDailyGoal} from '../store'
 import Homepage from './Homepage'
@@ -47,21 +47,33 @@ class DailyGoals extends Component{
    } else {
      return (
       <div className="addCard">
-        <Card>
-          <Card.Content header='Your Daily Goals' />
-          <Card.Content description={`Calories: ${this.props.state.totals.calGoal} calories`}  />
-          <Card.Content description={`Protein: ${this.props.state.totals.proteinGoal} grams`} /> 
-          <Card.Content description={`Carb: ${this.props.state.totals.carbGoal} grams`} />
-          <Card.Content description={`Fat: ${this.props.state.totals.fatGoal} grams`} />
-          <Card.Content extra>
+      <Modal open={this.props.state.alert} style={{maxWidth: 450, textAlign:'center'}}>
+        {/* <Card> */}
+          <Modal.Content>
+          <Modal.Header>
+            <h1>Your Daily Goals</h1>
+          </Modal.Header>
+          <Divider section />
+          <Modal.Content content={<h3>Calories: {this.props.state.totals.calGoal} </h3> }/>
+          <Divider section />
+          <Modal.Content content={<h3>Protein: {this.props.state.totals.proteinGoal} grams </h3>}/> 
+          <Divider section />
+          <Modal.Content content={<h3>Carb: {this.props.state.totals.carbGoal} grams</h3>}/>
+          <Divider section />
+          <Modal.Content content={<h3>Fat: {this.props.state.totals.fatGoal} grams</h3>} />
+          </Modal.Content>
+          <Divider section />
+
+          <Modal.Content extra='true'>
             {/* <Icon name='plus' />
             Click to set daily goals */}
             <div id="buttonContainer">
-              <Button id="buttonSetGoals" onClick={this.handleSubmit}> Set as Daily Goal?</Button>
-              <Button id="bossyPants2" onClick={this.tryAgain}> Nah, Let Me Try Again </Button>
+              <Button fluid  color='blue' onClick={this.handleSubmit} size='large'> Set as Daily Goal?</Button>
+              <Button fluid  id="bossyPants2" onClick={this.tryAgain} size='large'> Nah, Let Me Try Again </Button>
             </div>
-          </Card.Content>
-        </Card>
+          </Modal.Content>
+        {/* </Card> */}
+        </Modal>
       </div>
     )
    } 
