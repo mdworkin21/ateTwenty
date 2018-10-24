@@ -16,7 +16,6 @@ export default class TopNav extends Component {
   handleSubmit(event){
     event.preventDefault()
     const logOut = axios.delete('/authenticate/logout')
-    console.log('click')
     if (logOut){
       this.setState({
         redirect: true

@@ -7,6 +7,7 @@ import {getUserFromPassport} from '../store'
 import {connect} from 'react-redux'
 import ImgResults from './ImgResults';
 import Homepage from './Homepage'
+//Note: Not a fan of having the style tags in the render below, but it'll have to do for now.
 
 class SignIn extends Component {
   constructor(){

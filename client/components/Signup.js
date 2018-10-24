@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import { Form, Button} from 'semantic-ui-react'
+import { Form, Button, Grid, GridColumn, Header, Image, Segment, Message } from 'semantic-ui-react'
 import regeneratorRuntime from "regenerator-runtime";
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 import {getUserFromPassport} from '../store'
 import {connect} from 'react-redux'
 
-
+//Similar to signin, not fan of style tags below, but for now it'll do
 class SignUp extends Component {
   constructor(){
     super()
@@ -50,27 +50,36 @@ class SignUp extends Component {
   }
 
   render(){
+    console.log('STATE', this.state)
     const { from, signup} = { from: { pathname: "/calc" }}
     if (this.state.redirect) {
       return <Redirect to={from} />
     } 
-
     return (
-      <React.Fragment>
-        <h1>Sign Up</h1>
-        <Form>
-          <Form.Field>
-            <input type='text' name='name' value={this.state.name} label='name' placeholder='name' onChange={this.handleChange} />
-          </Form.Field>
-          <Form.Field>
-            <input type='text' name='email' value={this.state.email} placeholder='email'onChange={this.handleChange} />
-          </Form.Field>
-          <Form.Field>
-            <input type='text' name='password' placeholder='password' value={this.state.password} onChange={this.handleChange} />
-          </Form.Field>
-          <Button onClick={this.handleSubmit}>Click</Button>
-        </Form>
-      </React.Fragment>
+      <div className='login-form'>
+      <style>{`
+     body > div,
+     body > div > div,
+     body > div > div > div.login-form {
+       height: 100%;
+     }
+   `}</style>
+       <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+         <Grid.Column style={{ maxWidth: 450 }}>
+           <Header as='h2' color='blue' textAlign='center'>
+             Please Enter Your Information Below
+           </Header>
+           <Form size='large' >
+             <Segment stacked>
+             <Form.Input fluid icon='user' iconPosition='left' placeholder='name' name="name" onChange={this.handleChange} />
+               <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail address' name="email" onChange={this.handleChange} />
+               <Form.Input fluid icon='lock' iconPosition='left'  name='password' placeholder='Password' type='password' onChange={this.handleChange}/>
+               <Button fluid color='blue' onClick={this.handleSubmit}  type="submit" size='large'>Submit</Button>
+             </Segment>
+           </Form>
+         </Grid.Column>
+       </Grid>
+     </div>
     )
   }
 }

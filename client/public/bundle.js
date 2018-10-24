@@ -2155,6 +2155,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//Note: Not a fan of having the style tags in the render below, but it'll have to do for now.
+
 var SignIn = function (_Component) {
   _inherits(SignIn, _Component);
 
@@ -2365,6 +2367,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//Similar to signin, not fan of style tags below, but for now it'll do
 var SignUp = function (_Component) {
   _inherits(SignUp, _Component);
 
@@ -2446,6 +2449,7 @@ var SignUp = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log('STATE', this.state);
       var _from = { from: { pathname: "/calc" } },
           from = _from.from,
           signup = _from.signup;
@@ -2453,37 +2457,41 @@ var SignUp = function (_Component) {
       if (this.state.redirect) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: from });
       }
-
       return _react2.default.createElement(
-        _react2.default.Fragment,
-        null,
+        'div',
+        { className: 'login-form' },
         _react2.default.createElement(
-          'h1',
+          'style',
           null,
-          'Sign Up'
+          '\n     body > div,\n     body > div > div,\n     body > div > div > div.login-form {\n       height: 100%;\n     }\n   '
         ),
         _react2.default.createElement(
-          _semanticUiReact.Form,
-          null,
+          _semanticUiReact.Grid,
+          { textAlign: 'center', style: { height: '100%' }, verticalAlign: 'middle' },
           _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement('input', { type: 'text', name: 'name', value: this.state.name, label: 'name', placeholder: 'name', onChange: this.handleChange })
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement('input', { type: 'text', name: 'email', value: this.state.email, placeholder: 'email', onChange: this.handleChange })
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement('input', { type: 'text', name: 'password', placeholder: 'password', value: this.state.password, onChange: this.handleChange })
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Button,
-            { onClick: this.handleSubmit },
-            'Click'
+            _semanticUiReact.Grid.Column,
+            { style: { maxWidth: 450 } },
+            _react2.default.createElement(
+              _semanticUiReact.Header,
+              { as: 'h2', color: 'blue', textAlign: 'center' },
+              'Please Enter Your Information Below'
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Form,
+              { size: 'large' },
+              _react2.default.createElement(
+                _semanticUiReact.Segment,
+                { stacked: true },
+                _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, icon: 'user', iconPosition: 'left', placeholder: 'name', name: 'name', onChange: this.handleChange }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, icon: 'mail', iconPosition: 'left', placeholder: 'E-mail address', name: 'email', onChange: this.handleChange }),
+                _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', name: 'password', placeholder: 'Password', type: 'password', onChange: this.handleChange }),
+                _react2.default.createElement(
+                  _semanticUiReact.Button,
+                  { fluid: true, color: 'blue', onClick: this.handleSubmit, type: 'submit', size: 'large' },
+                  'Submit'
+                )
+              )
+            )
           )
         )
       );
@@ -2562,7 +2570,6 @@ var TopNav = function (_Component) {
     value: function handleSubmit(event) {
       event.preventDefault();
       var logOut = _axios2.default.delete('/authenticate/logout');
-      console.log('click');
       if (logOut) {
         this.setState({
           redirect: true
